@@ -1,0 +1,14 @@
+query getAddressesBalances($network: EthereumNetwork!, $addresses: [String!]!) {
+  ethereum(network: $network) {
+    address(address: { in: $addresses }) {
+      balances {
+        currency {
+          address
+          symbol
+          name
+        }
+        value
+      }
+    }
+  }
+}

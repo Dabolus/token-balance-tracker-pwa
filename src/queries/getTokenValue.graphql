@@ -1,0 +1,21 @@
+query getTokenValue(
+  $network: EthereumNetwork!
+  $inputToken: String!
+  $outputToken: String!
+) {
+  ethereum(network: $network) {
+    dexTrades(
+      options: { limit: 1, desc: ["block.height", "transaction.index"] }
+      baseCurrency: { is: $inputToken }
+      quoteCurrency: { is: $outputToken }
+    ) {
+      block {
+        height
+      }
+      transaction {
+        index
+      }
+      quotePrice
+    }
+  }
+}

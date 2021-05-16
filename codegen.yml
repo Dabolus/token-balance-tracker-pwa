@@ -1,0 +1,15 @@
+overwrite: true
+schema:
+  - 'https://graphql.bitquery.io':
+      headers:
+        x-api-key: ${BITQUERY_API_KEY}
+documents: 'src/queries/**/*.graphql'
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+    config:
+      namingConvention:
+        enumValues: 'change-case-all#constantCase'

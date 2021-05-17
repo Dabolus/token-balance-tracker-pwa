@@ -1,4 +1,5 @@
 import { EthereumNetwork } from '../generated/graphql';
+import { AddressBalancesConfigEntry } from '../helpers/db';
 import { QueryResult } from '../providers/GraphQLProvider';
 import useNetworkAddressesBalances, {
   AddressBalance,
@@ -6,11 +7,6 @@ import useNetworkAddressesBalances, {
 
 export interface AddressBalanceWithNetwork extends AddressBalance {
   network: EthereumNetwork;
-}
-
-export interface AddressBalancesConfigEntry {
-  network: EthereumNetwork;
-  addresses: string[];
 }
 
 const computeCombinedData = (

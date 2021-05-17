@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 import React, { FunctionComponent, useState } from 'react';
+import Button from '../components/Button';
 import List from '../components/List';
 import ProfileForm, {
   ProfileFormProps,
@@ -59,19 +60,23 @@ const Wizard: FunctionComponent = () => {
     <WizardContainer>
       <h1>Welcome!</h1>
       <h2>First of all, create a profile</h2>
+      <p>
+        A profile allows you to group together multiple addresses from different
+        networks and label them with a human-readable name.
+      </p>
       <ProfileForm
         id="profile-form"
         value={profile}
         onChange={setProfile}
         onSubmit={handleNewProfileAddition}
       />
-      <button
+      <Button
         type="submit"
         form="profile-form"
         disabled={!profile || !profile.name || profile.addresses.length < 1}
       >
         Create
-      </button>
+      </Button>
     </WizardContainer>
   );
 };

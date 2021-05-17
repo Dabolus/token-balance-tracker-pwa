@@ -7,6 +7,7 @@ import React, {
 import { styled } from '@linaria/react';
 import { css } from '@linaria/core';
 import { EthereumNetwork } from '../generated/graphql';
+import Button from './Button';
 
 export interface ProfileFormAddress {
   network: EthereumNetwork;
@@ -43,7 +44,16 @@ const AddressRow = styled.li`
 `;
 
 const Actions = styled.div`
+  display: flex;
+  gap: 2px;
   flex: 0 0 auto;
+`;
+
+const ActionButton = styled(Button)`
+  padding: 0;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
 `;
 
 const networkToLabelMap: Partial<Record<EthereumNetwork, string>> = {
@@ -118,7 +128,9 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
           <AddressRow key={`${network}-${address}`}>
             <span>{networkToLabelMap[network]}</span>
             <Address>{address}</Address>
-            <button onClick={removeAddress(network, address)}>-</button>
+            <ActionButton onClick={removeAddress(network, address)}>
+              －
+            </ActionButton>
           </AddressRow>
         ))}
         <AddressRow>
@@ -161,23 +173,23 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
                 }
               />
               <Actions>
-                <button
+                <ActionButton
                   type="button"
                   onClick={() => setAddingAddress(undefined)}
                 >
-                  x
-                </button>
-                <button
+                  ✘
+                </ActionButton>
+                <ActionButton
                   type="button"
                   onClick={addAddress}
                   disabled={!/^0x[a-fA-F0-9]{40}$/.test(addingAddress.address)}
                 >
-                  v
-                </button>
+                  ✔
+                </ActionButton>
               </Actions>
             </>
           ) : (
-            <button
+            <ActionButton
               type="button"
               onClick={() =>
                 setAddingAddress({
@@ -186,8 +198,8 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
                 })
               }
             >
-              +
-            </button>
+              ＋
+            </ActionButton>
           )}
         </AddressRow>
       </ul>

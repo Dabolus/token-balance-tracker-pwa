@@ -13,7 +13,7 @@ const Axes = styled.path`
 
 const Line = styled.path`
   fill: none;
-  stroke: #00f;
+  stroke: var(--primary);
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;

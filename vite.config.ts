@@ -16,10 +16,10 @@ export default defineConfig(({ mode }) => ({
   ],
   resolve: {
     alias: {
-      ...(mode === 'production' && {
-        react: 'preact/compat',
-        'react-dom': 'preact/compat',
-      }),
+      // ...(mode === 'production' && {
+      //   react: 'preact/compat',
+      //   'react-dom': 'preact/compat',
+      // }),
     },
   },
   build: {

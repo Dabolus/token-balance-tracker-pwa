@@ -3,6 +3,7 @@ import { GraphQLClient } from 'graphql-request';
 import { Router as RouterProvider } from 'wouter';
 import I18nProvider from './providers/I18nProvider';
 import GraphQLProvider from './providers/GraphQLProvider';
+import ProfilesProvider from './providers/ProfilesProvider';
 import Router from './containers/Router';
 import { getSdk } from './generated/graphql';
 
@@ -16,9 +17,11 @@ const sdk = getSdk(client);
 const App: VoidFunctionComponent = () => (
   <I18nProvider>
     <GraphQLProvider sdk={sdk}>
-      <RouterProvider>
-        <Router />
-      </RouterProvider>
+      <ProfilesProvider>
+        <RouterProvider>
+          <Router />
+        </RouterProvider>
+      </ProfilesProvider>
     </GraphQLProvider>
   </I18nProvider>
 );

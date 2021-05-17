@@ -5,6 +5,7 @@ import VitePluginLinaria from './plugins/linaria';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  base: '/token-balance-tracker/',
   plugins: [
     reactRefresh(),
     VitePluginMacros(),

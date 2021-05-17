@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from 'react';
 
-export interface I18nProviderValue {
+export interface I18nContextValue {
   locale: Locale;
   setLocale: Dispatch<SetStateAction<Locale>>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,7 +21,7 @@ export type Locale = 'en' | 'it';
 const supportedLocales: Locale[] = ['en', 'it'];
 
 export const I18nContext =
-  createContext<I18nProviderValue | undefined>(undefined);
+  createContext<I18nContextValue | undefined>(undefined);
 
 export const I18nProvider: FunctionComponent = ({ children }) => {
   const userLocale =
@@ -47,7 +47,7 @@ export const I18nProvider: FunctionComponent = ({ children }) => {
     updateLocaleData();
   }, [locale]);
 
-  const translate = useCallback<I18nProviderValue['translate']>(
+  const translate = useCallback<I18nContextValue['translate']>(
     (id, ...data) => {
       if (!localeData) {
         return;
@@ -80,6 +80,7 @@ export const I18nProvider: FunctionComponent = ({ children }) => {
     </I18nContext.Provider>
   ) : null;
 };
+
 export const useI18n = () => {
   const context = useContext(I18nContext);
 

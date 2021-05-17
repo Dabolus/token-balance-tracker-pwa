@@ -12,7 +12,8 @@ const List = styled.div<ListProps>`
   display: flex;
   flex-direction: column;
   gap: ${({ gap }) => computeCssGap(gap)};
-  margin: ${({ gap }) => `${computeCssGap(gap)} auto`};
+  padding: ${({ gap }) => computeCssGap(gap)};
+  margin: 0 auto;
   max-width: 720px;
 `;
 

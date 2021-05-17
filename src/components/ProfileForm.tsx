@@ -28,12 +28,6 @@ const ProfileFormLabel = styled.label`
   display: block;
 `;
 
-const AddressesList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
-`;
-
 const ProfileForm: FunctionComponent<ProfileFormProps> = ({
   value: { name = '', addresses = [] } = {},
   onChange,
@@ -93,7 +87,7 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
         }
       />
       <ProfileFormLabel>Addresses</ProfileFormLabel>
-      <AddressesList>
+      <ul>
         {addresses.map(({ network, address }) => (
           <li key={`${network}-${address}`}>
             <span>
@@ -157,7 +151,7 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
             </button>
           )}
         </li>
-      </AddressesList>
+      </ul>
     </form>
   );
 };

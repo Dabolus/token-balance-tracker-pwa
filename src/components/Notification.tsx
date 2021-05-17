@@ -24,7 +24,7 @@ const NotificationContainer = styled.div<NotificationContainerProps>`
   max-width: 480px;
   background: #fff;
   padding: 8px;
-  transform: ${({ open }) => `translate(-50%, ${open ? 0 : '-110%'})`};
+  transform: ${({ open }) => `translate(-50%, ${open ? 0 : '-150%'})`};
   transition: 0.3s transform ease-in-out;
 `;
 

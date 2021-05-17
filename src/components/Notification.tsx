@@ -19,12 +19,12 @@ const NotificationContainer = styled.div<NotificationContainerProps>`
   margin: 0 auto;
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
   width: 100%;
   max-width: 480px;
   background: #fff;
   padding: 8px;
-  transform: ${({ open }) => `translateY(${open ? 0 : '-110%'})`};
+  transform: ${({ open }) => `translate(-50%, ${open ? 0 : '-110%'})`};
   transition: 0.3s transform ease-in-out;
 `;
 

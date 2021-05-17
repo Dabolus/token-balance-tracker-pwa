@@ -21,3 +21,12 @@ declare module 'ethereum-blockies' {
 
   export default blockies;
 }
+
+declare module 'virtual:pwa-register' {
+  export interface RegisterSWOptions {
+    onNeedRefresh?(): void;
+    onOfflineReady?(): void;
+  }
+
+  export const registerSW: (options?: RegisterSWOptions) => () => void;
+}

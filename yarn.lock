@@ -28,7 +28,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.14.0.tgz#a901128bce2ad02565df95e6ecbf195cf9465919"
   integrity sha512-vu9V3uMM/1o5Hl5OekMUowo3FqXLJSw+s+66nt0fSWVWTtmosdzn45JHOB3cPtZoe6CTBDzvSw0RdOY85Q37+Q==
 
-"@babel/core@^7.0.0", "@babel/core@^7.12.13", "@babel/core@^7.13.10", "@babel/core@^7.13.8":
+"@babel/core@^7.0.0", "@babel/core@^7.12.13", "@babel/core@^7.13.8":
   version "7.14.2"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.14.2.tgz#54e45334ffc0172048e5c93ded36461d3ad4c417"
   integrity sha512-OgC1mON+l4U4B4wiohJlQNUU3H73mpTyYY3j/c8U9dr9UagGGSm+WFpzjy/YLdoyjiG++c1kIDgxCo/mLwQJeQ==
@@ -1502,7 +1502,7 @@
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
   integrity sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==
 
-"@linaria/babel-preset@^3.0.0-beta.1", "@linaria/babel-preset@^3.0.0-beta.4":
+"@linaria/babel-preset@^3.0.0-beta.4":
   version "3.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@linaria/babel-preset/-/babel-preset-3.0.0-beta.4.tgz#22fb043b1f61710ad98f26d756d368e5bfed8e47"
   integrity sha512-Bjsk4VZUQXK3u04MuLlyP/+/tDd7bWeLXYCOnq4US9H2QFRdka97fm6hH34SRinoHm9fSPCHrj9d+KtY8ge2wg==
@@ -1543,7 +1543,7 @@
     "@emotion/is-prop-valid" "^0.8.8"
     "@linaria/core" "^3.0.0-beta.4"
 
-"@linaria/shaker@^3.0.0-beta.1", "@linaria/shaker@^3.0.0-beta.4":
+"@linaria/shaker@^3.0.0-beta.4":
   version "3.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@linaria/shaker/-/shaker-3.0.0-beta.4.tgz#4028aa948b877ff92f545f6d54529e7167e35582"
   integrity sha512-4YEa7BRQsvXrK1k9ytfiThw6e98YNBsi7UUAu+/D9EhntM3PFEalQ6w0o1C6kKptWHuf5BYodVldg4xcYJCx4Q==
@@ -5105,16 +5105,6 @@ vite-plugin-babel-macros@^1.0.5:
     "@types/babel__core" "^7.1.12"
     babel-plugin-macros "^3.0.1"
     tslib "^2.1.0"
-
-vite-plugin-linaria@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-linaria/-/vite-plugin-linaria-1.0.0.tgz#66c3542ceeb445f9ace562a5e18ab6cdf950a94f"
-  integrity sha512-R3qnF1qAydqL2SiJQxen0b14GtOLcotxI6QHAl4+dpc8o817yX71pkvR5sJ6GAieyAqq5JOcfB3yts2tgGKFIA==
-  dependencies:
-    "@babel/core" "^7.13.10"
-    "@linaria/babel-preset" "^3.0.0-beta.1"
-    "@linaria/shaker" "^3.0.0-beta.1"
-    "@rollup/pluginutils" "^4.1.0"
 
 vite@^2.3.0:
   version "2.3.2"

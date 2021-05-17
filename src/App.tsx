@@ -18,7 +18,7 @@ const App: VoidFunctionComponent = () => (
   <I18nProvider>
     <GraphQLProvider sdk={sdk}>
       <ProfilesProvider>
-        <RouterProvider>
+        <RouterProvider base="/token-balance-tracker">
           <Router />
         </RouterProvider>
       </ProfilesProvider>

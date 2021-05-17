@@ -45,7 +45,7 @@ const TotalBalance: FunctionComponent<TotalBalanceProps> = ({ balances }) => {
           {total?.toLocaleString(locale, {
             style: 'currency',
             currency: 'USD',
-          }) ?? <Skeleton width="18rem" />}
+          }) ?? <Skeleton width="6em" />}
         </TotalBalanceValue>
       </TotalBalanceContainer>
     </TotalBalanceSection>

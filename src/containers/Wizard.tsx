@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 import React, { FunctionComponent, useState } from 'react';
+import List from '../components/List';
 import ProfileForm, {
   ProfileFormProps,
   ProfileFormValue,
@@ -7,12 +8,9 @@ import ProfileForm, {
 import { AddressBalancesConfigEntry } from '../helpers/db';
 import { useProfiles } from '../providers/ProfilesProvider';
 
-const WizardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+const WizardContainer = styled(List)`
+  align-items: flex-start;
+  max-width: 480px;
 `;
 
 const Wizard: FunctionComponent = () => {

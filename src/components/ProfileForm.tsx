@@ -30,10 +30,26 @@ const fullWidth = css`
   flex: 1 1 auto;
 `;
 
-const NewAddressRow = styled.li`
+const Address = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const AddressRow = styled.li`
   display: flex;
+  align-items: center;
   gap: 8px;
 `;
+
+const Actions = styled.div`
+  flex: 0 0 auto;
+`;
+
+const networkToLabelMap: Partial<Record<EthereumNetwork, string>> = {
+  [EthereumNetwork.ETHEREUM]: 'Ethereum',
+  [EthereumNetwork.BSC]: 'BSC',
+};
 
 const ProfileForm: FunctionComponent<ProfileFormProps> = ({
   value: { name = '', addresses = [] } = {},
@@ -99,16 +115,35 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
       <label className={fullWidth}>Addresses</label>
       <ul>
         {addresses.map(({ network, address }) => (
-          <li key={`${network}-${address}`}>
-            <span>
-              {network} - {address}
-            </span>
+          <AddressRow key={`${network}-${address}`}>
+            <span>{networkToLabelMap[network]}</span>
+            <Address>{address}</Address>
             <button onClick={removeAddress(network, address)}>-</button>
-          </li>
+          </AddressRow>
         ))}
-        <NewAddressRow>
+        <AddressRow>
           {addingAddress ? (
             <>
+              <select
+                value={addingAddress.network}
+                onChange={event =>
+                  setAddingAddress(previousAddingAddress =>
+                    previousAddingAddress
+                      ? {
+                          ...previousAddingAddress,
+                          network: event.target.value as EthereumNetwork,
+                        }
+                      : undefined,
+                  )
+                }
+              >
+                <option value={EthereumNetwork.ETHEREUM}>
+                  {networkToLabelMap[EthereumNetwork.ETHEREUM]}
+                </option>
+                <option value={EthereumNetwork.BSC}>
+                  {networkToLabelMap[EthereumNetwork.BSC]}
+                </option>
+              </select>
               <input
                 className={fullWidth}
                 name="new-address"
@@ -125,23 +160,7 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
                   )
                 }
               />
-              <select
-                value={addingAddress.network}
-                onChange={event =>
-                  setAddingAddress(previousAddingAddress =>
-                    previousAddingAddress
-                      ? {
-                          ...previousAddingAddress,
-                          network: event.target.value as EthereumNetwork,
-                        }
-                      : undefined,
-                  )
-                }
-              >
-                <option value={EthereumNetwork.ETHEREUM}>Ethereum</option>
-                <option value={EthereumNetwork.BSC}>BSC</option>
-              </select>
-              <div style={{ flex: '0 0 auto' }}>
+              <Actions>
                 <button
                   type="button"
                   onClick={() => setAddingAddress(undefined)}
@@ -155,7 +174,7 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
                 >
                   v
                 </button>
-              </div>
+              </Actions>
             </>
           ) : (
             <button
@@ -170,7 +189,7 @@ const ProfileForm: FunctionComponent<ProfileFormProps> = ({
               +
             </button>
           )}
-        </NewAddressRow>
+        </AddressRow>
       </ul>
     </form>
   );

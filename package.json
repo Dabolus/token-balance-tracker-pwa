@@ -10,7 +10,9 @@
   "dependencies": {
     "@apollo/client": "^3.3.18",
     "graphql": "^15.5.0",
-    "preact": "^10.5.13"
+    "preact": "^10.5.13",
+    "use-deep-compare-effect": "^1.6.1",
+    "wouter": "^2.7.4"
   },
   "devDependencies": {
     "@graphql-codegen/add": "^2.0.2",

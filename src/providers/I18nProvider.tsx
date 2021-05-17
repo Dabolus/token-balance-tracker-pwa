@@ -70,10 +70,6 @@ export const I18nProvider: FunctionComponent = ({ children }) => {
     [localeData],
   );
 
-  useEffect(() => {
-    setTimeout(() => setLocale('it'), 3000);
-  }, []);
-
   return localeData ? (
     <I18nContext.Provider value={{ locale, setLocale, translate }}>
       {children}

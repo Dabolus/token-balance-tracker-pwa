@@ -48,13 +48,6 @@ const useAddressesBalances = ({
     {},
   );
 
-  // const [result, setResult] = useState<
-  //   AsyncQueryResult<AddressBalanceWithNetwork[]>
-  // >({
-  //   loading: true,
-  //   networkStatus: NetworkStatus.loading,
-  // });
-
   const {
     loading: loadingEthAddressesBalances,
     data: ethAddressesBalances,

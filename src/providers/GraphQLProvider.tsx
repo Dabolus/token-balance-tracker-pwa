@@ -17,13 +17,9 @@ export const GraphQLContext =
 export const GraphQLProvider: FunctionComponent<GraphQLProviderProps> = ({
   sdk,
   children,
-}) => {
-  return (
-    <GraphQLContext.Provider value={{ sdk }}>
-      {children}
-    </GraphQLContext.Provider>
-  );
-};
+}) => (
+  <GraphQLContext.Provider value={{ sdk }}>{children}</GraphQLContext.Provider>
+);
 
 export const useGraphQL = () => {
   const context = useContext(GraphQLContext);

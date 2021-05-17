@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, SVGProps } from 'react';
 import { styled } from '@linaria/react';
 
-export interface LoaderProps {
+export interface LoaderProps extends SVGProps<SVGSVGElement> {
   size?: number;
 }
 
@@ -33,8 +33,8 @@ const Line = styled.path`
   }
 `;
 
-const Loader: FunctionComponent<LoaderProps> = ({ size = 40 }) => (
-  <svg viewBox="0 0 64 64" width={size} height={size}>
+const Loader: FunctionComponent<LoaderProps> = ({ size = 40, ...props }) => (
+  <svg viewBox="0 0 64 64" width={size} height={size} {...props}>
     <Axes d="M 1,1 1,63 63,63" />
     <Line d="M 5,40 24,24 40,32 60,20" />
   </svg>

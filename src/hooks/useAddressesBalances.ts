@@ -1,6 +1,5 @@
-import { NetworkStatus } from '@apollo/client';
 import { EthereumNetwork } from '../generated/graphql';
-import { AsyncQueryResult } from './data/useAsyncQuery';
+import { QueryResult } from '../providers/GraphQLProvider';
 import useNetworkAddressesBalances, {
   AddressBalance,
 } from './useNetworkAddressesBalances';
@@ -13,20 +12,6 @@ export interface AddressBalancesConfigEntry {
   network: EthereumNetwork;
   addresses: string[];
 }
-
-const computeCombinedNetworkStatus = (
-  status1: NetworkStatus,
-  status2: NetworkStatus,
-): NetworkStatus => {
-  if (status1 === NetworkStatus.loading || status2 === NetworkStatus.loading) {
-    return NetworkStatus.loading;
-  }
-  if (status1 === NetworkStatus.error || status2 === NetworkStatus.error) {
-    return NetworkStatus.error;
-  }
-
-  return NetworkStatus.ready;
-};
 
 const computeCombinedData = (
   ethBalances?: AddressBalance[],
@@ -56,7 +41,7 @@ const useAddressesBalances = ({
     config: AddressBalancesConfigEntry[];
   };
   skip?: boolean;
-}): AsyncQueryResult<AddressBalanceWithNetwork[]> => {
+}): QueryResult<AddressBalanceWithNetwork[]> => {
   const transformedConfig = config.reduce<
     Partial<Record<EthereumNetwork, string[]>>
   >(
@@ -76,7 +61,6 @@ const useAddressesBalances = ({
 
   const {
     loading: loadingEthAddressesBalances,
-    networkStatus: ethAddressesBalancesNetworkStatus,
     data: ethAddressesBalances,
     error: ethAddressesBalancesError,
   } = useNetworkAddressesBalances({
@@ -90,7 +74,6 @@ const useAddressesBalances = ({
 
   const {
     loading: loadingBscAddressesBalances,
-    networkStatus: bscAddressesBalancesNetworkStatus,
     data: bscAddressesBalances,
     error: bscAddressesBalancesError,
   } = useNetworkAddressesBalances({
@@ -103,10 +86,6 @@ const useAddressesBalances = ({
 
   return {
     loading: loadingEthAddressesBalances || loadingBscAddressesBalances,
-    networkStatus: computeCombinedNetworkStatus(
-      ethAddressesBalancesNetworkStatus,
-      bscAddressesBalancesNetworkStatus,
-    ),
     error: ethAddressesBalancesError || bscAddressesBalancesError || undefined,
     data: computeCombinedData(ethAddressesBalances, bscAddressesBalances),
   };

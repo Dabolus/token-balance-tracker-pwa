@@ -1,10 +1,7 @@
-import { NetworkStatus } from '@apollo/client';
 import { useState } from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { EthereumNetwork } from '../generated/graphql';
-import { AsyncQueryResult } from './data/useAsyncQuery';
-import useGetAddressesBalancesAsyncQuery from './data/useGetAddressesBalancesAsyncQuery';
-import useGetTokenValueAsyncQuery from './data/useGetTokenValueAsyncQuery';
+import { QueryResult, useGraphQL } from '../providers/GraphQLProvider';
 
 const ETH_WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 const ETH_USDT_ADDRESS = '0xdac17f958d2ee523a2206206994597c13d831ec7';
@@ -48,14 +45,12 @@ const useNetworkAddressesBalances = ({
     addresses: string[];
   };
   skip?: boolean;
-}): AsyncQueryResult<AddressBalance[]> => {
-  const [result, setResult] = useState<AsyncQueryResult<AddressBalance[]>>({
+}): QueryResult<AddressBalance[]> => {
+  const [result, setResult] = useState<QueryResult<AddressBalance[]>>({
     loading: !skip,
-    networkStatus: skip ? NetworkStatus.ready : NetworkStatus.loading,
   });
 
-  const [getAddressesBalances] = useGetAddressesBalancesAsyncQuery();
-  const [getTokenValue] = useGetTokenValueAsyncQuery();
+  const { sdk } = useGraphQL();
 
   useDeepCompareEffect(() => {
     const queryAddressesBalances = async () => {
@@ -64,11 +59,9 @@ const useNetworkAddressesBalances = ({
       }
 
       try {
-        const balances = await getAddressesBalances({
-          variables: {
-            network,
-            addresses,
-          },
+        const balances = await sdk.getAddressesBalances({
+          network,
+          addresses,
         });
 
         const tokens = Array.from(
@@ -86,24 +79,24 @@ const useNetworkAddressesBalances = ({
         );
 
         const [mainTokenValue, ...tokensEntries] = (await Promise.all([
-          getTokenValue({
-            variables: {
+          sdk
+            .getTokenValue({
               network,
               inputToken: networksAddresses[network]!.main,
               outputToken: networksAddresses[network]!.usd,
-            },
-          }).then(result => result.ethereum?.dexTrades?.[0].quotePrice),
+            })
+            .then(result => result.ethereum?.dexTrades?.[0].quotePrice),
           ...tokens.map(inputToken =>
-            getTokenValue({
-              variables: {
+            sdk
+              .getTokenValue({
                 network,
                 inputToken,
                 outputToken: networksAddresses[network]!.main,
-              },
-            }).then(result => [
-              inputToken,
-              result.ethereum?.dexTrades?.[0].quotePrice,
-            ]),
+              })
+              .then(result => [
+                inputToken,
+                result.ethereum?.dexTrades?.[0].quotePrice,
+              ]),
           ),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ] as any)) as [
@@ -137,22 +130,14 @@ const useNetworkAddressesBalances = ({
                 })) || [],
           })) || [];
 
-        setResult({
-          loading: false,
-          networkStatus: NetworkStatus.ready,
-          data,
-        });
+        setResult({ loading: false, data });
       } catch (error) {
-        setResult({
-          loading: false,
-          networkStatus: NetworkStatus.error,
-          error,
-        });
+        setResult({ loading: false, error });
       }
     };
 
     queryAddressesBalances();
-  }, [addresses, getAddressesBalances, getTokenValue, network, skip]);
+  }, [addresses, network, sdk, skip]);
 
   return result;
 };

@@ -5,11 +5,12 @@
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen -r dotenv/config --config codegen.yml"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.18",
     "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
+    "graphql-tag": "^2.12.4",
     "preact": "^10.5.13",
     "use-deep-compare-effect": "^1.6.1",
     "wouter": "^2.7.4"
@@ -21,8 +22,9 @@
     "@graphql-codegen/add": "^2.0.2",
     "@graphql-codegen/cli": "1.21.4",
     "@graphql-codegen/typescript": "1.22.0",
+    "@graphql-codegen/typescript-graphql-request": "^3.2.0",
     "@graphql-codegen/typescript-operations": "^1.17.16",
-    "@graphql-codegen/typescript-react-apollo": "^2.2.4",
+    "@graphql-codegen/typescript-resolvers": "1.19.1",
     "@linaria/babel-preset": "^3.0.0-beta.4",
     "@linaria/core": "^3.0.0-beta.4",
     "@linaria/react": "^3.0.0-beta.4",
@@ -37,6 +39,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "graphql.macro": "^1.4.2",
     "prettier": "^2.3.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

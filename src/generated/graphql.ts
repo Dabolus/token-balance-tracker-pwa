@@ -1,12 +1,25 @@
 /* eslint-disable */
-// @ts-nocheck
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import {
+  GraphQLResolveInfo,
+  GraphQLScalarType,
+  GraphQLScalarTypeConfig,
+} from 'graphql';
+import { GraphQLClient } from 'graphql-request';
+import * as Dom from 'graphql-request/dist/types.dom';
+import { gql } from 'graphql.macro';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -96,12 +109,10 @@ export type Algorand = {
   transfers?: Maybe<Array<AlgorandTransfers>>;
 };
 
-
 /** Algorand Blockchain */
 export type AlgorandAddressArgs = {
   address: Array<AlgorandAddressSelector>;
 };
-
 
 /** Algorand Blockchain */
 export type AlgorandArgumentsArgs = {
@@ -122,7 +133,6 @@ export type AlgorandArgumentsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Algorand Blockchain */
 export type AlgorandBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -136,7 +146,6 @@ export type AlgorandBlocksArgs = {
   any?: Maybe<Array<AlgorandBlockFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Algorand Blockchain */
 export type AlgorandCoinpathArgs = {
@@ -152,7 +161,6 @@ export type AlgorandCoinpathArgs = {
   options?: Maybe<CoinpathOptions>;
 };
 
-
 /** Algorand Blockchain */
 export type AlgorandSmartContractCallsArgs = {
   date?: Maybe<DateSelector>;
@@ -166,7 +174,6 @@ export type AlgorandSmartContractCallsArgs = {
   any?: Maybe<Array<AlgorandSmartContractCallFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Algorand Blockchain */
 export type AlgorandTransactionsArgs = {
@@ -182,7 +189,6 @@ export type AlgorandTransactionsArgs = {
   any?: Maybe<Array<AlgorandTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Algorand Blockchain */
 export type AlgorandTransfersArgs = {
@@ -271,19 +277,16 @@ export type AlgorandArguments = {
   value?: Maybe<Scalars['String']>;
 };
 
-
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsAnyArgs = {
   of: AlgorandArgumentsMeasureable;
 };
-
 
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsCountArgs = {
@@ -303,13 +306,11 @@ export type AlgorandArgumentsCountArgs = {
   argindex?: Maybe<ArgumentIndexSelector>;
 };
 
-
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsMaximumArgs = {
   of: AlgorandArgumentsMeasureable;
   get?: Maybe<AlgorandArgumentsMeasureable>;
 };
-
 
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsMinimumArgs = {
@@ -317,12 +318,10 @@ export type AlgorandArgumentsMinimumArgs = {
   get?: Maybe<AlgorandArgumentsMeasureable>;
 };
 
-
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsSmartContractArgs = {
   smartContractAddress?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsTransactionArgs = {
@@ -330,18 +329,15 @@ export type AlgorandArgumentsTransactionArgs = {
   txFrom?: Maybe<Array<AlgorandAddressSelector>>;
 };
 
-
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsTxSenderArgs = {
   txSender?: Maybe<Array<AlgorandAddressSelector>>;
 };
 
-
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsTxTypeArgs = {
   txType?: Maybe<Array<AlgorandTxType>>;
 };
-
 
 /** Arguments of Smart Contract Calls */
 export type AlgorandArgumentsValueArgs = {
@@ -366,7 +362,7 @@ export enum AlgorandArgumentsMeasureable {
   /** Argument value */
   ARGUMENT_VALUE = 'argument_value',
   /** Argument index */
-  ARGUMENT_INDEX = 'argument_index'
+  ARGUMENT_INDEX = 'argument_index',
 }
 
 export type AlgorandBlockFilter = {
@@ -413,12 +409,10 @@ export type AlgorandBlocks = {
   upgradePropose?: Maybe<Scalars['String']>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksAnyArgs = {
   of: AlgorandBlocksMeasureable;
 };
-
 
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksCountArgs = {
@@ -433,18 +427,15 @@ export type AlgorandBlocksCountArgs = {
   currentProtocol?: Maybe<StringIdSelector>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksMaximumArgs = {
@@ -452,19 +443,16 @@ export type AlgorandBlocksMaximumArgs = {
   get?: Maybe<AlgorandBlocksMeasureable>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksMinimumArgs = {
   of: AlgorandBlocksMeasureable;
   get?: Maybe<AlgorandBlocksMeasureable>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksProposerArgs = {
   proposer?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksRateArgs = {
@@ -479,7 +467,6 @@ export type AlgorandBlocksRateArgs = {
   currentProtocol?: Maybe<StringIdSelector>;
 };
 
-
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksRewardArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -493,7 +480,6 @@ export type AlgorandBlocksRewardArgs = {
   nextProtocol?: Maybe<StringIdSelector>;
   currentProtocol?: Maybe<StringIdSelector>;
 };
-
 
 /** Blocks in Algorand blockchain */
 export type AlgorandBlocksTimestampArgs = {
@@ -514,14 +500,14 @@ export enum AlgorandBlocksMeasureable {
   /** Block Proposer */
   PROPOSER = 'proposer',
   /** Next protocol approvals */
-  NEXT_PROTOCOL_APPROVALS = 'next_protocol_approvals'
+  NEXT_PROTOCOL_APPROVALS = 'next_protocol_approvals',
 }
 
 export enum AlgorandBlocksUniq {
   /** Unique proposer count */
   PROPOSERS = 'proposers',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum AlgorandCallsMeasureable {
@@ -538,7 +524,7 @@ export enum AlgorandCallsMeasureable {
   /** Transaction Sender */
   TX_SENDER = 'tx_sender',
   /** Smart Contract */
-  SMART_CONTRACT = 'smart_contract'
+  SMART_CONTRACT = 'smart_contract',
 }
 
 /** Coinpath */
@@ -565,25 +551,21 @@ export type AlgorandCoinpath = {
   transaction?: Maybe<TransactionHashValue>;
 };
 
-
 /** Coinpath */
 export type AlgorandCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type AlgorandCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type AlgorandCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type AlgorandCoinpathMinimumArgs = {
@@ -612,7 +594,7 @@ export enum AlgorandNetwork {
   /** Algorand Testnet */
   ALGORAND_TESTNET = 'algorand_testnet',
   /** Algorand Betanet */
-  ALGORAND_BETANET = 'algorand_betanet'
+  ALGORAND_BETANET = 'algorand_betanet',
 }
 
 /** Algorand smart contract */
@@ -667,19 +649,16 @@ export type AlgorandSmartContractCalls = {
   txType?: Maybe<AlgorandTxType>;
 };
 
-
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsAnyArgs = {
   of: AlgorandCallsMeasureable;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsCountArgs = {
@@ -693,7 +672,6 @@ export type AlgorandSmartContractCallsCountArgs = {
   smartContractAddress?: Maybe<Array<AlgorandAddressSelector>>;
   txType?: Maybe<TxTypeSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsFeeArgs = {
@@ -709,13 +687,11 @@ export type AlgorandSmartContractCallsFeeArgs = {
   txType?: Maybe<TxTypeSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsMaximumArgs = {
   of: AlgorandCallsMeasureable;
   get?: Maybe<AlgorandCallsMeasureable>;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsMinimumArgs = {
@@ -723,12 +699,10 @@ export type AlgorandSmartContractCallsMinimumArgs = {
   get?: Maybe<AlgorandCallsMeasureable>;
 };
 
-
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsSmartContractArgs = {
   smartContractAddress?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsTransactionArgs = {
@@ -736,12 +710,10 @@ export type AlgorandSmartContractCallsTransactionArgs = {
   txFrom?: Maybe<Array<AlgorandAddressSelector>>;
 };
 
-
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsTxSenderArgs = {
   txSender?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Smart Contract Calls */
 export type AlgorandSmartContractCallsTxTypeArgs = {
@@ -792,19 +764,16 @@ export type AlgorandTransactions = {
   type?: Maybe<AlgorandTxType>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsAnyArgs = {
   of: AlgorandTransactionsMeasureable;
 };
-
 
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsCountArgs = {
@@ -820,12 +789,10 @@ export type AlgorandTransactionsCountArgs = {
   txSubtype?: Maybe<TxSubtypeSelector>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsCurrencyArgs = {
   txCurrency?: Maybe<Array<AlgorandCurrencySelector>>;
 };
-
 
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsFeeArgs = {
@@ -842,18 +809,15 @@ export type AlgorandTransactionsFeeArgs = {
   txSubtype?: Maybe<TxSubtypeSelector>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsIndexArgs = {
   txIndex?: Maybe<Array<TxIndexSelector>>;
 };
-
 
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsMaximumArgs = {
@@ -861,25 +825,21 @@ export type AlgorandTransactionsMaximumArgs = {
   get?: Maybe<AlgorandTransactionsMeasureable>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsMinimumArgs = {
   of: AlgorandTransactionsMeasureable;
   get?: Maybe<AlgorandTransactionsMeasureable>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsSenderArgs = {
   txSender?: Maybe<Array<AlgorandAddressSelector>>;
 };
 
-
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsSubtypeArgs = {
   txType?: Maybe<TxSubtypeSelector>;
 };
-
 
 /** Transactions in Algorand blockchain */
 export type AlgorandTransactionsTypeArgs = {
@@ -898,7 +858,7 @@ export enum AlgorandTransactionsMeasureable {
   /** Transaction hash */
   TX_HASH = 'tx_hash',
   /** Transaction Sender */
-  TX_SENDER = 'tx_sender'
+  TX_SENDER = 'tx_sender',
 }
 
 export enum AlgorandTransactionsUniq {
@@ -909,7 +869,7 @@ export enum AlgorandTransactionsUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique currencies */
-  CURRENCIES = 'currencies'
+  CURRENCIES = 'currencies',
 }
 
 export type AlgorandTransferFilter = {
@@ -941,7 +901,7 @@ export enum AlgorandTransferType {
   /** Asset Freeze */
   FREEZE = 'freeze',
   /** Asset Unfreeze */
-  UNFREEZE = 'unfreeze'
+  UNFREEZE = 'unfreeze',
 }
 
 /** Select transfers by type */
@@ -987,7 +947,6 @@ export type AlgorandTransfers = {
   txType?: Maybe<AlgorandTxType>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -1006,19 +965,16 @@ export type AlgorandTransfersAmountArgs = {
   transferType?: Maybe<AlgorandTransferTypeSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersAnyArgs = {
   of: AlgorandTransfersMeasureable;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersCountArgs = {
@@ -1037,12 +993,10 @@ export type AlgorandTransfersCountArgs = {
   transferType?: Maybe<AlgorandTransferTypeSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersCurrencyArgs = {
   currency?: Maybe<Array<AlgorandCurrencySelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersMaximumArgs = {
@@ -1050,43 +1004,36 @@ export type AlgorandTransfersMaximumArgs = {
   get?: Maybe<AlgorandTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersMinimumArgs = {
   of: AlgorandTransfersMeasureable;
   get?: Maybe<AlgorandTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersReceiverArgs = {
   receiver?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersSenderArgs = {
   sender?: Maybe<Array<AlgorandAddressSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersTransactionArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersTransferTypeArgs = {
   transferType?: Maybe<Array<AlgorandTransferType>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersTxSenderArgs = {
   txSender?: Maybe<Array<AlgorandAddressSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type AlgorandTransfersTxTypeArgs = {
@@ -1117,7 +1064,7 @@ export enum AlgorandTransfersMeasureable {
   /** Transaction type */
   TX_TYPE = 'tx_type',
   /** Transfer type */
-  TRANSFER_TYPE = 'transfer_type'
+  TRANSFER_TYPE = 'transfer_type',
 }
 
 export enum AlgorandTxSubType {
@@ -1136,7 +1083,7 @@ export enum AlgorandTxSubType {
   /** Key Reg */
   KEYREG = 'keyreg',
   /** None */
-  NONE = 'none'
+  NONE = 'none',
 }
 
 export enum AlgorandTxType {
@@ -1153,7 +1100,7 @@ export enum AlgorandTxType {
   /** Asset Freeze or Unfreeze */
   AFRZ = 'afrz',
   /** Application Call */
-  APPL = 'appl'
+  APPL = 'appl',
 }
 
 export enum AmountAggregateFunction {
@@ -1174,7 +1121,7 @@ export enum AmountAggregateFunction {
   /** Any value */
   ANY = 'any',
   /** Last value */
-  ANY_LAST = 'anyLast'
+  ANY_LAST = 'anyLast',
 }
 
 /** Select by amount */
@@ -1286,9 +1233,8 @@ export enum BaseCurrencyEnum {
   /** Tether USDT */
   USDT = 'USDT',
   /** Bitcoin */
-  BTC = 'BTC'
+  BTC = 'BTC',
 }
-
 
 /** Binance DEX */
 export type Binance = {
@@ -1307,7 +1253,6 @@ export type Binance = {
   transfers?: Maybe<Array<BinanceTransfers>>;
 };
 
-
 /** Binance DEX */
 export type BinanceBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -1322,7 +1267,6 @@ export type BinanceBlocksArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Binance DEX */
 export type BinanceCoinpathArgs = {
   sender?: Maybe<BinanceAddressSelector>;
@@ -1336,7 +1280,6 @@ export type BinanceCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** Binance DEX */
 export type BinanceOrdersArgs = {
@@ -1359,7 +1302,6 @@ export type BinanceOrdersArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Binance DEX */
 export type BinanceTradesArgs = {
   date?: Maybe<DateSelector>;
@@ -1380,7 +1322,6 @@ export type BinanceTradesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Binance DEX */
 export type BinanceTransactionsArgs = {
   date?: Maybe<DateSelector>;
@@ -1396,7 +1337,6 @@ export type BinanceTransactionsArgs = {
   any?: Maybe<Array<BinanceTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Binance DEX */
 export type BinanceTransfersArgs = {
@@ -1455,18 +1395,15 @@ export type BinanceBlock = {
   validatorOperatorAddress?: Maybe<Address>;
 };
 
-
 /** Block */
 export type BinanceBlockAnyArgs = {
   of: BinanceBlocksMeasureable;
 };
 
-
 /** Block */
 export type BinanceBlockBlockIdArgs = {
   blockId?: Maybe<StringIdSelector>;
 };
-
 
 /** Block */
 export type BinanceBlockCountArgs = {
@@ -1481,12 +1418,10 @@ export type BinanceBlockCountArgs = {
   validatorOperahraddress?: Maybe<BinanceAddressSelector>;
 };
 
-
 /** Block */
 export type BinanceBlockHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Block */
 export type BinanceBlockMaximumArgs = {
@@ -1494,43 +1429,36 @@ export type BinanceBlockMaximumArgs = {
   get?: Maybe<BinanceBlocksMeasureable>;
 };
 
-
 /** Block */
 export type BinanceBlockMinimumArgs = {
   of: BinanceBlocksMeasureable;
   get?: Maybe<BinanceBlocksMeasureable>;
 };
 
-
 /** Block */
 export type BinanceBlockTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Block */
 export type BinanceBlockValidatorConsensusPubkeyArgs = {
   validatorConsensusPubkey?: Maybe<StringIdSelector>;
 };
 
-
 /** Block */
 export type BinanceBlockValidatorFeeAddrArgs = {
   validatorFeeAddr?: Maybe<BinanceAddressSelector>;
 };
-
 
 /** Block */
 export type BinanceBlockValidatorMonikerArgs = {
   validatorMoniker?: Maybe<StringIdSelector>;
 };
 
-
 /** Block */
 export type BinanceBlockValidatorOperaHrAddressArgs = {
   validatorOperaHrAddress?: Maybe<BinanceAddressSelector>;
 };
-
 
 /** Block */
 export type BinanceBlockValidatorOperatorAddressArgs = {
@@ -1554,7 +1482,7 @@ export enum BinanceBlockUniq {
   /** Validator fee addresses */
   VALIDATOR_FEE_ADDRESSES = 'validator_fee_addresses',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum BinanceBlocksMeasureable {
@@ -1567,7 +1495,7 @@ export enum BinanceBlocksMeasureable {
   /** Block hash */
   BLOCK_HASH = 'block_hash',
   /** Validator moniker */
-  VALIDATOR_MONIKER = 'validator_moniker'
+  VALIDATOR_MONIKER = 'validator_moniker',
 }
 
 /** Coinpath */
@@ -1594,25 +1522,21 @@ export type BinanceCoinpath = {
   transaction?: Maybe<TransactionHashValue>;
 };
 
-
 /** Coinpath */
 export type BinanceCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type BinanceCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type BinanceCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type BinanceCoinpathMinimumArgs = {
@@ -1658,7 +1582,7 @@ export enum BinanceOrderSide {
   /** Sell Side */
   SELL = 'sell',
   /** Buy Side */
-  BUY = 'buy'
+  BUY = 'buy',
 }
 
 export enum BinanceOrderStatus {
@@ -1677,19 +1601,19 @@ export enum BinanceOrderStatus {
   /** Ioc No Fill */
   IOC_NO_FILL = 'IocNoFill',
   /** Ioc Expire */
-  IOC_EXPIRE = 'IocExpire'
+  IOC_EXPIRE = 'IocExpire',
 }
 
 export enum BinanceOrderTimeInForce {
   /** Good Till Expiry */
   GTE = 'GTE',
   /** Immediate Or Cancel */
-  IOC = 'IOC'
+  IOC = 'IOC',
 }
 
 export enum BinanceOrderType {
   /** Limit Order */
-  LIMIT_ORDER = 'LimitOrder'
+  LIMIT_ORDER = 'LimitOrder',
 }
 
 /** Binance DEX Order */
@@ -1724,12 +1648,10 @@ export type BinanceOrders = {
   transaction?: Maybe<TransactionHash>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersAnyArgs = {
   of: BinanceOrdersMeasureable;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersBaseAmountArgs = {
@@ -1752,19 +1674,16 @@ export type BinanceOrdersBaseAmountArgs = {
   orderTimeInForce?: Maybe<Array<OrderTimeInForceSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersBaseCurrencyArgs = {
   baseCurrency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersCountArgs = {
@@ -1786,13 +1705,11 @@ export type BinanceOrdersCountArgs = {
   orderTimeInForce?: Maybe<Array<OrderTimeInForceSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersMaximumArgs = {
   of: BinanceOrdersMeasureable;
   get?: Maybe<BinanceOrdersMeasureable>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersMinimumArgs = {
@@ -1800,42 +1717,35 @@ export type BinanceOrdersMinimumArgs = {
   get?: Maybe<BinanceOrdersMeasureable>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersOrderIdArgs = {
   orderId?: Maybe<Array<OrderIdSelector>>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersOrderOwnerArgs = {
   owner?: Maybe<Array<BinanceAddressSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersOrderSideArgs = {
   orderSide?: Maybe<Array<OrderSideSelector>>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersOrderStatusArgs = {
   orderStatus?: Maybe<Array<OrderStatusSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersOrderTimeInForceArgs = {
   orderTimeInForce?: Maybe<Array<OrderTimeInForceSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersOrderTypeArgs = {
   orderType?: Maybe<Array<OrderTypeSelector>>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersQuoteAmountArgs = {
@@ -1858,12 +1768,10 @@ export type BinanceOrdersQuoteAmountArgs = {
   orderTimeInForce?: Maybe<Array<OrderTimeInForceSelector>>;
 };
 
-
 /** Binance DEX Order */
 export type BinanceOrdersQuoteCurrencyArgs = {
   quoteCurrency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Binance DEX Order */
 export type BinanceOrdersTransactionArgs = {
@@ -1896,7 +1804,7 @@ export enum BinanceOrdersMeasureable {
   /** Base Amount */
   BASE_AMOUNT = 'base_amount',
   /** Price */
-  PRICE = 'price'
+  PRICE = 'price',
 }
 
 export enum BinanceOrdersUniq {
@@ -1913,7 +1821,7 @@ export enum BinanceOrdersUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique order ID count */
-  ORDERS = 'orders'
+  ORDERS = 'orders',
 }
 
 export type BinanceTradeFilter = {
@@ -1963,12 +1871,10 @@ export type BinanceTrades = {
   transaction?: Maybe<TransactionHashIndex>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesAnyArgs = {
   of: BinanceTradesMeasureable;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesBaseAmountArgs = {
@@ -1990,12 +1896,10 @@ export type BinanceTradesBaseAmountArgs = {
   price?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesBaseCurrencyArgs = {
   baseCurrency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesBlockArgs = {
@@ -2003,18 +1907,15 @@ export type BinanceTradesBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesBuyOrderIdArgs = {
   buyOrderId?: Maybe<Array<OrderIdSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesBuyerArgs = {
   buyer?: Maybe<Array<BinanceAddressSelector>>;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesCountArgs = {
@@ -2035,20 +1936,17 @@ export type BinanceTradesCountArgs = {
   price?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesMaximumArgs = {
   of: BinanceTradesMeasureable;
   get?: Maybe<BinanceTradesMeasureable>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesMinimumArgs = {
   of: BinanceTradesMeasureable;
   get?: Maybe<BinanceTradesMeasureable>;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesQuoteAmountArgs = {
@@ -2070,30 +1968,25 @@ export type BinanceTradesQuoteAmountArgs = {
   price?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesQuoteCurrencyArgs = {
   quoteCurrency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesSellOrderIdArgs = {
   sellOrderId?: Maybe<Array<OrderIdSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesSellerArgs = {
   seller?: Maybe<Array<BinanceAddressSelector>>;
 };
 
-
 /** Binance DEX Trades */
 export type BinanceTradesTradeIdArgs = {
   tradeId?: Maybe<Array<TradeIdSelector>>;
 };
-
 
 /** Binance DEX Trades */
 export type BinanceTradesTransactionArgs = {
@@ -2128,7 +2021,7 @@ export enum BinanceTradesMeasureable {
   /** Base Amount */
   BASE_AMOUNT = 'base_amount',
   /** Price */
-  PRICE = 'price'
+  PRICE = 'price',
 }
 
 export enum BinanceTradesUniq {
@@ -2151,7 +2044,7 @@ export enum BinanceTradesUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export type BinanceTransactionFilter = {
@@ -2247,7 +2140,7 @@ export enum BinanceTransactionType {
   /** Bind */
   BIND = 'BIND',
   /** UnBind */
-  UNBIND = 'UNBIND'
+  UNBIND = 'UNBIND',
 }
 
 /** Select by transaction type */
@@ -2297,19 +2190,16 @@ export type BinanceTransactions = {
   transactionType?: Maybe<BinanceTransactionType>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsAnyArgs = {
   of: BinanceTransactionsMeasureable;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsCountArgs = {
@@ -2326,24 +2216,20 @@ export type BinanceTransactionsCountArgs = {
   deposit?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsCurrencyArgs = {
   currency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsDepositArgs = {
   deposit?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsMaximumArgs = {
@@ -2351,31 +2237,26 @@ export type BinanceTransactionsMaximumArgs = {
   get?: Maybe<BinanceTransactionsMeasureable>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsMinimumArgs = {
   of: BinanceTransactionsMeasureable;
   get?: Maybe<BinanceTransactionsMeasureable>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsProposalIdArgs = {
   proposalId?: Maybe<Array<IntIdSelector>>;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsTransactionCodeArgs = {
   transactionCode?: Maybe<IntIdSelector>;
 };
 
-
 /** Transaction */
 export type BinanceTransactionsTransactionSourceArgs = {
   transactionSource?: Maybe<IntIdSelector>;
 };
-
 
 /** Transaction */
 export type BinanceTransactionsTransactionTypeArgs = {
@@ -2402,7 +2283,7 @@ export enum BinanceTransactionsMeasureable {
   /** Transaction Memo */
   TRANSACTION_MEMO = 'transaction_memo',
   /** Currency */
-  CURRENCY_SYMBOL = 'currency_symbol'
+  CURRENCY_SYMBOL = 'currency_symbol',
 }
 
 export enum BinanceTransactionsUniq {
@@ -2411,7 +2292,7 @@ export enum BinanceTransactionsUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique transaction source count */
-  TRANSACTION_SOURCES = 'transaction_sources'
+  TRANSACTION_SOURCES = 'transaction_sources',
 }
 
 export type BinanceTransferFilter = {
@@ -2487,7 +2368,7 @@ export enum BinanceTransferType {
   /** Bind */
   BIND = 'BIND',
   /** UnBind */
-  UNBIND = 'UNBIND'
+  UNBIND = 'UNBIND',
 }
 
 /** Select transfer type(s) */
@@ -2534,7 +2415,6 @@ export type BinanceTransfers = {
   transferType?: Maybe<BinanceTransferType>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -2553,19 +2433,16 @@ export type BinanceTransfersAmountArgs = {
   outputIndex?: Maybe<Array<OutputIndexSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersAnyArgs = {
   of: BinanceTransfersMeasureable;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersCountArgs = {
@@ -2584,12 +2461,10 @@ export type BinanceTransfersCountArgs = {
   outputIndex?: Maybe<Array<OutputIndexSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersCurrencyArgs = {
   currency?: Maybe<Array<BinanceCurrencySelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersMaximumArgs = {
@@ -2597,49 +2472,41 @@ export type BinanceTransfersMaximumArgs = {
   get?: Maybe<BinanceTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersMinimumArgs = {
   of: BinanceTransfersMeasureable;
   get?: Maybe<BinanceTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersOrderIdArgs = {
   orderId?: Maybe<Array<OrderIdSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersOutputIndexArgs = {
   outputIndex?: Maybe<Array<OutputIndexSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersReceiverArgs = {
   receiver?: Maybe<Array<BinanceAddressSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersSenderArgs = {
   sender?: Maybe<Array<BinanceAddressSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersTradeIdArgs = {
   tradeId?: Maybe<Array<TradeIdSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersTransactionArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type BinanceTransfersTransferTypeArgs = {
@@ -2662,7 +2529,7 @@ export enum BinanceTransfersMeasureable {
   /** Receiver */
   RECEIVER = 'receiver',
   /** Currency symbol */
-  CURRENCY_SYMBOL = 'currency_symbol'
+  CURRENCY_SYMBOL = 'currency_symbol',
 }
 
 /** Bitcoin and other UTXO type blockchains */
@@ -2680,7 +2547,6 @@ export type Bitcoin = {
   transactions?: Maybe<Array<BitcoinTransaction>>;
 };
 
-
 /** Bitcoin and other UTXO type blockchains */
 export type BitcoinBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -2697,7 +2563,6 @@ export type BitcoinBlocksArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Bitcoin and other UTXO type blockchains */
 export type BitcoinCoinpathArgs = {
   sender?: Maybe<AddressSelector>;
@@ -2710,7 +2575,6 @@ export type BitcoinCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<BitcoinCoinpathOptions>;
 };
-
 
 /** Bitcoin and other UTXO type blockchains */
 export type BitcoinInputsArgs = {
@@ -2729,7 +2593,6 @@ export type BitcoinInputsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Bitcoin and other UTXO type blockchains */
 export type BitcoinOutputsArgs = {
   date?: Maybe<DateSelector>;
@@ -2745,7 +2608,6 @@ export type BitcoinOutputsArgs = {
   any?: Maybe<Array<BitcoinOutputFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Bitcoin and other UTXO type blockchains */
 export type BitcoinTransactionsArgs = {
@@ -2803,42 +2665,35 @@ export type BitcoinBlock = {
   transactionCount?: Maybe<Scalars['Int']>;
 };
 
-
 /** Block */
 export type BitcoinBlockAnyArgs = {
   of: BitcoinBlocksMeasureable;
 };
-
 
 /** Block */
 export type BitcoinBlockBlockHashArgs = {
   blockHash?: Maybe<StringIdSelector>;
 };
 
-
 /** Block */
 export type BitcoinBlockBlockSizeArgs = {
   blockSize?: Maybe<IntegerSelector>;
 };
-
 
 /** Block */
 export type BitcoinBlockBlockStrippedSizeArgs = {
   blockStrippedSize?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type BitcoinBlockBlockVersionArgs = {
   blockVersion?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type BitcoinBlockBlockWeightArgs = {
   blockWeight?: Maybe<IntegerSelector>;
 };
-
 
 /** Block */
 export type BitcoinBlockCountArgs = {
@@ -2855,18 +2710,15 @@ export type BitcoinBlockCountArgs = {
   difficulty?: Maybe<FloatSelector>;
 };
 
-
 /** Block */
 export type BitcoinBlockDifficultyArgs = {
   difficulty?: Maybe<FloatSelector>;
 };
 
-
 /** Block */
 export type BitcoinBlockHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Block */
 export type BitcoinBlockMaximumArgs = {
@@ -2874,19 +2726,16 @@ export type BitcoinBlockMaximumArgs = {
   get?: Maybe<BitcoinBlocksMeasureable>;
 };
 
-
 /** Block */
 export type BitcoinBlockMinimumArgs = {
   of: BitcoinBlocksMeasureable;
   get?: Maybe<BitcoinBlocksMeasureable>;
 };
 
-
 /** Block */
 export type BitcoinBlockTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Block */
 export type BitcoinBlockTransactionCountArgs = {
@@ -2908,7 +2757,7 @@ export type BitcoinBlockFilter = {
 
 export enum BitcoinBlockUniq {
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum BitcoinBlocksMeasureable {
@@ -2921,7 +2770,7 @@ export enum BitcoinBlocksMeasureable {
   /** Block hash */
   BLOCK_HASH = 'block_hash',
   /** Tx Count */
-  TRANSACTION_COUNT = 'transaction_count'
+  TRANSACTION_COUNT = 'transaction_count',
 }
 
 /** Coinpath */
@@ -2950,25 +2799,21 @@ export type BitcoinCoinpath = {
   transactions?: Maybe<Array<CoinpathEntry>>;
 };
 
-
 /** Coinpath */
 export type BitcoinCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type BitcoinCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type BitcoinCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type BitcoinCoinpathMinimumArgs = {
@@ -2980,7 +2825,7 @@ export enum BitcoinCoinpathMethod {
   /** Tracking money flow by amounts, ignoring coins (default) */
   MONEYFLOW = 'moneyflow',
   /** Tracking coins by UTXO transactions */
-  UTXO = 'utxo'
+  UTXO = 'utxo',
 }
 
 /** Limits, Ordering, Constraints, Coinpath Options */
@@ -3031,7 +2876,7 @@ export enum BitcoinInputScriptType {
   /** Input Script TX Witness Script */
   TXINWITNESS = 'txinwitness',
   /** Input Script Coinbase Script */
-  COINBASE = 'coinbase'
+  COINBASE = 'coinbase',
 }
 
 /** Selector of input script type */
@@ -3054,7 +2899,7 @@ export enum BitcoinInputUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique addresses count */
-  ADDRESSES = 'addresses'
+  ADDRESSES = 'addresses',
 }
 
 export enum BitcoinInputsMeasureable {
@@ -3073,7 +2918,7 @@ export enum BitcoinInputsMeasureable {
   /** Address */
   ADDRESS = 'address',
   /** Input index */
-  INPUT_INDEX = 'input_index'
+  INPUT_INDEX = 'input_index',
 }
 
 export enum BitcoinNetwork {
@@ -3092,7 +2937,7 @@ export enum BitcoinNetwork {
   /** Cardano ( ADA ) */
   CARDANO = 'cardano',
   /** ZCash ( ZCASH ) */
-  ZCASH = 'zcash'
+  ZCASH = 'zcash',
 }
 
 export enum BitcoinOutputDirection {
@@ -3113,7 +2958,7 @@ export enum BitcoinOutputDirection {
   /** Minting */
   MINTING = 'minting',
   /** Genesis */
-  GENESIS = 'genesis'
+  GENESIS = 'genesis',
 }
 
 /** A guessed direction of output */
@@ -3159,7 +3004,7 @@ export enum BitcoinOutputScriptType {
   /** Output Multisignature Wallet */
   MULTISIG = 'multisig',
   /** Output Witness Other */
-  WITNESS_UNKNOWN = 'witness_unknown'
+  WITNESS_UNKNOWN = 'witness_unknown',
 }
 
 /** Selector of output script type */
@@ -3182,7 +3027,7 @@ export enum BitcoinOutputUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique input addresses count */
-  ADDRESSES = 'addresses'
+  ADDRESSES = 'addresses',
 }
 
 export enum BitcoinOutputsMeasureable {
@@ -3201,7 +3046,7 @@ export enum BitcoinOutputsMeasureable {
   /** Address */
   ADDRESS = 'address',
   /** Output index */
-  OUTPUT_INDEX = 'output_index'
+  OUTPUT_INDEX = 'output_index',
 }
 
 /** Transaction */
@@ -3246,19 +3091,16 @@ export type BitcoinTransaction = {
   txWeight?: Maybe<Scalars['Int']>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionAnyArgs = {
   of: BitcoinTransactionsMeasureable;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionCountArgs = {
@@ -3281,7 +3123,6 @@ export type BitcoinTransactionCountArgs = {
   minedValue?: Maybe<FloatSelector>;
   txLocktime?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionFeeValueArgs = {
@@ -3306,18 +3147,15 @@ export type BitcoinTransactionFeeValueArgs = {
   txLocktime?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionHashArgs = {
   txHash?: Maybe<StringIdSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionIndexArgs = {
   txIndex?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionInputCountArgs = {
@@ -3340,7 +3178,6 @@ export type BitcoinTransactionInputCountArgs = {
   minedValue?: Maybe<FloatSelector>;
   txLocktime?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionInputValueArgs = {
@@ -3365,13 +3202,11 @@ export type BitcoinTransactionInputValueArgs = {
   txLocktime?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionMaximumArgs = {
   of: BitcoinTransactionsMeasureable;
   get?: Maybe<BitcoinTransactionsMeasureable>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionMinedValueArgs = {
@@ -3396,13 +3231,11 @@ export type BitcoinTransactionMinedValueArgs = {
   txLocktime?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionMinimumArgs = {
   of: BitcoinTransactionsMeasureable;
   get?: Maybe<BitcoinTransactionsMeasureable>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionOutputCountArgs = {
@@ -3425,7 +3258,6 @@ export type BitcoinTransactionOutputCountArgs = {
   minedValue?: Maybe<FloatSelector>;
   txLocktime?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionOutputValueArgs = {
@@ -3450,36 +3282,30 @@ export type BitcoinTransactionOutputValueArgs = {
   txLocktime?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionTxCoinbaseArgs = {
   txCoinbase?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionTxLocktimeArgs = {
   txLocktime?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionTxSizeArgs = {
   txSize?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionTxVersionArgs = {
   txVersion?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction */
 export type BitcoinTransactionTxVsizeArgs = {
   txVsize?: Maybe<IntegerSelector>;
 };
-
 
 /** Transaction */
 export type BitcoinTransactionTxWeightArgs = {
@@ -3534,12 +3360,10 @@ export type BitcoinTransactionInput = {
   value?: Maybe<Scalars['Float']>;
 };
 
-
 /** Transaction Input */
 export type BitcoinTransactionInputAnyArgs = {
   of: BitcoinInputsMeasureable;
 };
-
 
 /** Transaction Input */
 export type BitcoinTransactionInputBlockArgs = {
@@ -3547,41 +3371,20 @@ export type BitcoinTransactionInputBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
-/** Transaction Input */
-export type BitcoinTransactionInputCountArgs = {
-  uniq?: Maybe<BitcoinInputUniq>;
-  date?: Maybe<DateSelector>;
-  time?: Maybe<DateTimeSelector>;
-  height?: Maybe<BlockSelector>;
-  txHash?: Maybe<HashSelector>;
-  txIndex?: Maybe<IntegerSelector>;
-  inputIndex?: Maybe<IntegerSelector>;
-  inputAddress?: Maybe<AddressSelector>;
-  inOutputTxId?: Maybe<HashSelector>;
-  inOutputIndex?: Maybe<IntegerSelector>;
-  inputScriptType?: Maybe<BitcoinInputScriptTypeSelector>;
-  inputValue?: Maybe<FloatSelector>;
-};
-
-
 /** Transaction Input */
 export type BitcoinTransactionInputInputAddressArgs = {
   inputAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Transaction Input */
 export type BitcoinTransactionInputInputIndexArgs = {
   inputIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction Input */
 export type BitcoinTransactionInputInputScriptTypeArgs = {
   inputScriptType?: Maybe<BitcoinInputScriptTypeSelector>;
 };
-
 
 /** Transaction Input */
 export type BitcoinTransactionInputMaximumArgs = {
@@ -3589,13 +3392,11 @@ export type BitcoinTransactionInputMaximumArgs = {
   get?: Maybe<BitcoinInputsMeasureable>;
 };
 
-
 /** Transaction Input */
 export type BitcoinTransactionInputMinimumArgs = {
   of: BitcoinInputsMeasureable;
   get?: Maybe<BitcoinInputsMeasureable>;
 };
-
 
 /** Transaction Input */
 export type BitcoinTransactionInputOutputTransactionArgs = {
@@ -3603,29 +3404,10 @@ export type BitcoinTransactionInputOutputTransactionArgs = {
   inOutputIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction Input */
 export type BitcoinTransactionInputTransactionArgs = {
   txId?: Maybe<StringIdSelector>;
   txIndex?: Maybe<IntegerSelector>;
-};
-
-
-/** Transaction Input */
-export type BitcoinTransactionInputValueArgs = {
-  calculate?: Maybe<AmountAggregateFunction>;
-  in?: Maybe<BaseCurrencyEnum>;
-  date?: Maybe<DateSelector>;
-  time?: Maybe<DateTimeSelector>;
-  height?: Maybe<BlockSelector>;
-  txHash?: Maybe<HashSelector>;
-  txIndex?: Maybe<IntegerSelector>;
-  inputIndex?: Maybe<IntegerSelector>;
-  inputAddress?: Maybe<AddressSelector>;
-  inOutputTxId?: Maybe<HashSelector>;
-  inOutputIndex?: Maybe<IntegerSelector>;
-  inputScriptType?: Maybe<BitcoinInputScriptTypeSelector>;
-  inputValue?: Maybe<FloatSelector>;
 };
 
 /** Transaction Output */
@@ -3657,12 +3439,10 @@ export type BitcoinTransactionOutput = {
   value?: Maybe<Scalars['Float']>;
 };
 
-
 /** Transaction Output */
 export type BitcoinTransactionOutputAnyArgs = {
   of: BitcoinOutputsMeasureable;
 };
-
 
 /** Transaction Output */
 export type BitcoinTransactionOutputBlockArgs = {
@@ -3670,29 +3450,11 @@ export type BitcoinTransactionOutputBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
-/** Transaction Output */
-export type BitcoinTransactionOutputCountArgs = {
-  uniq?: Maybe<BitcoinOutputUniq>;
-  date?: Maybe<DateSelector>;
-  time?: Maybe<DateTimeSelector>;
-  height?: Maybe<BlockSelector>;
-  txHash?: Maybe<HashSelector>;
-  txIndex?: Maybe<IntegerSelector>;
-  outputIndex?: Maybe<IntegerSelector>;
-  outputAddress?: Maybe<AddressSelector>;
-  outputScriptType?: Maybe<BitcoinOutputScriptTypeSelector>;
-  outputDirection?: Maybe<BitcoinOutputDirectionSelector>;
-  outputValue?: Maybe<FloatSelector>;
-};
-
-
 /** Transaction Output */
 export type BitcoinTransactionOutputMaximumArgs = {
   of: BitcoinOutputsMeasureable;
   get?: Maybe<BitcoinOutputsMeasureable>;
 };
-
 
 /** Transaction Output */
 export type BitcoinTransactionOutputMinimumArgs = {
@@ -3700,30 +3462,25 @@ export type BitcoinTransactionOutputMinimumArgs = {
   get?: Maybe<BitcoinOutputsMeasureable>;
 };
 
-
 /** Transaction Output */
 export type BitcoinTransactionOutputOutputAddressArgs = {
   outputAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Transaction Output */
 export type BitcoinTransactionOutputOutputDirectionArgs = {
   outputDirection?: Maybe<BitcoinOutputDirectionSelector>;
 };
 
-
 /** Transaction Output */
 export type BitcoinTransactionOutputOutputIndexArgs = {
   outputIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Transaction Output */
 export type BitcoinTransactionOutputOutputScriptTypeArgs = {
   inputScriptType?: Maybe<BitcoinOutputScriptTypeSelector>;
 };
-
 
 /** Transaction Output */
 export type BitcoinTransactionOutputTransactionArgs = {
@@ -3731,28 +3488,11 @@ export type BitcoinTransactionOutputTransactionArgs = {
   txIndex?: Maybe<IntegerSelector>;
 };
 
-
-/** Transaction Output */
-export type BitcoinTransactionOutputValueArgs = {
-  calculate?: Maybe<AmountAggregateFunction>;
-  in?: Maybe<BaseCurrencyEnum>;
-  date?: Maybe<DateSelector>;
-  time?: Maybe<DateTimeSelector>;
-  height?: Maybe<BlockSelector>;
-  txHash?: Maybe<HashSelector>;
-  txIndex?: Maybe<IntegerSelector>;
-  outputIndex?: Maybe<IntegerSelector>;
-  outputAddress?: Maybe<AddressSelector>;
-  outputScriptType?: Maybe<BitcoinOutputScriptTypeSelector>;
-  outputDirection?: Maybe<BitcoinOutputDirectionSelector>;
-  outputValue?: Maybe<FloatSelector>;
-};
-
 export enum BitcoinTransactionUniq {
   /** Unique block count */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum BitcoinTransactionsMeasureable {
@@ -3775,7 +3515,7 @@ export enum BitcoinTransactionsMeasureable {
   /** Transaction input value */
   INPUT_VALUE = 'input_value',
   /** Transaction output value */
-  OUTPUT_VALUE = 'output_value'
+  OUTPUT_VALUE = 'output_value',
 }
 
 /** Block */
@@ -3877,7 +3617,7 @@ export enum CoinpathMeasureable {
   /** Receiver */
   RECEIVER = 'receiver',
   /** Depth */
-  DEPTH = 'depth'
+  DEPTH = 'depth',
 }
 
 /** Limits, Ordering, Constraints, Coinpath Options */
@@ -3929,12 +3669,10 @@ export type Conflux = {
   transfers?: Maybe<Array<EthereumTransfers>>;
 };
 
-
 /** Conflux Chain */
 export type ConfluxAddressArgs = {
   address: Array<EthereumAddressSelectorIn>;
 };
-
 
 /** Conflux Chain */
 export type ConfluxArgumentsArgs = {
@@ -3957,7 +3695,6 @@ export type ConfluxArgumentsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Conflux Chain */
 export type ConfluxBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -3976,7 +3713,6 @@ export type ConfluxBlocksArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Conflux Chain */
 export type ConfluxCoinpathArgs = {
   sender?: Maybe<EthereumAddressSelector>;
@@ -3990,7 +3726,6 @@ export type ConfluxCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** Conflux Chain */
 export type ConfluxDexTradesArgs = {
@@ -4023,7 +3758,6 @@ export type ConfluxDexTradesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Conflux Chain */
 export type ConfluxSmartContractCallsArgs = {
   date?: Maybe<DateSelector>;
@@ -4041,7 +3775,6 @@ export type ConfluxSmartContractCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Conflux Chain */
 export type ConfluxSmartContractEventsArgs = {
   date?: Maybe<DateSelector>;
@@ -4055,7 +3788,6 @@ export type ConfluxSmartContractEventsArgs = {
   any?: Maybe<Array<EthereumSmartContractEventFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Conflux Chain */
 export type ConfluxTransactionsArgs = {
@@ -4074,7 +3806,6 @@ export type ConfluxTransactionsArgs = {
   any?: Maybe<Array<ConfluxTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Conflux Chain */
 export type ConfluxTransfersArgs = {
@@ -4152,12 +3883,10 @@ export type ConfluxBlocks = {
   uncleCount?: Maybe<Scalars['Int']>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksAnyArgs = {
   of: ConfluxBlocksMeasureable;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksCountArgs = {
@@ -4176,24 +3905,20 @@ export type ConfluxBlocksCountArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksEpochArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksMaximumArgs = {
@@ -4201,19 +3926,16 @@ export type ConfluxBlocksMaximumArgs = {
   get?: Maybe<ConfluxBlocksMeasureable>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksMinerArgs = {
   miner?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksMinimumArgs = {
   of: ConfluxBlocksMeasureable;
   get?: Maybe<ConfluxBlocksMeasureable>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksRefereeCountArgs = {
@@ -4232,12 +3954,10 @@ export type ConfluxBlocksRefereeCountArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksReferenceBlockHashArgs = {
   referenceBlockHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksSizeArgs = {
@@ -4256,12 +3976,10 @@ export type ConfluxBlocksSizeArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksTotalDifficultyArgs = {
@@ -4280,7 +3998,6 @@ export type ConfluxBlocksTotalDifficultyArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksTransactionCountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -4298,12 +4015,10 @@ export type ConfluxBlocksTransactionCountArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksTxHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Blocks in Conflux blockchain */
 export type ConfluxBlocksUncleCountArgs = {
@@ -4336,14 +4051,14 @@ export enum ConfluxBlocksMeasureable {
   /** Block Referee Count */
   REFEREE_COUNT = 'referee_count',
   /** Block TX Count */
-  TRANSACTION_COUNT = 'transaction_count'
+  TRANSACTION_COUNT = 'transaction_count',
 }
 
 export enum ConfluxNetwork {
   /** Conflux Oceanus */
   CONFLUX_OCEANUS = 'conflux_oceanus',
   /** Conflux Tethys */
-  CONFLUX_TETHYS = 'conflux_tethys'
+  CONFLUX_TETHYS = 'conflux_tethys',
 }
 
 export type ConfluxTransactionFilter = {
@@ -4399,7 +4114,6 @@ export type ConfluxTransactions = {
   to?: Maybe<EthereumAddressInfo>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -4418,12 +4132,10 @@ export type ConfluxTransactionsAmountArgs = {
   blockHash?: Maybe<HashSelector>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsAnyArgs = {
   of: ConfluxTransactionsMeasureable;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsBlockArgs = {
@@ -4431,7 +4143,6 @@ export type ConfluxTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsCountArgs = {
@@ -4450,12 +4161,10 @@ export type ConfluxTransactionsCountArgs = {
   blockHash?: Maybe<HashSelector>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsCreatesArgs = {
   txCreates?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsGasArgs = {
@@ -4474,12 +4183,10 @@ export type ConfluxTransactionsGasArgs = {
   blockHash?: Maybe<HashSelector>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsGasCurrencyArgs = {
   gasCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsGasPriceArgs = {
@@ -4497,7 +4204,6 @@ export type ConfluxTransactionsGasPriceArgs = {
   gasCurrency?: Maybe<Array<EthereumCurrencySelector>>;
   blockHash?: Maybe<HashSelector>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsGasValueArgs = {
@@ -4517,18 +4223,15 @@ export type ConfluxTransactionsGasValueArgs = {
   blockHash?: Maybe<HashSelector>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsIndexArgs = {
   txIndex?: Maybe<Array<TxIndexSelector>>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsMaximumArgs = {
@@ -4536,25 +4239,21 @@ export type ConfluxTransactionsMaximumArgs = {
   get?: Maybe<ConfluxTransactionsMeasureable>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsMinimumArgs = {
   of: ConfluxTransactionsMeasureable;
   get?: Maybe<ConfluxTransactionsMeasureable>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsSenderArgs = {
   txSender?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Transactions in Conflux blockchain */
 export type ConfluxTransactionsToArgs = {
@@ -4579,7 +4278,7 @@ export enum ConfluxTransactionsMeasureable {
   /** Gas price */
   GAS_PRICE = 'gas_price',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 export enum Continent {
@@ -4596,7 +4295,7 @@ export enum Continent {
   /** South America */
   SOUTH_AMERICA = 'South_America',
   /** Antarctica */
-  ANTARCTICA = 'Antarctica'
+  ANTARCTICA = 'Antarctica',
 }
 
 /** Continent selector */
@@ -5091,7 +4790,7 @@ export enum CountryCode {
   /** Zambia */
   ZM = 'ZM',
   /** Zimbabwe */
-  ZW = 'ZW'
+  ZW = 'ZW',
 }
 
 /** Country selector by 3 digit ISO code */
@@ -5150,7 +4849,6 @@ export type CovidFact = {
   recovered?: Maybe<Scalars['Int']>;
 };
 
-
 /** Facts of Covid virus development */
 export type CovidFactConfirmedArgs = {
   date?: Maybe<DateSelector>;
@@ -5158,13 +4856,11 @@ export type CovidFactConfirmedArgs = {
   continent?: Maybe<ContinentSelector>;
 };
 
-
 /** Facts of Covid virus development */
 export type CovidFactCountryArgs = {
   country?: Maybe<CountrySelector>;
   continent?: Maybe<ContinentSelector>;
 };
-
 
 /** Facts of Covid virus development */
 export type CovidFactDeathsArgs = {
@@ -5172,7 +4868,6 @@ export type CovidFactDeathsArgs = {
   country?: Maybe<CountrySelector>;
   continent?: Maybe<ContinentSelector>;
 };
-
 
 /** Facts of Covid virus development */
 export type CovidFactRecoveredArgs = {
@@ -5187,7 +4882,6 @@ export type CovidHistory = {
   /** COVID daily facts */
   facts?: Maybe<Array<CovidFact>>;
 };
-
 
 /** Covid History */
 export type CovidHistoryFactsArgs = {
@@ -5252,12 +4946,10 @@ export type Date = {
   year: Scalars['Int'];
 };
 
-
 /** Date */
 export type DateDateArgs = {
   format?: Maybe<Scalars['String']>;
 };
-
 
 /** Date */
 export type DateStartOfIntervalArgs = {
@@ -5275,7 +4967,7 @@ export enum DateInterval {
   /** Week */
   WEEK = 'week',
   /** Day */
-  DAY = 'day'
+  DAY = 'day',
 }
 
 /** Selecting the date in a range, list or just date */
@@ -5325,7 +5017,6 @@ export type DateTime = {
   year: Scalars['Int'];
 };
 
-
 /** Date and Time */
 export type DateTimeTimeArgs = {
   format?: Maybe<Scalars['String']>;
@@ -5357,7 +5048,7 @@ export enum DiemNetwork {
   /** Diem Testnet */
   DIEM_TESTNET = 'diem_testnet',
   /** Libra Testnet */
-  LIBRA_TESTNET = 'libra_testnet'
+  LIBRA_TESTNET = 'libra_testnet',
 }
 
 /** Entity */
@@ -5374,7 +5065,6 @@ export type Entity = {
   /** Entity Type */
   type: Scalars['String'];
 };
-
 
 /** Entity */
 export type EntityIdArgs = {
@@ -5405,7 +5095,7 @@ export enum EntityTypeEnum {
   /** token */
   TOKEN = 'token',
   /** schedule */
-  SCHEDULE = 'schedule'
+  SCHEDULE = 'schedule',
 }
 
 /** Select by entity type */
@@ -5437,12 +5127,10 @@ export type Eos = {
   transfers?: Maybe<Array<EosTransfers>>;
 };
 
-
 /** EOS Chain */
 export type EosAddressArgs = {
   address: Array<AddressSelectorIn>;
 };
-
 
 /** EOS Chain */
 export type EosBlocksArgs = {
@@ -5454,7 +5142,6 @@ export type EosBlocksArgs = {
   any?: Maybe<Array<EosBlockFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** EOS Chain */
 export type EosCoinpathArgs = {
@@ -5469,7 +5156,6 @@ export type EosCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** EOS Chain */
 export type EosSmartContractCallsArgs = {
@@ -5488,7 +5174,6 @@ export type EosSmartContractCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** EOS Chain */
 export type EosTransactionsArgs = {
   date?: Maybe<DateSelector>;
@@ -5501,7 +5186,6 @@ export type EosTransactionsArgs = {
   any?: Maybe<Array<EosTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** EOS Chain */
 export type EosTransfersArgs = {
@@ -5560,12 +5244,10 @@ export type EosBlocks = {
   timestamp?: Maybe<DateTime>;
 };
 
-
 /** Blocks in EOS blockchain */
 export type EosBlocksAnyArgs = {
   of: EosBlocksMeasureable;
 };
-
 
 /** Blocks in EOS blockchain */
 export type EosBlocksCountArgs = {
@@ -5577,18 +5259,15 @@ export type EosBlocksCountArgs = {
   proposer?: Maybe<AddressSelector>;
 };
 
-
 /** Blocks in EOS blockchain */
 export type EosBlocksHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in EOS blockchain */
 export type EosBlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in EOS blockchain */
 export type EosBlocksMaximumArgs = {
@@ -5596,19 +5275,16 @@ export type EosBlocksMaximumArgs = {
   get?: Maybe<EosBlocksMeasureable>;
 };
 
-
 /** Blocks in EOS blockchain */
 export type EosBlocksMinimumArgs = {
   of: EosBlocksMeasureable;
   get?: Maybe<EosBlocksMeasureable>;
 };
 
-
 /** Blocks in EOS blockchain */
 export type EosBlocksProducerArgs = {
   producer?: Maybe<AddressSelector>;
 };
-
 
 /** Blocks in EOS blockchain */
 export type EosBlocksTimestampArgs = {
@@ -5625,14 +5301,14 @@ export enum EosBlocksMeasureable {
   /** Block hash */
   BLOCK_HASH = 'block_hash',
   /** Block Proposer */
-  PROPOSER = 'proposer'
+  PROPOSER = 'proposer',
 }
 
 export enum EosBlocksUniq {
   /** Unique proposer count */
   PROPOSERS = 'proposers',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum EosCallsMeasureable {
@@ -5659,7 +5335,7 @@ export enum EosCallsMeasureable {
   /** Smart Contract Method Signature Hash */
   SIGNATURE_HASH = 'signature_hash',
   /** Call depth */
-  CALL_DEPTH = 'call_depth'
+  CALL_DEPTH = 'call_depth',
 }
 
 /** Coinpath */
@@ -5686,25 +5362,21 @@ export type EosCoinpath = {
   transaction?: Maybe<TransactionHashValue>;
 };
 
-
 /** Coinpath */
 export type EosCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type EosCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type EosCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type EosCoinpathMinimumArgs = {
@@ -5796,19 +5468,16 @@ export type EosSmartContractCalls = {
   txTo?: Maybe<Address>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsAnyArgs = {
   of: EosCallsMeasureable;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsCountArgs = {
@@ -5826,18 +5495,15 @@ export type EosSmartContractCallsCountArgs = {
   scheduled?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsErrorCodeArgs = {
   errorCode?: Maybe<IntIdSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsMaximumArgs = {
@@ -5845,49 +5511,41 @@ export type EosSmartContractCallsMaximumArgs = {
   get?: Maybe<EosCallsMeasureable>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsMinimumArgs = {
   of: EosCallsMeasureable;
   get?: Maybe<EosCallsMeasureable>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsScheduledArgs = {
   scheduled?: Maybe<Array<Scalars['Boolean']>>;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsSmartContractArgs = {
   smartContractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsSmartContractMethodArgs = {
   smartContractMethod?: Maybe<MethodSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsSuccessArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsTxFromArgs = {
   txFrom?: Maybe<AddressSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type EosSmartContractCallsTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type EosSmartContractCallsTxToArgs = {
@@ -5938,19 +5596,16 @@ export type EosTransactions = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsAnyArgs = {
   of: EosTransactionsMeasureable;
 };
-
 
 /** Transactions in EOS blockchain */
 export type EosTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in EOS blockchain */
 export type EosTransactionsCountArgs = {
@@ -5964,7 +5619,6 @@ export type EosTransactionsCountArgs = {
   scheduled?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsCpuUsageUsArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -5977,18 +5631,15 @@ export type EosTransactionsCpuUsageUsArgs = {
   scheduled?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsIndexArgs = {
   txIndex?: Maybe<Array<TxIndexSelector>>;
 };
-
 
 /** Transactions in EOS blockchain */
 export type EosTransactionsMaximumArgs = {
@@ -5996,13 +5647,11 @@ export type EosTransactionsMaximumArgs = {
   get?: Maybe<EosTransactionsMeasureable>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsMinimumArgs = {
   of: EosTransactionsMeasureable;
   get?: Maybe<EosTransactionsMeasureable>;
 };
-
 
 /** Transactions in EOS blockchain */
 export type EosTransactionsNetUsageWordsArgs = {
@@ -6016,12 +5665,10 @@ export type EosTransactionsNetUsageWordsArgs = {
   scheduled?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in EOS blockchain */
 export type EosTransactionsScheduledArgs = {
   scheduled?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Transactions in EOS blockchain */
 export type EosTransactionsSuccessArgs = {
@@ -6040,14 +5687,14 @@ export enum EosTransactionsMeasureable {
   /** CPU Usage */
   CPU_USAGE_US = 'cpu_usage_us',
   /** Net Usage */
-  NET_USAGE_WORDS = 'net_usage_words'
+  NET_USAGE_WORDS = 'net_usage_words',
 }
 
 export enum EosTransactionsUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export type EosTransferFilter = {
@@ -6102,7 +5749,6 @@ export type EosTransfers = {
   txTo?: Maybe<Address>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -6122,19 +5768,16 @@ export type EosTransfersAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersAnyArgs = {
   of: EosTransfersMeasureable;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersCountArgs = {
@@ -6154,24 +5797,20 @@ export type EosTransfersCountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersCurrencyArgs = {
   currency?: Maybe<EosCurrencySelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersEntityIdArgs = {
   entityId?: Maybe<EntitySelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersMaximumArgs = {
@@ -6179,43 +5818,36 @@ export type EosTransfersMaximumArgs = {
   get?: Maybe<EosTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersMinimumArgs = {
   of: EosTransfersMeasureable;
   get?: Maybe<EosTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersTxFromArgs = {
   txFrom?: Maybe<AddressSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EosTransfersTxToArgs = {
@@ -6240,7 +5872,7 @@ export enum EosTransfersMeasureable {
   /** Currency symbol */
   CURRENCY_SYMBOL = 'currency_symbol',
   /** Token address */
-  CURRENCY_ADDRESS = 'currency_address'
+  CURRENCY_ADDRESS = 'currency_address',
 }
 
 /** Ethereum Chain */
@@ -6266,12 +5898,10 @@ export type Ethereum = {
   transfers?: Maybe<Array<EthereumTransfers>>;
 };
 
-
 /** Ethereum Chain */
 export type EthereumAddressArgs = {
   address: Array<EthereumAddressSelectorIn>;
 };
-
 
 /** Ethereum Chain */
 export type EthereumArgumentsArgs = {
@@ -6294,7 +5924,6 @@ export type EthereumArgumentsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum Chain */
 export type EthereumBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -6310,7 +5939,6 @@ export type EthereumBlocksArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum Chain */
 export type EthereumCoinpathArgs = {
   sender?: Maybe<EthereumAddressSelector>;
@@ -6324,7 +5952,6 @@ export type EthereumCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** Ethereum Chain */
 export type EthereumDexTradesArgs = {
@@ -6357,7 +5984,6 @@ export type EthereumDexTradesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum Chain */
 export type EthereumSmartContractCallsArgs = {
   date?: Maybe<DateSelector>;
@@ -6375,7 +6001,6 @@ export type EthereumSmartContractCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum Chain */
 export type EthereumSmartContractEventsArgs = {
   date?: Maybe<DateSelector>;
@@ -6389,7 +6014,6 @@ export type EthereumSmartContractEventsArgs = {
   any?: Maybe<Array<EthereumSmartContractEventFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Ethereum Chain */
 export type EthereumTransactionsArgs = {
@@ -6408,7 +6032,6 @@ export type EthereumTransactionsArgs = {
   any?: Maybe<Array<EthereumTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Ethereum Chain */
 export type EthereumTransfersArgs = {
@@ -6444,7 +6067,6 @@ export type Ethereum2 = {
   voluntaryExits?: Maybe<Array<Ethereum2VoluntaryExit>>;
 };
 
-
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2AttestationsArgs = {
   date?: Maybe<DateSelector>;
@@ -6460,7 +6082,6 @@ export type Ethereum2AttestationsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2AttesterSlashingsArgs = {
   date?: Maybe<DateSelector>;
@@ -6475,7 +6096,6 @@ export type Ethereum2AttesterSlashingsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2BlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -6486,7 +6106,6 @@ export type Ethereum2BlocksArgs = {
   any?: Maybe<Array<Ethereum2Filter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2DepositsArgs = {
@@ -6499,7 +6118,6 @@ export type Ethereum2DepositsArgs = {
   any?: Maybe<Array<Ethereum2Filter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2ProposerSlashingsArgs = {
@@ -6514,7 +6132,6 @@ export type Ethereum2ProposerSlashingsArgs = {
   any?: Maybe<Array<Ethereum2Filter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Ethereum v 2.0 Baecon Chain */
 export type Ethereum2VoluntaryExitsArgs = {
@@ -6562,12 +6179,10 @@ export type Ethereum2Attestation = {
   validatorInCommitteeIndex: Scalars['Int'];
 };
 
-
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationAnyArgs = {
   of: Ethereum2AttestationsMeasureable;
 };
-
 
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationBlockArgs = {
@@ -6575,12 +6190,10 @@ export type Ethereum2AttestationBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationCountArgs = {
@@ -6596,20 +6209,17 @@ export type Ethereum2AttestationCountArgs = {
   attestationEpoch?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationMaximumArgs = {
   of: Ethereum2AttestationsMeasureable;
   get?: Maybe<Ethereum2AttestationsMeasureable>;
 };
 
-
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationMinimumArgs = {
   of: Ethereum2AttestationsMeasureable;
   get?: Maybe<Ethereum2AttestationsMeasureable>;
 };
-
 
 /** Attestations in Ethereum v2.0 blockchain */
 export type Ethereum2AttestationProposerArgs = {
@@ -6649,7 +6259,7 @@ export enum Ethereum2AttestationsMeasureable {
   /** Committee Index */
   COMMITTEE = 'committee',
   /** Validator index */
-  VALIDATOR = 'validator'
+  VALIDATOR = 'validator',
 }
 
 export enum Ethereum2AttestationsUniq {
@@ -6668,7 +6278,7 @@ export enum Ethereum2AttestationsUniq {
   /** Unique attestation slots */
   ATTESTATION_SLOTS = 'attestation_slots',
   /** Unique attestation epochs */
-  ATTESTATION_EPOCHS = 'attestation_epochs'
+  ATTESTATION_EPOCHS = 'attestation_epochs',
 }
 
 /** Attester Slashing in Ethereum v2.0 blockchain */
@@ -6703,12 +6313,10 @@ export type Ethereum2AttesterSlashing = {
   validatorInAttestationIndex: Scalars['Int'];
 };
 
-
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingAnyArgs = {
   of: Ethereum2AttesterSlashingMeasureable;
 };
-
 
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingBlockArgs = {
@@ -6716,12 +6324,10 @@ export type Ethereum2AttesterSlashingBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingCountArgs = {
@@ -6736,20 +6342,17 @@ export type Ethereum2AttesterSlashingCountArgs = {
   attestationEpoch?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingMaximumArgs = {
   of: Ethereum2AttesterSlashingMeasureable;
   get?: Maybe<Ethereum2AttesterSlashingMeasureable>;
 };
 
-
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingMinimumArgs = {
   of: Ethereum2AttesterSlashingMeasureable;
   get?: Maybe<Ethereum2AttesterSlashingMeasureable>;
 };
-
 
 /** Attester Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2AttesterSlashingProposerArgs = {
@@ -6768,7 +6371,7 @@ export enum Ethereum2AttesterSlashingMeasureable {
   /** Block Proposer */
   BLOCK_PROPOSER = 'block_proposer',
   /** Validator index */
-  VALIDATOR = 'validator'
+  VALIDATOR = 'validator',
 }
 
 export enum Ethereum2AttesterSlashingsUniq {
@@ -6783,7 +6386,7 @@ export enum Ethereum2AttesterSlashingsUniq {
   /** Unique slashing slots */
   ATTESTATION_SLOTS = 'attestation_slots',
   /** Unique slashing epochs */
-  ATTESTATION_EPOCHS = 'attestation_epochs'
+  ATTESTATION_EPOCHS = 'attestation_epochs',
 }
 
 /** Blocks in Ethereum v2.0 blockchain */
@@ -6822,12 +6425,10 @@ export type Ethereum2Blocks = {
   voluntaryExitsCount?: Maybe<Scalars['Int']>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksAnyArgs = {
   of: Ethereum2BlocksMeasureable;
 };
-
 
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksAttestationsCountArgs = {
@@ -6839,7 +6440,6 @@ export type Ethereum2BlocksAttestationsCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksAttesterSlashingsCountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -6850,12 +6450,10 @@ export type Ethereum2BlocksAttesterSlashingsCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksCountArgs = {
@@ -6867,7 +6465,6 @@ export type Ethereum2BlocksCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksDepositsCountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -6878,12 +6475,10 @@ export type Ethereum2BlocksDepositsCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksMaximumArgs = {
@@ -6891,19 +6486,16 @@ export type Ethereum2BlocksMaximumArgs = {
   get?: Maybe<Ethereum2BlocksMeasureable>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksMinimumArgs = {
   of: Ethereum2BlocksMeasureable;
   get?: Maybe<Ethereum2BlocksMeasureable>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksProposerArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
-
 
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksProposerSlashingsCountArgs = {
@@ -6915,12 +6507,10 @@ export type Ethereum2BlocksProposerSlashingsCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Blocks in Ethereum v2.0 blockchain */
 export type Ethereum2BlocksVoluntaryExitsCountArgs = {
@@ -6942,14 +6532,14 @@ export enum Ethereum2BlocksMeasureable {
   /** Block hash */
   BLOCK_ROOT_HASH = 'block_root_hash',
   /** Block Miner */
-  BLOCK_PROPOSER = 'block_proposer'
+  BLOCK_PROPOSER = 'block_proposer',
 }
 
 export enum Ethereum2BlocksUniq {
   /** Unique proposers */
   BLOCK_PROPOSERS = 'block_proposers',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 /** Deposit in Ethereum v2.0 blockchain */
@@ -6982,7 +6572,6 @@ export type Ethereum2Deposit = {
   validator: Ethereum2ValidatorInfo;
 };
 
-
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -6994,12 +6583,10 @@ export type Ethereum2DepositAmountArgs = {
   validatorIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositAnyArgs = {
   of: Ethereum2DepositsMeasureable;
 };
-
 
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositBlockArgs = {
@@ -7007,12 +6594,10 @@ export type Ethereum2DepositBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositCountArgs = {
@@ -7024,20 +6609,17 @@ export type Ethereum2DepositCountArgs = {
   blockProposerIndex?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositMaximumArgs = {
   of: Ethereum2DepositsMeasureable;
   get?: Maybe<Ethereum2DepositsMeasureable>;
 };
 
-
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositMinimumArgs = {
   of: Ethereum2DepositsMeasureable;
   get?: Maybe<Ethereum2DepositsMeasureable>;
 };
-
 
 /** Deposit in Ethereum v2.0 blockchain */
 export type Ethereum2DepositProposerArgs = {
@@ -7056,7 +6638,7 @@ export enum Ethereum2DepositsMeasureable {
   /** Block Proposer */
   BLOCK_PROPOSER = 'block_proposer',
   /** Validator index */
-  VALIDATOR = 'validator'
+  VALIDATOR = 'validator',
 }
 
 export enum Ethereum2DepositsUniq {
@@ -7067,7 +6649,7 @@ export enum Ethereum2DepositsUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique validators */
-  VALIDATORS = 'validators'
+  VALIDATORS = 'validators',
 }
 
 /** Eth1 attributes for Ethereum v 2.0 network */
@@ -7093,7 +6675,7 @@ export enum Ethereum2Network {
   /** Beacon Chain Ethereum 2.0 */
   ETH2 = 'eth2',
   /** Medalla Ethereum 2.0 Beacon Testnet */
-  MEDALLA = 'medalla'
+  MEDALLA = 'medalla',
 }
 
 /** Proposer Slashing in Ethereum v2.0 blockchain */
@@ -7124,12 +6706,10 @@ export type Ethereum2ProposerSlashing = {
   stateRoot: Scalars['String'];
 };
 
-
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingAnyArgs = {
   of: Ethereum2ProposerSlashingMeasureable;
 };
-
 
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingBlockArgs = {
@@ -7137,12 +6717,10 @@ export type Ethereum2ProposerSlashingBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingCountArgs = {
@@ -7157,20 +6735,17 @@ export type Ethereum2ProposerSlashingCountArgs = {
   slashingEpoch?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingMaximumArgs = {
   of: Ethereum2ProposerSlashingMeasureable;
   get?: Maybe<Ethereum2ProposerSlashingMeasureable>;
 };
 
-
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingMinimumArgs = {
   of: Ethereum2ProposerSlashingMeasureable;
   get?: Maybe<Ethereum2ProposerSlashingMeasureable>;
 };
-
 
 /** Proposer Slashing in Ethereum v2.0 blockchain */
 export type Ethereum2ProposerSlashingProposerArgs = {
@@ -7189,7 +6764,7 @@ export enum Ethereum2ProposerSlashingMeasureable {
   /** Block Proposer */
   BLOCK_PROPOSER = 'block_proposer',
   /** Slashed Proposer */
-  PROPOSER = 'proposer'
+  PROPOSER = 'proposer',
 }
 
 export enum Ethereum2ProposerSlashingsUniq {
@@ -7204,7 +6779,7 @@ export enum Ethereum2ProposerSlashingsUniq {
   /** Unique slashing epochs */
   SLASHING_EPOCHS = 'slashing_epochs',
   /** Unique slashing proposers */
-  SLASHING_PROPOSERS = 'slashing_proposers'
+  SLASHING_PROPOSERS = 'slashing_proposers',
 }
 
 /** SlashingInfo for Ethereum v 2.0 network */
@@ -7264,12 +6839,10 @@ export type Ethereum2VoluntaryExit = {
   voluntaryExitIndex: Scalars['Int'];
 };
 
-
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitAnyArgs = {
   of: Ethereum2VoluntaryExitsMeasureable;
 };
-
 
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitBlockArgs = {
@@ -7277,12 +6850,10 @@ export type Ethereum2VoluntaryExitBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitBlockRootArgs = {
   blockRootHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitCountArgs = {
@@ -7296,20 +6867,17 @@ export type Ethereum2VoluntaryExitCountArgs = {
   voluntaryExitEpoch?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitMaximumArgs = {
   of: Ethereum2VoluntaryExitsMeasureable;
   get?: Maybe<Ethereum2VoluntaryExitsMeasureable>;
 };
 
-
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitMinimumArgs = {
   of: Ethereum2VoluntaryExitsMeasureable;
   get?: Maybe<Ethereum2VoluntaryExitsMeasureable>;
 };
-
 
 /** Voluntary Exit in Ethereum v2.0 blockchain */
 export type Ethereum2VoluntaryExitProposerArgs = {
@@ -7328,7 +6896,7 @@ export enum Ethereum2VoluntaryExitsMeasureable {
   /** Block Proposer */
   BLOCK_PROPOSER = 'block_proposer',
   /** Validator index */
-  VALIDATOR = 'validator'
+  VALIDATOR = 'validator',
 }
 
 export enum Ethereum2VoluntaryExitsUniq {
@@ -7339,7 +6907,7 @@ export enum Ethereum2VoluntaryExitsUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique validators */
-  VALIDATORS = 'validators'
+  VALIDATORS = 'validators',
 }
 
 /** Address detailed information for Ethereum network */
@@ -7367,7 +6935,6 @@ export type EthereumAddressInfoWithBalance = {
   /** Smart Contract if exists on the address */
   smartContract?: Maybe<EthereumSmartContractInfoWithAttributes>;
 };
-
 
 /** Blockchain address */
 export type EthereumAddressInfoWithBalanceBalancesArgs = {
@@ -7458,7 +7025,6 @@ export type EthereumArguments = {
   value?: Maybe<ArgumentValue>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsAnyArgs = {
   of: EthereumArgumentsMeasureable;
@@ -7480,13 +7046,11 @@ export type EthereumArgumentsAnyArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsArgumentArgs = {
   argument?: Maybe<Array<ArgumentSelector>>;
   argumentType?: Maybe<Scalars['String']>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsBlockArgs = {
@@ -7494,12 +7058,10 @@ export type EthereumArgumentsBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsCallerArgs = {
   caller?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsCountArgs = {
@@ -7521,12 +7083,10 @@ export type EthereumArgumentsCountArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsMaximumArgs = {
@@ -7550,7 +7110,6 @@ export type EthereumArgumentsMaximumArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsMinimumArgs = {
   of: EthereumArgumentsMeasureable;
@@ -7573,7 +7132,6 @@ export type EthereumArgumentsMinimumArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsNumberArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -7594,18 +7152,15 @@ export type EthereumArgumentsNumberArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsReferenceArgs = {
   reference?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsSmartContractArgs = {
   smartContractAddress?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsSmartContractSignatureArgs = {
@@ -7614,19 +7169,16 @@ export type EthereumArgumentsSmartContractSignatureArgs = {
   signatureType?: Maybe<SignatureTypeSelector>;
 };
 
-
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsSuccessArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsTransactionArgs = {
   txHash?: Maybe<Array<HashSelector>>;
   txFrom?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Arguments of Smart Contract Calls and Events */
 export type EthereumArgumentsValueArgs = {
@@ -7637,7 +7189,7 @@ export enum EthereumArgumentsConvertable {
   /** Token symbol */
   TOKEN_SYMBOL = 'token_symbol',
   /** Token name */
-  TOKEN_NAME = 'token_name'
+  TOKEN_NAME = 'token_name',
 }
 
 export enum EthereumArgumentsMeasureable {
@@ -7670,7 +7222,7 @@ export enum EthereumArgumentsMeasureable {
   /** Argument value */
   ARGUMENT_VALUE = 'argument_value',
   /** Argument index */
-  ARGUMENT_INDEX = 'argument_index'
+  ARGUMENT_INDEX = 'argument_index',
 }
 
 /** Balance in a currency */
@@ -7682,7 +7234,6 @@ export type EthereumBalance = {
   history?: Maybe<Array<EthereumBalanceChange>>;
   value?: Maybe<Scalars['Float']>;
 };
-
 
 /** Balance in a currency */
 export type EthereumBalanceHistoryArgs = {
@@ -7745,12 +7296,10 @@ export type EthereumBlocks = {
   uncleCount?: Maybe<Scalars['Int']>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksAnyArgs = {
   of: EthereumBlocksMeasureable;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksCountArgs = {
@@ -7766,7 +7315,6 @@ export type EthereumBlocksCountArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksDifficultyArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -7781,18 +7329,15 @@ export type EthereumBlocksDifficultyArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksMaximumArgs = {
@@ -7800,19 +7345,16 @@ export type EthereumBlocksMaximumArgs = {
   get?: Maybe<EthereumBlocksMeasureable>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksMinerArgs = {
   miner?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksMinimumArgs = {
   of: EthereumBlocksMeasureable;
   get?: Maybe<EthereumBlocksMeasureable>;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksRewardArgs = {
@@ -7829,7 +7371,6 @@ export type EthereumBlocksRewardArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksSizeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -7844,12 +7385,10 @@ export type EthereumBlocksSizeArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksTotalDifficultyArgs = {
@@ -7865,7 +7404,6 @@ export type EthereumBlocksTotalDifficultyArgs = {
   size?: Maybe<Array<IntegerSelector>>;
 };
 
-
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksTransactionCountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -7879,7 +7417,6 @@ export type EthereumBlocksTransactionCountArgs = {
   uncleCount?: Maybe<Array<IntegerSelector>>;
   size?: Maybe<Array<IntegerSelector>>;
 };
-
 
 /** Blocks in Ethereum blockchain */
 export type EthereumBlocksUncleCountArgs = {
@@ -7907,14 +7444,14 @@ export enum EthereumBlocksMeasureable {
   /** Block Reward */
   BLOCK_REWARD = 'block_reward',
   /** Block Miner */
-  MINER = 'miner'
+  MINER = 'miner',
 }
 
 export enum EthereumBlocksUniq {
   /** Unique miner count */
   MINERS = 'miners',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum EthereumCallsMeasureable {
@@ -7937,7 +7474,7 @@ export enum EthereumCallsMeasureable {
   /** Smart Contract Method Signature Hash */
   SIGNATURE_HASH = 'signature_hash',
   /** Call depth */
-  CALL_DEPTH = 'call_depth'
+  CALL_DEPTH = 'call_depth',
 }
 
 /** Coinpath */
@@ -7966,25 +7503,21 @@ export type EthereumCoinpath = {
   transactions?: Maybe<Array<CoinpathEntry>>;
 };
 
-
 /** Coinpath */
 export type EthereumCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type EthereumCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type EthereumCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type EthereumCoinpathMinimumArgs = {
@@ -8103,18 +7636,15 @@ export type EthereumDexTrades = {
   transaction?: Maybe<EthereumTransactionInfoExtended>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesAddressArgs = {
   makerOrTaker?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesAnyArgs = {
   of: EthereumDexTradesMeasureable;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesBaseAmountArgs = {
@@ -8122,12 +7652,10 @@ export type EthereumDexTradesBaseAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesBaseCurrencyArgs = {
   baseCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesBlockArgs = {
@@ -8135,19 +7663,16 @@ export type EthereumDexTradesBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesBuyAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
   in?: Maybe<BaseCurrencyEnum>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesBuyCurrencyArgs = {
   buyCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesCountArgs = {
@@ -8179,13 +7704,11 @@ export type EthereumDexTradesCountArgs = {
   tradeAmountUsd?: Maybe<Array<FloatSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesExchangeArgs = {
   exchangeAddress?: Maybe<Array<EthereumAddressSelector>>;
   exchangeName?: Maybe<Array<StringSelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesGasArgs = {
@@ -8217,7 +7740,6 @@ export type EthereumDexTradesGasArgs = {
   tradeAmountUsd?: Maybe<Array<FloatSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesGasPriceArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -8248,19 +7770,16 @@ export type EthereumDexTradesGasPriceArgs = {
   tradeAmountUsd?: Maybe<Array<FloatSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesGasValueArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
   in?: Maybe<BaseCurrencyEnum>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesMakerArgs = {
   maker?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesMaximumArgs = {
@@ -8268,13 +7787,11 @@ export type EthereumDexTradesMaximumArgs = {
   get?: Maybe<EthereumDexTradesMeasureable>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesMinimumArgs = {
   of: EthereumDexTradesMeasureable;
   get?: Maybe<EthereumDexTradesMeasureable>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesPriceArgs = {
@@ -8306,12 +7823,10 @@ export type EthereumDexTradesPriceArgs = {
   tradeAmountUsd?: Maybe<Array<FloatSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesProtocolArgs = {
   protocol?: Maybe<Array<StringSelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesQuoteAmountArgs = {
@@ -8319,12 +7834,10 @@ export type EthereumDexTradesQuoteAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesQuoteCurrencyArgs = {
   quoteCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesQuotePriceArgs = {
@@ -8356,31 +7869,26 @@ export type EthereumDexTradesQuotePriceArgs = {
   tradeAmountUsd?: Maybe<Array<FloatSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesSellAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
   in?: Maybe<BaseCurrencyEnum>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesSellCurrencyArgs = {
   sellCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesSmartContractArgs = {
   smartContractAddress?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesTakerArgs = {
   taker?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesTradeAmountArgs = {
@@ -8388,12 +7896,10 @@ export type EthereumDexTradesTradeAmountArgs = {
   in: BaseCurrencyEnum;
 };
 
-
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesTradeIndexArgs = {
   tradeIndex?: Maybe<Array<StringSelector>>;
 };
-
 
 /** Trades on DEX smart contracts */
 export type EthereumDexTradesTransactionArgs = {
@@ -8429,7 +7935,7 @@ export enum EthereumDexTradesMeasureable {
   /** Sell Currency symbol */
   SELL_CURRENCY_SYMBOL = 'sell_currency_symbol',
   /** Sell Token address */
-  SELL_CURRENCY_ADDRESS = 'sell_currency_address'
+  SELL_CURRENCY_ADDRESS = 'sell_currency_address',
 }
 
 export enum EthereumDexTradesUniq {
@@ -8458,7 +7964,7 @@ export enum EthereumDexTradesUniq {
   /** Unique smart contract count */
   SMART_CONTRACTS = 'smart_contracts',
   /** Unique protocols count */
-  PROTOCOLS = 'protocols'
+  PROTOCOLS = 'protocols',
 }
 
 export enum EthereumEventsMeasureable {
@@ -8477,7 +7983,7 @@ export enum EthereumEventsMeasureable {
   /** Smart Contract Event Signature */
   SIGNATURE = 'signature',
   /** Smart Contract Event Signature Hash */
-  SIGNATURE_HASH = 'signature_hash'
+  SIGNATURE_HASH = 'signature_hash',
 }
 
 export enum EthereumNetwork {
@@ -8498,7 +8004,7 @@ export enum EthereumNetwork {
   /** Binance Smart Chain Testnet */
   BSC_TESTNET = 'bsc_testnet',
   /** Goerli Ethereum Testnet */
-  GOERLI = 'goerli'
+  GOERLI = 'goerli',
 }
 
 /** Ethereum smart contract */
@@ -8561,7 +8067,6 @@ export type EthereumSmartContractCalls = {
   transaction?: Maybe<EthereumTransactionInfo>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -8579,12 +8084,10 @@ export type EthereumSmartContractCallsAmountArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsAnyArgs = {
   of: EthereumCallsMeasureable;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsBlockArgs = {
@@ -8592,12 +8095,10 @@ export type EthereumSmartContractCallsBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsCallerArgs = {
   caller?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsCountArgs = {
@@ -8615,12 +8116,10 @@ export type EthereumSmartContractCallsCountArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsGasValueArgs = {
@@ -8639,13 +8138,11 @@ export type EthereumSmartContractCallsGasValueArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsMaximumArgs = {
   of: EthereumCallsMeasureable;
   get?: Maybe<EthereumCallsMeasureable>;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsMinimumArgs = {
@@ -8653,24 +8150,20 @@ export type EthereumSmartContractCallsMinimumArgs = {
   get?: Maybe<EthereumCallsMeasureable>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsSmartContractArgs = {
   smartContractAddress?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsSmartContractMethodArgs = {
   smartContractMethod?: Maybe<MethodSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsSuccessArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
-
 
 /** Smart Contract Calls */
 export type EthereumSmartContractCallsTransactionArgs = {
@@ -8702,19 +8195,16 @@ export type EthereumSmartContractEvent = {
   transaction?: Maybe<EthereumTransactionInfo>;
 };
 
-
 /** Smart Contract Events */
 export type EthereumSmartContractEventAnyArgs = {
   of: EthereumEventsMeasureable;
 };
-
 
 /** Smart Contract Events */
 export type EthereumSmartContractEventBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Smart Contract Events */
 export type EthereumSmartContractEventCountArgs = {
@@ -8729,13 +8219,11 @@ export type EthereumSmartContractEventCountArgs = {
   smartContractEvent?: Maybe<EventSelector>;
 };
 
-
 /** Smart Contract Events */
 export type EthereumSmartContractEventMaximumArgs = {
   of: EthereumEventsMeasureable;
   get?: Maybe<EthereumEventsMeasureable>;
 };
-
 
 /** Smart Contract Events */
 export type EthereumSmartContractEventMinimumArgs = {
@@ -8743,18 +8231,15 @@ export type EthereumSmartContractEventMinimumArgs = {
   get?: Maybe<EthereumEventsMeasureable>;
 };
 
-
 /** Smart Contract Events */
 export type EthereumSmartContractEventSmartContractArgs = {
   smartContractAddress?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Smart Contract Events */
 export type EthereumSmartContractEventSmartContractEventArgs = {
   smartContractEvent?: Maybe<EventSelector>;
 };
-
 
 /** Smart Contract Events */
 export type EthereumSmartContractEventTransactionArgs = {
@@ -8886,7 +8371,6 @@ export type EthereumTransactions = {
   to?: Maybe<EthereumAddressInfo>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -8905,19 +8389,16 @@ export type EthereumTransactionsAmountArgs = {
   gasValue?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsAnyArgs = {
   of: EthereumTransactionsMeasureable;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsCountArgs = {
@@ -8936,12 +8417,10 @@ export type EthereumTransactionsCountArgs = {
   gasValue?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsCreatesArgs = {
   txCreates?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsGasArgs = {
@@ -8960,12 +8439,10 @@ export type EthereumTransactionsGasArgs = {
   gasValue?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsGasCurrencyArgs = {
   gasCurrency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsGasPriceArgs = {
@@ -8983,7 +8460,6 @@ export type EthereumTransactionsGasPriceArgs = {
   gasCurrency?: Maybe<Array<EthereumCurrencySelector>>;
   gasValue?: Maybe<Array<AmountSelector>>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsGasValueArgs = {
@@ -9003,18 +8479,15 @@ export type EthereumTransactionsGasValueArgs = {
   gasValue?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsIndexArgs = {
   txIndex?: Maybe<Array<TxIndexSelector>>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsMaximumArgs = {
@@ -9022,25 +8495,21 @@ export type EthereumTransactionsMaximumArgs = {
   get?: Maybe<EthereumTransactionsMeasureable>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsMinimumArgs = {
   of: EthereumTransactionsMeasureable;
   get?: Maybe<EthereumTransactionsMeasureable>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsSenderArgs = {
   txSender?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Transactions in Ethereum blockchain */
 export type EthereumTransactionsToArgs = {
@@ -9065,7 +8534,7 @@ export enum EthereumTransactionsMeasureable {
   /** Gas price */
   GAS_PRICE = 'gas_price',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 export enum EthereumTransactionsUniq {
@@ -9076,7 +8545,7 @@ export enum EthereumTransactionsUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export type EthereumTransferFilter = {
@@ -9120,7 +8589,6 @@ export type EthereumTransfers = {
   transaction?: Maybe<EthereumTransactionInfo>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -9138,19 +8606,16 @@ export type EthereumTransfersAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersAnyArgs = {
   of: EthereumTransfersMeasureable;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersCountArgs = {
@@ -9168,24 +8633,20 @@ export type EthereumTransfersCountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersCurrencyArgs = {
   currency?: Maybe<Array<EthereumCurrencySelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersEntityIdArgs = {
   entityId?: Maybe<EntitySelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersGasValueArgs = {
@@ -9204,13 +8665,11 @@ export type EthereumTransfersGasValueArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersMaximumArgs = {
   of: EthereumTransfersMeasureable;
   get?: Maybe<EthereumTransfersMeasureable>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersMinimumArgs = {
@@ -9218,18 +8677,15 @@ export type EthereumTransfersMinimumArgs = {
   get?: Maybe<EthereumTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersReceiverArgs = {
   receiver?: Maybe<Array<EthereumAddressSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersSenderArgs = {
   sender?: Maybe<Array<EthereumAddressSelector>>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type EthereumTransfersTransactionArgs = {
@@ -9257,7 +8713,7 @@ export enum EthereumTransfersMeasureable {
   /** Token address */
   CURRENCY_ADDRESS = 'currency_address',
   /** Entity ID */
-  ENTITY_ID = 'entity_id'
+  ENTITY_ID = 'entity_id',
 }
 
 /** Smart contract event */
@@ -9298,7 +8754,6 @@ export type Filecoin = {
   transfers?: Maybe<Array<FilecoinTransfers>>;
 };
 
-
 /** Filecoin */
 export type FilecoinBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -9310,7 +8765,6 @@ export type FilecoinBlocksArgs = {
   any?: Maybe<Array<FilecoinBlockFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Filecoin */
 export type FilecoinCallsArgs = {
@@ -9327,7 +8781,6 @@ export type FilecoinCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Filecoin */
 export type FilecoinCoinpathArgs = {
   sender?: Maybe<AddressSelector>;
@@ -9340,7 +8793,6 @@ export type FilecoinCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** Filecoin */
 export type FilecoinMessagesArgs = {
@@ -9357,7 +8809,6 @@ export type FilecoinMessagesArgs = {
   any?: Maybe<Array<FilecoinMessageFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Filecoin */
 export type FilecoinTransfersArgs = {
@@ -9411,12 +8862,10 @@ export type FilecoinBlock = {
   wincount?: Maybe<Scalars['Int']>;
 };
 
-
 /** Block */
 export type FilecoinBlockAnyArgs = {
   of: FilecoinBlocksMeasureable;
 };
-
 
 /** Block */
 export type FilecoinBlockCountArgs = {
@@ -9429,31 +8878,26 @@ export type FilecoinBlockCountArgs = {
   blockIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type FilecoinBlockHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Block */
 export type FilecoinBlockHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
 
-
 /** Block */
 export type FilecoinBlockIndexArgs = {
   blockIndex?: Maybe<IntegerSelector>;
 };
-
 
 /** Block */
 export type FilecoinBlockMaximumArgs = {
   of: FilecoinBlocksMeasureable;
   get?: Maybe<FilecoinBlocksMeasureable>;
 };
-
 
 /** Block */
 export type FilecoinBlockMessageCountArgs = {
@@ -9465,12 +8909,10 @@ export type FilecoinBlockMessageCountArgs = {
   blockIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type FilecoinBlockMinerArgs = {
   miner?: Maybe<AddressSelector>;
 };
-
 
 /** Block */
 export type FilecoinBlockMinerTipsArgs = {
@@ -9484,13 +8926,11 @@ export type FilecoinBlockMinerTipsArgs = {
   blockIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type FilecoinBlockMinimumArgs = {
   of: FilecoinBlocksMeasureable;
   get?: Maybe<FilecoinBlocksMeasureable>;
 };
-
 
 /** Block */
 export type FilecoinBlockRewardArgs = {
@@ -9504,12 +8944,10 @@ export type FilecoinBlockRewardArgs = {
   blockIndex?: Maybe<IntegerSelector>;
 };
 
-
 /** Block */
 export type FilecoinBlockTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Block */
 export type FilecoinBlockTotalRewardArgs = {
@@ -9522,7 +8960,6 @@ export type FilecoinBlockTotalRewardArgs = {
   miner?: Maybe<Array<AddressSelector>>;
   blockIndex?: Maybe<IntegerSelector>;
 };
-
 
 /** Block */
 export type FilecoinBlockWinCountArgs = {
@@ -9551,7 +8988,7 @@ export enum FilecoinBlockUniq {
   /** Unique block height count */
   HEIGHTS = 'heights',
   /** Unique block count */
-  BLOCKS = 'blocks'
+  BLOCKS = 'blocks',
 }
 
 export enum FilecoinBlocksMeasureable {
@@ -9564,7 +9001,7 @@ export enum FilecoinBlocksMeasureable {
   /** Block hash */
   BLOCK_HASH = 'block_hash',
   /** Block Miner */
-  MINER = 'miner'
+  MINER = 'miner',
 }
 
 export type FilecoinCallFilter = {
@@ -9617,7 +9054,6 @@ export type FilecoinCalls = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -9633,19 +9069,16 @@ export type FilecoinCallsAmountArgs = {
   messageMethod?: Maybe<IntegerSelector>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsAnyArgs = {
   of: FilecoinCallsMeasureable;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsCountArgs = {
@@ -9660,7 +9093,6 @@ export type FilecoinCallsCountArgs = {
   amount?: Maybe<AmountSelector>;
   messageMethod?: Maybe<IntegerSelector>;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsGasArgs = {
@@ -9677,12 +9109,10 @@ export type FilecoinCallsGasArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsHashArgs = {
   hash?: Maybe<HashSelector>;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsMaximumArgs = {
@@ -9690,18 +9120,15 @@ export type FilecoinCallsMaximumArgs = {
   get?: Maybe<FilecoinCallsMeasureable>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsMessageMethodArgs = {
   messageMethod?: Maybe<IntegerSelector>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsMethodArgs = {
   method?: Maybe<IntegerSelector>;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsMinimumArgs = {
@@ -9709,18 +9136,15 @@ export type FilecoinCallsMinimumArgs = {
   get?: Maybe<FilecoinCallsMeasureable>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
 
-
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
-
 
 /** Calls in Filecoin blockchain */
 export type FilecoinCallsSuccessArgs = {
@@ -9743,7 +9167,7 @@ export enum FilecoinCallsMeasureable {
   /** Gas limit */
   GAS_LIMIT = 'gas_limit',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 /** Coinpath */
@@ -9770,25 +9194,21 @@ export type FilecoinCoinpath = {
   sender?: Maybe<Address>;
 };
 
-
 /** Coinpath */
 export type FilecoinCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type FilecoinCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type FilecoinCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type FilecoinCoinpathMinimumArgs = {
@@ -9852,7 +9272,6 @@ export type FilecoinMessages = {
   totalCost?: Maybe<Scalars['Float']>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -9869,12 +9288,10 @@ export type FilecoinMessagesAmountArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesAnyArgs = {
   of: FilecoinMessagesMeasureable;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesBaseFeeBurnArgs = {
@@ -9892,13 +9309,11 @@ export type FilecoinMessagesBaseFeeBurnArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesBurnedArgs = {
@@ -9916,7 +9331,6 @@ export type FilecoinMessagesBurnedArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesCountArgs = {
   uniq?: Maybe<FilecoinMessagesUniq>;
@@ -9931,7 +9345,6 @@ export type FilecoinMessagesCountArgs = {
   success?: Maybe<Scalars['Boolean']>;
   amount?: Maybe<AmountSelector>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesGasArgs = {
@@ -9948,12 +9361,10 @@ export type FilecoinMessagesGasArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesHashArgs = {
   hash?: Maybe<HashSelector>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesMaximumArgs = {
@@ -9961,12 +9372,10 @@ export type FilecoinMessagesMaximumArgs = {
   get?: Maybe<FilecoinMessagesMeasureable>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesMethodArgs = {
   method?: Maybe<IntegerSelector>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesMinerPenaltyArgs = {
@@ -9984,7 +9393,6 @@ export type FilecoinMessagesMinerPenaltyArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesMinerTipArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -10001,13 +9409,11 @@ export type FilecoinMessagesMinerTipArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesMinimumArgs = {
   of: FilecoinMessagesMeasureable;
   get?: Maybe<FilecoinMessagesMeasureable>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesOverEstimationBurnArgs = {
@@ -10025,12 +9431,10 @@ export type FilecoinMessagesOverEstimationBurnArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesRefundArgs = {
@@ -10048,18 +9452,15 @@ export type FilecoinMessagesRefundArgs = {
   amount?: Maybe<AmountSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
 
-
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Messages in Filecoin blockchain */
 export type FilecoinMessagesTotalCostArgs = {
@@ -10093,7 +9494,7 @@ export enum FilecoinMessagesMeasureable {
   /** Gas limit */
   GAS_LIMIT = 'gas_limit',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 export enum FilecoinMessagesUniq {
@@ -10104,7 +9505,7 @@ export enum FilecoinMessagesUniq {
   /** Unique Message senders */
   SENDERS = 'senders',
   /** Unique Message receivers */
-  RECEIVERS = 'receivers'
+  RECEIVERS = 'receivers',
 }
 
 /** Filecoin Mined Block */
@@ -10120,7 +9521,7 @@ export type FilecoinMinedBlock = {
 
 export enum FilecoinNetwork {
   /** Filecoin Mainnet */
-  FILECOIN = 'filecoin'
+  FILECOIN = 'filecoin',
 }
 
 export type FilecoinTransferFilter = {
@@ -10148,7 +9549,7 @@ export enum FilecoinTransferType {
   /** Rebalance */
   REBALANCE = 'rebalance',
   /** Genesis */
-  GENESIS = 'genesis'
+  GENESIS = 'genesis',
 }
 
 /** Transfers in Filecoin blockchain */
@@ -10185,7 +9586,6 @@ export type FilecoinTransfers = {
   transferType?: Maybe<FilecoinTransferType>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -10202,19 +9602,16 @@ export type FilecoinTransfersAmountArgs = {
   messageMethod?: Maybe<IntegerSelector>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersAnyArgs = {
   of: FilecoinTransfersMeasureable;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersCountArgs = {
@@ -10231,12 +9628,10 @@ export type FilecoinTransfersCountArgs = {
   messageMethod?: Maybe<IntegerSelector>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersHashArgs = {
   hash?: Maybe<HashSelector>;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersMaximumArgs = {
@@ -10244,18 +9639,15 @@ export type FilecoinTransfersMaximumArgs = {
   get?: Maybe<FilecoinTransfersMeasureable>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersMessageMethodArgs = {
   messageMethod?: Maybe<IntegerSelector>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersMethodArgs = {
   method?: Maybe<IntegerSelector>;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersMinimumArgs = {
@@ -10263,24 +9655,20 @@ export type FilecoinTransfersMinimumArgs = {
   get?: Maybe<FilecoinTransfersMeasureable>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
 
-
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transfers in Filecoin blockchain */
 export type FilecoinTransfersTransferTypeArgs = {
@@ -10305,7 +9693,7 @@ export enum FilecoinTransfersMeasureable {
   /** Gas limit */
   GAS_LIMIT = 'gas_limit',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 /** Select by number */
@@ -10334,7 +9722,7 @@ export enum FlowDirection {
   /** Inbound transfers */
   INBOUND = 'inbound',
   /** Outbound transfers */
-  OUTBOUND = 'outbound'
+  OUTBOUND = 'outbound',
 }
 
 /** Select by hash */
@@ -10368,7 +9756,6 @@ export type Hedera = {
   transactions?: Maybe<Array<HederaTransaction>>;
 };
 
-
 /** Hedera Chain */
 export type HederaArgumentsArgs = {
   date?: Maybe<DateSelector>;
@@ -10381,7 +9768,6 @@ export type HederaArgumentsArgs = {
   any?: Maybe<Array<HederaArgumentFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Hedera Chain */
 export type HederaCallsArgs = {
@@ -10398,7 +9784,6 @@ export type HederaCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Hedera Chain */
 export type HederaCoinpathArgs = {
   sender?: Maybe<AddressSelector>;
@@ -10411,7 +9796,6 @@ export type HederaCoinpathArgs = {
   depth?: Maybe<IntegerLimitedSelector>;
   options?: Maybe<CoinpathOptions>;
 };
-
 
 /** Hedera Chain */
 export type HederaInputsArgs = {
@@ -10428,7 +9812,6 @@ export type HederaInputsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Hedera Chain */
 export type HederaMessagesArgs = {
   date?: Maybe<DateSelector>;
@@ -10443,7 +9826,6 @@ export type HederaMessagesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Hedera Chain */
 export type HederaOutputsArgs = {
   date?: Maybe<DateSelector>;
@@ -10457,7 +9839,6 @@ export type HederaOutputsArgs = {
   any?: Maybe<Array<HederaOutputFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Hedera Chain */
 export type HederaTransactionsArgs = {
@@ -10525,18 +9906,15 @@ export type HederaArgument = {
   value?: Maybe<Scalars['String']>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentAnyArgs = {
   of: HederaArgumentsMeasureable;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentCountArgs = {
   uniq?: Maybe<HederaArgumentsUniq>;
 };
-
 
 /** Arguments in Hedera blockchain */
 export type HederaArgumentInitialBalanceArgs = {
@@ -10551,7 +9929,6 @@ export type HederaArgumentInitialBalanceArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentMaxFeeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -10565,13 +9942,11 @@ export type HederaArgumentMaxFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentMaximumArgs = {
   of: HederaArgumentsMeasureable;
   get?: Maybe<HederaArgumentsMeasureable>;
 };
-
 
 /** Arguments in Hedera blockchain */
 export type HederaArgumentMinimumArgs = {
@@ -10579,18 +9954,15 @@ export type HederaArgumentMinimumArgs = {
   get?: Maybe<HederaArgumentsMeasureable>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentResultArgs = {
   result?: Maybe<HashSelector>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Arguments in Hedera blockchain */
 export type HederaArgumentTransactionFeeArgs = {
@@ -10605,12 +9977,10 @@ export type HederaArgumentTransactionFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Arguments in Hedera blockchain */
 export type HederaArgumentTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Arguments in Hedera blockchain */
 export type HederaArgumentValidStartArgs = {
@@ -10642,7 +10012,7 @@ export enum HederaArgumentsMeasureable {
   /** Max Fee */
   MAX_FEE = 'max_fee',
   /** Charged Fee */
-  TRANSACTION_FEE = 'transaction_fee'
+  TRANSACTION_FEE = 'transaction_fee',
 }
 
 export enum HederaArgumentsUniq {
@@ -10659,7 +10029,7 @@ export enum HederaArgumentsUniq {
   /** Unique node account */
   SMART_CONTRACT_ENTITY = 'smart_contract_entity',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
 
 /** Calls in Hedera blockchain */
@@ -10707,30 +10077,25 @@ export type HederaCall = {
   validStart?: Maybe<Timestamp>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallAnyArgs = {
   of: HederaCallsMeasureable;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallCallInputArgs = {
   callInput?: Maybe<HashSelector>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallCallResultArgs = {
   callResult?: Maybe<HashSelector>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallCountArgs = {
   uniq?: Maybe<HederaCallsUniq>;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallGasArgs = {
@@ -10746,7 +10111,6 @@ export type HederaCallGasArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallInitialBalanceArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -10759,7 +10123,6 @@ export type HederaCallInitialBalanceArgs = {
   result?: Maybe<HashSelector>;
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallMaxFeeArgs = {
@@ -10774,13 +10137,11 @@ export type HederaCallMaxFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallMaximumArgs = {
   of: HederaCallsMeasureable;
   get?: Maybe<HederaCallsMeasureable>;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallMinimumArgs = {
@@ -10788,18 +10149,15 @@ export type HederaCallMinimumArgs = {
   get?: Maybe<HederaCallsMeasureable>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallResultArgs = {
   result?: Maybe<HashSelector>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallTransactionFeeArgs = {
@@ -10814,12 +10172,10 @@ export type HederaCallTransactionFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Calls in Hedera blockchain */
 export type HederaCallTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Calls in Hedera blockchain */
 export type HederaCallValidStartArgs = {
@@ -10853,7 +10209,7 @@ export enum HederaCallsMeasureable {
   /** Max Fee */
   MAX_FEE = 'max_fee',
   /** Charged Fee */
-  TRANSACTION_FEE = 'transaction_fee'
+  TRANSACTION_FEE = 'transaction_fee',
 }
 
 export enum HederaCallsUniq {
@@ -10870,7 +10226,7 @@ export enum HederaCallsUniq {
   /** Unique node account */
   SMART_CONTRACT_ENTITY = 'smart_contract_entity',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
 
 /** Coinpath */
@@ -10895,25 +10251,21 @@ export type HederaCoinpath = {
   transactions?: Maybe<Array<CoinpathEntry>>;
 };
 
-
 /** Coinpath */
 export type HederaCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type HederaCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type HederaCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type HederaCoinpathMinimumArgs = {
@@ -10978,7 +10330,6 @@ export type HederaInput = {
   validStart?: Maybe<Timestamp>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -10994,30 +10345,25 @@ export type HederaInputAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputAnyArgs = {
   of: HederaInputMeasureable;
 };
-
 
 /** Inputs in Hedera blockchain */
 export type HederaInputCountArgs = {
   uniq?: Maybe<HederaInputsUniq>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputCurrencyArgs = {
   currency?: Maybe<HederaCurrencySelector>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputEntityArgs = {
   entityType?: Maybe<EntityTypeSelector>;
 };
-
 
 /** Inputs in Hedera blockchain */
 export type HederaInputInitialBalanceArgs = {
@@ -11034,7 +10380,6 @@ export type HederaInputInitialBalanceArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputMaxFeeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -11050,13 +10395,11 @@ export type HederaInputMaxFeeArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputMaximumArgs = {
   of: HederaInputMeasureable;
   get?: Maybe<HederaInputMeasureable>;
 };
-
 
 /** Inputs in Hedera blockchain */
 export type HederaInputMinimumArgs = {
@@ -11064,18 +10407,15 @@ export type HederaInputMinimumArgs = {
   get?: Maybe<HederaInputMeasureable>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputResultArgs = {
   result?: Maybe<HashSelector>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Inputs in Hedera blockchain */
 export type HederaInputTransactionFeeArgs = {
@@ -11092,12 +10432,10 @@ export type HederaInputTransactionFeeArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Inputs in Hedera blockchain */
 export type HederaInputTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Inputs in Hedera blockchain */
 export type HederaInputValidStartArgs = {
@@ -11133,7 +10471,7 @@ export enum HederaInputMeasureable {
   /** Charged Fee */
   TRANSACTION_FEE = 'transaction_fee',
   /** Amount */
-  AMOUNT = 'amount'
+  AMOUNT = 'amount',
 }
 
 export enum HederaInputsUniq {
@@ -11152,7 +10490,7 @@ export enum HederaInputsUniq {
   /** Unique entity type */
   ENTITY_TYPE = 'entity_type',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
 
 /** Messages in Hedera blockchain */
@@ -11200,24 +10538,20 @@ export type HederaMessage = {
   validStart?: Maybe<Timestamp>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageAnyArgs = {
   of: HederaMessageMeasureable;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageCountArgs = {
   uniq?: Maybe<HederaMessagesUniq>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageEntityArgs = {
   entityType?: Maybe<EntityTypeSelector>;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageInitialBalanceArgs = {
@@ -11233,7 +10567,6 @@ export type HederaMessageInitialBalanceArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageMaxFeeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -11248,13 +10581,11 @@ export type HederaMessageMaxFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageMaximumArgs = {
   of: HederaMessageMeasureable;
   get?: Maybe<HederaMessageMeasureable>;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageMinimumArgs = {
@@ -11262,30 +10593,25 @@ export type HederaMessageMinimumArgs = {
   get?: Maybe<HederaMessageMeasureable>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageResultArgs = {
   result?: Maybe<HashSelector>;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageTopicRunningHashArgs = {
   topicRunningHash?: Maybe<StringSelector>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageTopicSequenceNumberArgs = {
   topicSequenceNumber?: Maybe<HashSelector>;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageTransactionFeeArgs = {
@@ -11301,12 +10627,10 @@ export type HederaMessageTransactionFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Messages in Hedera blockchain */
 export type HederaMessageTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Messages in Hedera blockchain */
 export type HederaMessageValidStartArgs = {
@@ -11339,7 +10663,7 @@ export enum HederaMessageMeasureable {
   /** Max Fee */
   MAX_FEE = 'max_fee',
   /** Charged Fee */
-  TRANSACTION_FEE = 'transaction_fee'
+  TRANSACTION_FEE = 'transaction_fee',
 }
 
 export enum HederaMessagesUniq {
@@ -11358,14 +10682,14 @@ export enum HederaMessagesUniq {
   /** Unique entity type */
   ENTITY_TYPE = 'entity_type',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
 
 export enum HederaNetwork {
   /** The Hedera mainnet */
   HEDERA = 'hedera',
   /** The Hedera testnets */
-  HEDERA_TESTNETS = 'hedera_testnets'
+  HEDERA_TESTNETS = 'hedera_testnets',
 }
 
 /** Outputs in Hedera blockchain */
@@ -11413,7 +10737,6 @@ export type HederaOutput = {
   validStart?: Maybe<Timestamp>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -11429,30 +10752,25 @@ export type HederaOutputAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputAnyArgs = {
   of: HederaOutputMeasureable;
 };
-
 
 /** Outputs in Hedera blockchain */
 export type HederaOutputCountArgs = {
   uniq?: Maybe<HederaOutputUniq>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputCurrencyArgs = {
   currency?: Maybe<HederaCurrencySelector>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputEntityArgs = {
   entityType?: Maybe<EntityTypeSelector>;
 };
-
 
 /** Outputs in Hedera blockchain */
 export type HederaOutputInitialBalanceArgs = {
@@ -11468,7 +10786,6 @@ export type HederaOutputInitialBalanceArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputMaxFeeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -11483,13 +10800,11 @@ export type HederaOutputMaxFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputMaximumArgs = {
   of: HederaOutputMeasureable;
   get?: Maybe<HederaOutputMeasureable>;
 };
-
 
 /** Outputs in Hedera blockchain */
 export type HederaOutputMinimumArgs = {
@@ -11497,18 +10812,15 @@ export type HederaOutputMinimumArgs = {
   get?: Maybe<HederaOutputMeasureable>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputResultArgs = {
   result?: Maybe<HashSelector>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Outputs in Hedera blockchain */
 export type HederaOutputTransactionFeeArgs = {
@@ -11524,12 +10836,10 @@ export type HederaOutputTransactionFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Outputs in Hedera blockchain */
 export type HederaOutputTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Outputs in Hedera blockchain */
 export type HederaOutputValidStartArgs = {
@@ -11564,7 +10874,7 @@ export enum HederaOutputMeasureable {
   /** Charged Fee */
   TRANSACTION_FEE = 'transaction_fee',
   /** Amount */
-  AMOUNT = 'amount'
+  AMOUNT = 'amount',
 }
 
 export enum HederaOutputUniq {
@@ -11585,7 +10895,7 @@ export enum HederaOutputUniq {
   /** Unique entity type */
   ENTITY_TYPE = 'entity_type',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
 
 /** Transactions in Hedera blockchain */
@@ -11631,24 +10941,20 @@ export type HederaTransaction = {
   validStart?: Maybe<Timestamp>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionAnyArgs = {
   of: HederaTransactionMeasureable;
 };
-
 
 /** Transactions in Hedera blockchain */
 export type HederaTransactionCountArgs = {
   uniq?: Maybe<HederaTransactionsUniq>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionEntityArgs = {
   entityType?: Maybe<EntityTypeSelector>;
 };
-
 
 /** Transactions in Hedera blockchain */
 export type HederaTransactionInitialBalanceArgs = {
@@ -11663,7 +10969,6 @@ export type HederaTransactionInitialBalanceArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionMaxFeeArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -11677,13 +10982,11 @@ export type HederaTransactionMaxFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionMaximumArgs = {
   of: HederaTransactionMeasureable;
   get?: Maybe<HederaTransactionMeasureable>;
 };
-
 
 /** Transactions in Hedera blockchain */
 export type HederaTransactionMinimumArgs = {
@@ -11691,18 +10994,15 @@ export type HederaTransactionMinimumArgs = {
   get?: Maybe<HederaTransactionMeasureable>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionResultArgs = {
   result?: Maybe<HashSelector>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Transactions in Hedera blockchain */
 export type HederaTransactionTransactionFeeArgs = {
@@ -11717,12 +11017,10 @@ export type HederaTransactionTransactionFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in Hedera blockchain */
 export type HederaTransactionTransactionHashArgs = {
   transactionHash?: Maybe<HashSelector>;
 };
-
 
 /** Transactions in Hedera blockchain */
 export type HederaTransactionValidStartArgs = {
@@ -11754,7 +11052,7 @@ export enum HederaTransactionMeasureable {
   /** Max Fee */
   MAX_FEE = 'max_fee',
   /** Charged Fee */
-  TRANSACTION_FEE = 'transaction_fee'
+  TRANSACTION_FEE = 'transaction_fee',
 }
 
 export enum HederaTransactionsUniq {
@@ -11775,10 +11073,8 @@ export enum HederaTransactionsUniq {
   /** Unique entity type */
   ENTITY_TYPE = 'entity_type',
   /** Unique initial balance */
-  INITIAL_BALANCE = 'initial_balance'
+  INITIAL_BALANCE = 'initial_balance',
 }
-
-
 
 /** Input Script Type of UTXO transaction input */
 export type InputScript = {
@@ -11868,7 +11164,6 @@ export type Libra = {
   transfers?: Maybe<Array<LibraTransfers>>;
 };
 
-
 /** Libra */
 export type LibraBlocksArgs = {
   date?: Maybe<DateSelector>;
@@ -11880,7 +11175,6 @@ export type LibraBlocksArgs = {
   any?: Maybe<Array<LibraBlockFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Libra */
 export type LibraCoinpathArgs = {
@@ -11896,7 +11190,6 @@ export type LibraCoinpathArgs = {
   options?: Maybe<CoinpathOptions>;
 };
 
-
 /** Libra */
 export type LibraMintsArgs = {
   date?: Maybe<DateSelector>;
@@ -11909,7 +11202,6 @@ export type LibraMintsArgs = {
   any?: Maybe<Array<LibraMintFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Libra */
 export type LibraTransactionsArgs = {
@@ -11925,7 +11217,6 @@ export type LibraTransactionsArgs = {
   any?: Maybe<Array<LibraTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Libra */
 export type LibraTransfersArgs = {
@@ -11977,12 +11268,10 @@ export type LibraBlock = {
   vmStatus?: Maybe<Scalars['Int']>;
 };
 
-
 /** Block */
 export type LibraBlockAnyArgs = {
   of: LibraBlocksMeasureable;
 };
-
 
 /** Block */
 export type LibraBlockCountArgs = {
@@ -11995,7 +11284,6 @@ export type LibraBlockCountArgs = {
   metadata?: Maybe<StringSelector>;
 };
 
-
 /** Block */
 export type LibraBlockGasUsedArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -12007,12 +11295,10 @@ export type LibraBlockGasUsedArgs = {
   metadata?: Maybe<StringSelector>;
 };
 
-
 /** Block */
 export type LibraBlockHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Block */
 export type LibraBlockMaximumArgs = {
@@ -12020,12 +11306,10 @@ export type LibraBlockMaximumArgs = {
   get?: Maybe<LibraBlocksMeasureable>;
 };
 
-
 /** Block */
 export type LibraBlockMetadataArgs = {
   metadata?: Maybe<StringSelector>;
 };
-
 
 /** Block */
 export type LibraBlockMinimumArgs = {
@@ -12033,18 +11317,15 @@ export type LibraBlockMinimumArgs = {
   get?: Maybe<LibraBlocksMeasureable>;
 };
 
-
 /** Block */
 export type LibraBlockProposerArgs = {
   proposer?: Maybe<AddressSelector>;
 };
 
-
 /** Block */
 export type LibraBlockTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Block */
 export type LibraBlockVersionArgs = {
@@ -12064,7 +11345,7 @@ export enum LibraBlockUniq {
   /** Proposer */
   PROPOSER = 'proposer',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum LibraBlocksMeasureable {
@@ -12079,7 +11360,7 @@ export enum LibraBlocksMeasureable {
   /** Proposer */
   PROPOSER = 'proposer',
   /** Gas Used */
-  GAS_USED = 'gas_used'
+  GAS_USED = 'gas_used',
 }
 
 /** Coinpath */
@@ -12106,25 +11387,21 @@ export type LibraCoinpath = {
   transaction?: Maybe<LibraTransactionValue>;
 };
 
-
 /** Coinpath */
 export type LibraCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type LibraCoinpathAnyArgs = {
   of: LibraCoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type LibraCoinpathMaximumArgs = {
   of: LibraCoinpathMeasureable;
   get?: Maybe<LibraCoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type LibraCoinpathMinimumArgs = {
@@ -12144,7 +11421,7 @@ export enum LibraCoinpathMeasureable {
   /** Receiver */
   RECEIVER = 'receiver',
   /** Depth */
-  DEPTH = 'depth'
+  DEPTH = 'depth',
 }
 
 /**
@@ -12205,7 +11482,6 @@ export type LibraMints = {
   vmStatus?: Maybe<Scalars['Int']>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -12218,19 +11494,16 @@ export type LibraMintsAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsAnyArgs = {
   of: LibraMintsMeasureable;
 };
-
 
 /** Mints in Libra blockchain */
 export type LibraMintsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Mints in Libra blockchain */
 export type LibraMintsCountArgs = {
@@ -12244,12 +11517,10 @@ export type LibraMintsCountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsCurrencyArgs = {
   currency?: Maybe<Array<LibraCurrencySelector>>;
 };
-
 
 /** Mints in Libra blockchain */
 export type LibraMintsMaximumArgs = {
@@ -12257,31 +11528,26 @@ export type LibraMintsMaximumArgs = {
   get?: Maybe<LibraMintsMeasureable>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsMinimumArgs = {
   of: LibraMintsMeasureable;
   get?: Maybe<LibraMintsMeasureable>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsMinterArgs = {
   sender?: Maybe<AddressSelector>;
 };
-
 
 /** Mints in Libra blockchain */
 export type LibraMintsSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Mints in Libra blockchain */
 export type LibraMintsTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Mints in Libra blockchain */
 export type LibraMintsVersionArgs = {
@@ -12304,7 +11570,7 @@ export enum LibraMintsMeasureable {
   /** Minter */
   MINTER = 'minter',
   /** Currency symbol */
-  CURRENCY_SYMBOL = 'currency_symbol'
+  CURRENCY_SYMBOL = 'currency_symbol',
 }
 
 export enum LibraMintsUniq {
@@ -12317,7 +11583,7 @@ export enum LibraMintsUniq {
   /** Unique minters */
   MINTERS = 'minters',
   /** Unique currencies */
-  CURRENCIES = 'currencies'
+  CURRENCIES = 'currencies',
 }
 
 export type LibraTransactionFilter = {
@@ -12390,19 +11656,16 @@ export type LibraTransactions = {
   vmStatus?: Maybe<Scalars['Int']>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsAnyArgs = {
   of: LibraTransactionsMeasureable;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsCountArgs = {
@@ -12418,7 +11681,6 @@ export type LibraTransactionsCountArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsGasArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -12433,12 +11695,10 @@ export type LibraTransactionsGasArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsGasCurrencyArgs = {
   gasCurrency?: Maybe<Array<LibraCurrencySelector>>;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsGasPriceArgs = {
@@ -12454,7 +11714,6 @@ export type LibraTransactionsGasPriceArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsGasValueArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -12469,13 +11728,11 @@ export type LibraTransactionsGasValueArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsMaximumArgs = {
   of: LibraTransactionsMeasureable;
   get?: Maybe<LibraTransactionsMeasureable>;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsMinimumArgs = {
@@ -12483,30 +11740,25 @@ export type LibraTransactionsMinimumArgs = {
   get?: Maybe<LibraTransactionsMeasureable>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsScriptHashArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsSenderArgs = {
   txSender?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in Libra blockchain */
 export type LibraTransactionsTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transactions in Libra blockchain */
 export type LibraTransactionsVersionArgs = {
@@ -12529,7 +11781,7 @@ export enum LibraTransactionsMeasureable {
   /** Gas price */
   GAS_PRICE = 'gas_price',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 export enum LibraTransactionsUniq {
@@ -12542,7 +11794,7 @@ export enum LibraTransactionsUniq {
   /** Unique transaction senders */
   SENDERS = 'senders',
   /** Unique transaction script hashes */
-  SCRIPTS = 'scripts'
+  SCRIPTS = 'scripts',
 }
 
 export type LibraTransferFilter = {
@@ -12616,7 +11868,6 @@ export type LibraTransfers = {
   vmStatus?: Maybe<Scalars['Int']>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -12634,19 +11885,16 @@ export type LibraTransfersAmountArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersAnyArgs = {
   of: LibraTransfersMeasureable;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersCountArgs = {
@@ -12665,12 +11913,10 @@ export type LibraTransfersCountArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersCurrencyArgs = {
   currency?: Maybe<Array<LibraCurrencySelector>>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersGasArgs = {
@@ -12689,12 +11935,10 @@ export type LibraTransfersGasArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersGasCurrencyArgs = {
   gasCurrency?: Maybe<Array<LibraCurrencySelector>>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersGasValueArgs = {
@@ -12713,13 +11957,11 @@ export type LibraTransfersGasValueArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersMaximumArgs = {
   of: LibraTransfersMeasureable;
   get?: Maybe<LibraTransfersMeasureable>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersMinimumArgs = {
@@ -12727,42 +11969,35 @@ export type LibraTransfersMinimumArgs = {
   get?: Maybe<LibraTransfersMeasureable>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersScriptHashArgs = {
   scriptHash?: Maybe<StringSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Transfers in Libra blockchain */
 export type LibraTransfersTxSenderArgs = {
   txSender?: Maybe<AddressSelector>;
 };
-
 
 /** Transfers in Libra blockchain */
 export type LibraTransfersVersionArgs = {
@@ -12797,7 +12032,7 @@ export enum LibraTransfersMeasureable {
   /** Gas price */
   GAS_PRICE = 'gas_price',
   /** Gas used */
-  GAS = 'gas'
+  GAS = 'gas',
 }
 
 /** Limit by definition */
@@ -12904,7 +12139,7 @@ export enum Network {
   /** Filecoin Mainnet */
   FILECOIN = 'filecoin',
   /** Hedera Hashgraph */
-  HEDERA = 'hedera'
+  HEDERA = 'hedera',
 }
 
 /** Offchain Data */
@@ -13025,7 +12260,7 @@ export enum PriceAggregateFunction {
   /** Any value */
   ANY = 'any',
   /** Last value */
-  ANY_LAST = 'anyLast'
+  ANY_LAST = 'anyLast',
 }
 
 export enum Protocol {
@@ -13046,7 +12281,7 @@ export enum Protocol {
   /** Filecoin */
   FILECOIN = 'filecoin',
   /** Hedera Hashgraph */
-  HEDERA = 'hedera'
+  HEDERA = 'hedera',
 }
 
 /** Blockchain Unified GraphQL API */
@@ -13080,54 +12315,45 @@ export type Query = {
   tron?: Maybe<Tron>;
 };
 
-
 /** Blockchain Unified GraphQL API */
 export type QueryAlgorandArgs = {
   network?: Maybe<AlgorandNetwork>;
 };
-
 
 /** Blockchain Unified GraphQL API */
 export type QueryBitcoinArgs = {
   network?: Maybe<BitcoinNetwork>;
 };
 
-
 /** Blockchain Unified GraphQL API */
 export type QueryConfluxArgs = {
   network?: Maybe<ConfluxNetwork>;
 };
-
 
 /** Blockchain Unified GraphQL API */
 export type QueryDiemArgs = {
   network?: Maybe<DiemNetwork>;
 };
 
-
 /** Blockchain Unified GraphQL API */
 export type QueryEthereumArgs = {
   network?: Maybe<EthereumNetwork>;
 };
-
 
 /** Blockchain Unified GraphQL API */
 export type QueryEthereum2Args = {
   network?: Maybe<Ethereum2Network>;
 };
 
-
 /** Blockchain Unified GraphQL API */
 export type QueryFilecoinArgs = {
   network?: Maybe<FilecoinNetwork>;
 };
 
-
 /** Blockchain Unified GraphQL API */
 export type QueryHederaArgs = {
   network?: Maybe<HederaNetwork>;
 };
-
 
 /** Blockchain Unified GraphQL API */
 export type QuerySearchArgs = {
@@ -13164,7 +12390,7 @@ export enum ScriptTypeSelectorSelector {
   /** Unknown Transaction */
   UNKNOWN_TRANSACTION = 'unknown_transaction',
   /** Peer-to-peer */
-  PEER_TO_PEER_TRANSACTION = 'peer_to_peer_transaction'
+  PEER_TO_PEER_TRANSACTION = 'peer_to_peer_transaction',
 }
 
 /** Smart contract method or event */
@@ -13174,7 +12400,7 @@ export enum SignatureTypeSelector {
   /** Smart contract method */
   FUNCTION = 'Function',
   /** Smart contract event */
-  EVENT = 'Event'
+  EVENT = 'Event',
 }
 
 /** Blockchain smart contract */
@@ -13208,7 +12434,7 @@ export enum SmartContractArgumentsUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum SmartContractCallsUniq {
@@ -13227,7 +12453,7 @@ export enum SmartContractCallsUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export type SmartContractReadonlyAttribute = {
@@ -13258,7 +12484,7 @@ export enum SmartContractType {
   /** Decentralized exchange */
   DEX = 'DEX',
   /** Transaction Execution Approval Language */
-  TEAL = 'TEAL'
+  TEAL = 'TEAL',
 }
 
 /** Selector of smart contract type */
@@ -13298,7 +12524,12 @@ export type StringSelector = {
 };
 
 /** Search result subject */
-export type Subject = Address | Currency | HederaAccount | SmartContract | TransactionHash;
+export type Subject =
+  | Address
+  | Currency
+  | HederaAccount
+  | SmartContract
+  | TransactionHash;
 
 /** Time Interval */
 export type TimeInterval = {
@@ -13311,13 +12542,11 @@ export type TimeInterval = {
   year: Scalars['String'];
 };
 
-
 /** Time Interval */
 export type TimeIntervalDayArgs = {
   count?: Maybe<Scalars['Int']>;
   format?: Maybe<Scalars['String']>;
 };
-
 
 /** Time Interval */
 export type TimeIntervalHourArgs = {
@@ -13325,13 +12554,11 @@ export type TimeIntervalHourArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
-
 /** Time Interval */
 export type TimeIntervalMinuteArgs = {
   count?: Maybe<Scalars['Int']>;
   format?: Maybe<Scalars['String']>;
 };
-
 
 /** Time Interval */
 export type TimeIntervalMonthArgs = {
@@ -13339,13 +12566,11 @@ export type TimeIntervalMonthArgs = {
   format?: Maybe<Scalars['String']>;
 };
 
-
 /** Time Interval */
 export type TimeIntervalSecondArgs = {
   count?: Maybe<Scalars['Int']>;
   format?: Maybe<Scalars['String']>;
 };
-
 
 /** Time Interval */
 export type TimeIntervalYearArgs = {
@@ -13377,7 +12602,7 @@ export enum TradeSide {
   /** Buy side */
   BUY = 'BUY',
   /** Sell side */
-  SELL = 'SELL'
+  SELL = 'SELL',
 }
 
 /** Blockchain transaction */
@@ -13462,7 +12687,7 @@ export enum TransfersUniq {
   /** Unique date count */
   DATES = 'dates',
   /** Unique currencies */
-  CURRENCIES = 'currencies'
+  CURRENCIES = 'currencies',
 }
 
 /** Tron Chain */
@@ -13488,12 +12713,10 @@ export type Tron = {
   transfers?: Maybe<Array<TronTransfers>>;
 };
 
-
 /** Tron Chain */
 export type TronAddressArgs = {
   address: Array<AddressSelectorIn>;
 };
-
 
 /** Tron Chain */
 export type TronBlocksArgs = {
@@ -13507,7 +12730,6 @@ export type TronBlocksArgs = {
   any?: Maybe<Array<TronBlockFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Tron Chain */
 export type TronCoinpathArgs = {
@@ -13523,7 +12745,6 @@ export type TronCoinpathArgs = {
   options?: Maybe<CoinpathOptions>;
 };
 
-
 /** Tron Chain */
 export type TronContractsArgs = {
   date?: Maybe<DateSelector>;
@@ -13537,7 +12758,6 @@ export type TronContractsArgs = {
   any?: Maybe<Array<TronContractFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Tron Chain */
 export type TronSmartContractCallsArgs = {
@@ -13555,7 +12775,6 @@ export type TronSmartContractCallsArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Tron Chain */
 export type TronSmartContractEventsArgs = {
   date?: Maybe<DateSelector>;
@@ -13569,7 +12788,6 @@ export type TronSmartContractEventsArgs = {
   any?: Maybe<Array<TronSmartContractEventFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Tron Chain */
 export type TronTradesArgs = {
@@ -13590,7 +12808,6 @@ export type TronTradesArgs = {
   options?: Maybe<QueryOptions>;
 };
 
-
 /** Tron Chain */
 export type TronTransactionsArgs = {
   date?: Maybe<DateSelector>;
@@ -13604,7 +12821,6 @@ export type TronTransactionsArgs = {
   any?: Maybe<Array<TronTransactionFilter>>;
   options?: Maybe<QueryOptions>;
 };
-
 
 /** Tron Chain */
 export type TronTransfersArgs = {
@@ -13674,12 +12890,10 @@ export type TronBlocks = {
   witnessSignature: Scalars['String'];
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksAnyArgs = {
   of: TronBlocksMeasureable;
 };
-
 
 /** Blocks in Tron blockchain */
 export type TronBlocksCountArgs = {
@@ -13693,18 +12907,15 @@ export type TronBlocksCountArgs = {
   parentBlockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksHashArgs = {
   blockHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksHeightArgs = {
   height?: Maybe<BlockSelector>;
 };
-
 
 /** Blocks in Tron blockchain */
 export type TronBlocksMaximumArgs = {
@@ -13712,31 +12923,26 @@ export type TronBlocksMaximumArgs = {
   get?: Maybe<TronBlocksMeasureable>;
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksMinimumArgs = {
   of: TronBlocksMeasureable;
   get?: Maybe<TronBlocksMeasureable>;
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksParentBlockHashArgs = {
   parentBlockHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Blocks in Tron blockchain */
 export type TronBlocksTimestampArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Blocks in Tron blockchain */
 export type TronBlocksVersionArgs = {
   version?: Maybe<IntegerSelector>;
 };
-
 
 /** Blocks in Tron blockchain */
 export type TronBlocksWitnessArgs = {
@@ -13755,14 +12961,14 @@ export enum TronBlocksMeasureable {
   /** Block Witness address */
   WITNESS = 'witness',
   /** Block Version */
-  VERSION = 'version'
+  VERSION = 'version',
 }
 
 export enum TronBlocksUniq {
   /** Unique witness count */
   WITNESSES = 'witnesses',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export enum TronCallsMeasureable {
@@ -13787,7 +12993,7 @@ export enum TronCallsMeasureable {
   /** Smart Contract Method Signature Hash */
   SIGNATURE_HASH = 'signature_hash',
   /** Call depth */
-  CALL_DEPTH = 'call_depth'
+  CALL_DEPTH = 'call_depth',
 }
 
 /** Coinpath */
@@ -13814,25 +13020,21 @@ export type TronCoinpath = {
   transaction?: Maybe<TransactionHashValue>;
 };
 
-
 /** Coinpath */
 export type TronCoinpathAmountArgs = {
   in?: Maybe<BaseCurrencyEnum>;
 };
-
 
 /** Coinpath */
 export type TronCoinpathAnyArgs = {
   of: CoinpathMeasureable;
 };
 
-
 /** Coinpath */
 export type TronCoinpathMaximumArgs = {
   of: CoinpathMeasureable;
   get?: Maybe<CoinpathMeasureable>;
 };
-
 
 /** Coinpath */
 export type TronCoinpathMinimumArgs = {
@@ -13909,7 +13111,7 @@ export enum TronContractType {
   /** Witness Create */
   WITNESS_CREATE = 'WitnessCreate',
   /** Witness Update */
-  WITNESS_UPDATE = 'WitnessUpdate'
+  WITNESS_UPDATE = 'WitnessUpdate',
 }
 
 /** Select contract type(s) */
@@ -13936,7 +13138,7 @@ export enum TronContractsMeasureable {
   /** Transaction owner */
   TX_OWNER = 'tx_owner',
   /** Contract */
-  CONTRACT_TYPE = 'contract_type'
+  CONTRACT_TYPE = 'contract_type',
 }
 
 /**
@@ -13974,7 +13176,7 @@ export enum TronEventsMeasureable {
   /** Smart Contract Method Signature */
   SIGNATURE = 'signature',
   /** Smart Contract Method Signature Hash */
-  SIGNATURE_HASH = 'signature_hash'
+  SIGNATURE_HASH = 'signature_hash',
 }
 
 /** Tron smart contract */
@@ -14037,7 +13239,6 @@ export type TronSmartContractCalls = {
   txTo?: Maybe<Address>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14054,19 +13255,16 @@ export type TronSmartContractCallsAmountArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsAnyArgs = {
   of: TronCallsMeasureable;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsCountArgs = {
@@ -14083,7 +13281,6 @@ export type TronSmartContractCallsCountArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsEnergyUsageTotalArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14099,12 +13296,10 @@ export type TronSmartContractCallsEnergyUsageTotalArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsFeeArgs = {
@@ -14122,20 +13317,17 @@ export type TronSmartContractCallsFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsMaximumArgs = {
   of: TronCallsMeasureable;
   get?: Maybe<TronCallsMeasureable>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsMinimumArgs = {
   of: TronCallsMeasureable;
   get?: Maybe<TronCallsMeasureable>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsNetUsageArgs = {
@@ -14152,36 +13344,30 @@ export type TronSmartContractCallsNetUsageArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsSmartContractArgs = {
   smartContractAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsSmartContractMethodArgs = {
   smartContractMethod?: Maybe<MethodSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsSuccessArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsTxFromArgs = {
   txFrom?: Maybe<AddressSelector>;
 };
 
-
 /** Smart Contract Calls */
 export type TronSmartContractCallsTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Smart Contract Calls */
 export type TronSmartContractCallsTxToArgs = {
@@ -14223,19 +13409,16 @@ export type TronSmartContractEvents = {
   txTo?: Maybe<Address>;
 };
 
-
 /** Smart Contract Events */
 export type TronSmartContractEventsAnyArgs = {
   of: TronEventsMeasureable;
 };
-
 
 /** Smart Contract Events */
 export type TronSmartContractEventsBlockArgs = {
   height?: Maybe<BlockSelector>;
   time?: Maybe<DateTimeSelector>;
 };
-
 
 /** Smart Contract Events */
 export type TronSmartContractEventsCountArgs = {
@@ -14250,13 +13433,11 @@ export type TronSmartContractEventsCountArgs = {
   smartContractEvent?: Maybe<EventSelector>;
 };
 
-
 /** Smart Contract Events */
 export type TronSmartContractEventsMaximumArgs = {
   of: TronEventsMeasureable;
   get?: Maybe<TronEventsMeasureable>;
 };
-
 
 /** Smart Contract Events */
 export type TronSmartContractEventsMinimumArgs = {
@@ -14264,30 +13445,25 @@ export type TronSmartContractEventsMinimumArgs = {
   get?: Maybe<TronEventsMeasureable>;
 };
 
-
 /** Smart Contract Events */
 export type TronSmartContractEventsSmartContractArgs = {
   smartContractAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Smart Contract Events */
 export type TronSmartContractEventsSmartContractEventArgs = {
   smartContractEvent?: Maybe<EventSelector>;
 };
 
-
 /** Smart Contract Events */
 export type TronSmartContractEventsTxFromArgs = {
   txFrom?: Maybe<AddressSelector>;
 };
 
-
 /** Smart Contract Events */
 export type TronSmartContractEventsTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Smart Contract Events */
 export type TronSmartContractEventsTxToArgs = {
@@ -14333,7 +13509,6 @@ export type TronSmartContracts = {
   txOwner?: Maybe<Address>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14348,12 +13523,10 @@ export type TronSmartContractsAmountArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsAnyArgs = {
   of: TronContractsMeasureable;
 };
-
 
 /** Contracts */
 export type TronSmartContractsBlockArgs = {
@@ -14361,12 +13534,10 @@ export type TronSmartContractsBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsContractTypeArgs = {
   contractType?: Maybe<TronContractTypeSelector>;
 };
-
 
 /** Contracts */
 export type TronSmartContractsCountArgs = {
@@ -14381,12 +13552,10 @@ export type TronSmartContractsCountArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsCurrencyArgs = {
   currency?: Maybe<TronCurrencySelector>;
 };
-
 
 /** Contracts */
 export type TronSmartContractsEnergyUsageTotalArgs = {
@@ -14400,7 +13569,6 @@ export type TronSmartContractsEnergyUsageTotalArgs = {
   currency?: Maybe<TronCurrencySelector>;
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Contracts */
 export type TronSmartContractsFeeArgs = {
@@ -14416,20 +13584,17 @@ export type TronSmartContractsFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsMaximumArgs = {
   of: TronContractsMeasureable;
   get?: Maybe<TronContractsMeasureable>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsMinimumArgs = {
   of: TronContractsMeasureable;
   get?: Maybe<TronContractsMeasureable>;
 };
-
 
 /** Contracts */
 export type TronSmartContractsNetUsageArgs = {
@@ -14444,18 +13609,15 @@ export type TronSmartContractsNetUsageArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsSuccessArgs = {
   success?: Maybe<Array<Scalars['Boolean']>>;
 };
 
-
 /** Contracts */
 export type TronSmartContractsTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Contracts */
 export type TronSmartContractsTxOwnerArgs = {
@@ -14512,7 +13674,6 @@ export type TronTrades = {
   txHash?: Maybe<Scalars['String']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesAmountBuyArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14531,7 +13692,6 @@ export type TronTradesAmountBuyArgs = {
   exchangeId?: Maybe<IntIdSelector>;
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesAmountSellArgs = {
@@ -14552,12 +13712,10 @@ export type TronTradesAmountSellArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesAnyArgs = {
   of: TronTradesMeasureable;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesBlockArgs = {
@@ -14565,24 +13723,20 @@ export type TronTradesBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesBuyCurrencyArgs = {
   buyCurrency?: Maybe<TronCurrencySelector>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesBuyerArgs = {
   buyer?: Maybe<AddressSelector>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesContractTypeArgs = {
   contractType?: Maybe<TronContractTypeSelector>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesCountArgs = {
@@ -14602,7 +13756,6 @@ export type TronTradesCountArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesEnergyUsageTotalArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14621,12 +13774,10 @@ export type TronTradesEnergyUsageTotalArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesExchangeIdArgs = {
   exchangeId?: Maybe<IntIdSelector>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesFeeArgs = {
@@ -14647,20 +13798,17 @@ export type TronTradesFeeArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesMaximumArgs = {
   of: TronTradesMeasureable;
   get?: Maybe<TronTradesMeasureable>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesMinimumArgs = {
   of: TronTradesMeasureable;
   get?: Maybe<TronTradesMeasureable>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesNetUsageArgs = {
@@ -14680,24 +13828,20 @@ export type TronTradesNetUsageArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesSellCurrencyArgs = {
   sellCurrency?: Maybe<TronCurrencySelector>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesSellerArgs = {
   seller?: Maybe<AddressSelector>;
 };
 
-
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency Trades from/to addresses in crypto currencies */
 export type TronTradesTxHashArgs = {
@@ -14744,7 +13888,7 @@ export enum TronTradesMeasureable {
   /** Exchange ID */
   EXCHANGE_ID = 'exchange_id',
   /** Contract Type */
-  CONTRACT_TYPE = 'contract_type'
+  CONTRACT_TYPE = 'contract_type',
 }
 
 export enum TronTradesUniq {
@@ -14761,7 +13905,7 @@ export enum TronTradesUniq {
   /** Sell currencies */
   SELL_CURRENCIES = 'sell_currencies',
   /** Exchange IDs */
-  EXCHANGES = 'exchanges'
+  EXCHANGES = 'exchanges',
 }
 
 export type TronTransactionFilter = {
@@ -14813,12 +13957,10 @@ export type TronTransactions = {
   success?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsAnyArgs = {
   of: TronTransactionsMeasureable;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsBlockArgs = {
@@ -14826,12 +13968,10 @@ export type TronTransactionsBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsContractAddressArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsCountArgs = {
@@ -14845,7 +13985,6 @@ export type TronTransactionsCountArgs = {
   refBlockHash?: Maybe<Array<HashSelector>>;
   contractAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsEnergyFeeArgs = {
@@ -14861,7 +14000,6 @@ export type TronTransactionsEnergyFeeArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsEnergyUsageTotalArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14874,7 +14012,6 @@ export type TronTransactionsEnergyUsageTotalArgs = {
   refBlockHash?: Maybe<Array<HashSelector>>;
   contractAddress?: Maybe<AddressSelector>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsFeeArgs = {
@@ -14890,18 +14027,15 @@ export type TronTransactionsFeeArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsHashArgs = {
   txHash?: Maybe<Array<HashSelector>>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsIndexArgs = {
   txIndex?: Maybe<Array<TxIndexSelector>>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsInternalTransactionsCountArgs = {
@@ -14915,7 +14049,6 @@ export type TronTransactionsInternalTransactionsCountArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsLogsCountArgs = {
   date?: Maybe<DateSelector>;
@@ -14928,20 +14061,17 @@ export type TronTransactionsLogsCountArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsMaximumArgs = {
   of: TronTransactionsMeasureable;
   get?: Maybe<TronTransactionsMeasureable>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsMinimumArgs = {
   of: TronTransactionsMeasureable;
   get?: Maybe<TronTransactionsMeasureable>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsNetFeeArgs = {
@@ -14957,7 +14087,6 @@ export type TronTransactionsNetFeeArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsNetUsageArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -14971,12 +14100,10 @@ export type TronTransactionsNetUsageArgs = {
   contractAddress?: Maybe<AddressSelector>;
 };
 
-
 /** Transactions in Tron blockchain */
 export type TronTransactionsRefBlockHashArgs = {
   refBlockHash?: Maybe<Array<HashSelector>>;
 };
-
 
 /** Transactions in Tron blockchain */
 export type TronTransactionsSuccessArgs = {
@@ -15001,14 +14128,14 @@ export enum TronTransactionsMeasureable {
   /** Net usage */
   NET_USAGE = 'net_usage',
   /** Internal transactions count */
-  INTERNAL_TRANSACTIONS_COUNT = 'internal_transactions_count'
+  INTERNAL_TRANSACTIONS_COUNT = 'internal_transactions_count',
 }
 
 export enum TronTransactionsUniq {
   /** Unique blocks */
   BLOCKS = 'blocks',
   /** Unique date count */
-  DATES = 'dates'
+  DATES = 'dates',
 }
 
 export type TronTransferFilter = {
@@ -15065,7 +14192,6 @@ export type TronTransfers = {
   txTo?: Maybe<Address>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersAmountArgs = {
   calculate?: Maybe<AmountAggregateFunction>;
@@ -15086,12 +14212,10 @@ export type TronTransfersAmountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersAnyArgs = {
   of: TronTransfersMeasureable;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersBlockArgs = {
@@ -15099,12 +14223,10 @@ export type TronTransfersBlockArgs = {
   time?: Maybe<DateTimeSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersContractTypeArgs = {
   contractType?: Maybe<TronContractTypeSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersCountArgs = {
@@ -15125,12 +14247,10 @@ export type TronTransfersCountArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersCurrencyArgs = {
   currency?: Maybe<TronCurrencySelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersEnergyUsageTotalArgs = {
@@ -15151,18 +14271,15 @@ export type TronTransfersEnergyUsageTotalArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersEntityIdArgs = {
   entityId?: Maybe<EntitySelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersExternalArgs = {
   external?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersFeeArgs = {
@@ -15184,20 +14301,17 @@ export type TronTransfersFeeArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersMaximumArgs = {
   of: TronTransfersMeasureable;
   get?: Maybe<TronTransfersMeasureable>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersMinimumArgs = {
   of: TronTransfersMeasureable;
   get?: Maybe<TronTransfersMeasureable>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersNetUsageArgs = {
@@ -15218,36 +14332,30 @@ export type TronTransfersNetUsageArgs = {
   amount?: Maybe<Array<AmountSelector>>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersReceiverArgs = {
   receiver?: Maybe<AddressSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersSenderArgs = {
   sender?: Maybe<AddressSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersSuccessArgs = {
   success?: Maybe<Scalars['Boolean']>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersTxFromArgs = {
   txFrom?: Maybe<AddressSelector>;
 };
 
-
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersTxHashArgs = {
   txHash?: Maybe<HashSelector>;
 };
-
 
 /** Currency transfers from/to addresses in crypto currencies */
 export type TronTransfersTxToArgs = {
@@ -15276,7 +14384,7 @@ export enum TronTransfersMeasureable {
   /** Token ID */
   TOKEN_ID = 'token_id',
   /** Token type */
-  TOKEN_TYPE = 'token_type'
+  TOKEN_TYPE = 'token_type',
 }
 
 /** Selector of index of transaction in block */
@@ -15315,29 +14423,8495 @@ export type TxTypeSelector = {
   notIn?: Maybe<Array<AlgorandTxType>>;
 };
 
+export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  fragment: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+
+export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
+  selectionSet: string;
+  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
+};
+export type StitchingResolver<TResult, TParent, TContext, TArgs> =
+  | LegacyStitchingResolver<TResult, TParent, TContext, TArgs>
+  | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
+  | ResolverFn<TResult, TParent, TContext, TArgs>
+  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+
+export type ResolverFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => Promise<TResult> | TResult;
+
+export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+
+export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => TResult | Promise<TResult>;
+
+export interface SubscriptionSubscriberObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> {
+  subscribe: SubscriptionSubscribeFn<
+    { [key in TKey]: TResult },
+    TParent,
+    TContext,
+    TArgs
+  >;
+  resolve?: SubscriptionResolveFn<
+    TResult,
+    { [key in TKey]: TResult },
+    TContext,
+    TArgs
+  >;
+}
+
+export interface SubscriptionResolverObject<TResult, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<any, TParent, TContext, TArgs>;
+  resolve: SubscriptionResolveFn<TResult, any, TContext, TArgs>;
+}
+
+export type SubscriptionObject<
+  TResult,
+  TKey extends string,
+  TParent,
+  TContext,
+  TArgs,
+> =
+  | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
+  | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
+
+export type SubscriptionResolver<
+  TResult,
+  TKey extends string,
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> =
+  | ((
+      ...args: any[]
+    ) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
+  | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
+
+export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
+  parent: TParent,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => Maybe<TTypes> | Promise<Maybe<TTypes>>;
+
+export type IsTypeOfResolverFn<T = {}, TContext = {}> = (
+  obj: T,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => boolean | Promise<boolean>;
+
+export type NextResolverFn<T> = () => Promise<T>;
+
+export type DirectiveResolverFn<
+  TResult = {},
+  TParent = {},
+  TContext = {},
+  TArgs = {},
+> = (
+  next: NextResolverFn<TResult>,
+  parent: TParent,
+  args: TArgs,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => TResult | Promise<TResult>;
+
+/** Mapping between all available schema types and the resolvers types */
+export type ResolversTypes = {
+  Account: ResolverTypeWrapper<Account>;
+  String: ResolverTypeWrapper<Scalars['String']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Address: ResolverTypeWrapper<Address>;
+  AddressSelector: AddressSelector;
+  AddressSelectorIn: AddressSelectorIn;
+  AddressWithAccount: ResolverTypeWrapper<AddressWithAccount>;
+  Algorand: ResolverTypeWrapper<Algorand>;
+  AlgorandAddressInfo: ResolverTypeWrapper<AlgorandAddressInfo>;
+  AlgorandAddressSelector: AlgorandAddressSelector;
+  AlgorandArgumentFilter: AlgorandArgumentFilter;
+  AlgorandArguments: ResolverTypeWrapper<AlgorandArguments>;
+  AlgorandArgumentsMeasureable: AlgorandArgumentsMeasureable;
+  AlgorandBlockFilter: AlgorandBlockFilter;
+  AlgorandBlocks: ResolverTypeWrapper<AlgorandBlocks>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
+  AlgorandBlocksMeasureable: AlgorandBlocksMeasureable;
+  AlgorandBlocksUniq: AlgorandBlocksUniq;
+  AlgorandCallsMeasureable: AlgorandCallsMeasureable;
+  AlgorandCoinpath: ResolverTypeWrapper<AlgorandCoinpath>;
+  AlgorandCurrencySelector: AlgorandCurrencySelector;
+  AlgorandNetwork: AlgorandNetwork;
+  AlgorandSmartContract: ResolverTypeWrapper<AlgorandSmartContract>;
+  AlgorandSmartContractCallFilter: AlgorandSmartContractCallFilter;
+  AlgorandSmartContractCalls: ResolverTypeWrapper<AlgorandSmartContractCalls>;
+  AlgorandTransactionFilter: AlgorandTransactionFilter;
+  AlgorandTransactions: ResolverTypeWrapper<AlgorandTransactions>;
+  AlgorandTransactionsMeasureable: AlgorandTransactionsMeasureable;
+  AlgorandTransactionsUniq: AlgorandTransactionsUniq;
+  AlgorandTransferFilter: AlgorandTransferFilter;
+  AlgorandTransferType: AlgorandTransferType;
+  AlgorandTransferTypeSelector: AlgorandTransferTypeSelector;
+  AlgorandTransfers: ResolverTypeWrapper<AlgorandTransfers>;
+  AlgorandTransfersMeasureable: AlgorandTransfersMeasureable;
+  AlgorandTxSubType: AlgorandTxSubType;
+  AlgorandTxType: AlgorandTxType;
+  AmountAggregateFunction: AmountAggregateFunction;
+  AmountSelector: AmountSelector;
+  ArgumentIndexSelector: ArgumentIndexSelector;
+  ArgumentName: ResolverTypeWrapper<ArgumentName>;
+  ArgumentNameValue: ResolverTypeWrapper<ArgumentNameValue>;
+  ArgumentSelector: ArgumentSelector;
+  ArgumentTypeSelector: ArgumentTypeSelector;
+  ArgumentValue: ResolverTypeWrapper<ArgumentValue>;
+  ArgumentValueSelector: ArgumentValueSelector;
+  BaseCurrencyEnum: BaseCurrencyEnum;
+  BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
+  Binance: ResolverTypeWrapper<Binance>;
+  BinanceAddressSelector: BinanceAddressSelector;
+  BinanceBlock: ResolverTypeWrapper<BinanceBlock>;
+  BinanceBlockFilter: BinanceBlockFilter;
+  BinanceBlockUniq: BinanceBlockUniq;
+  BinanceBlocksMeasureable: BinanceBlocksMeasureable;
+  BinanceCoinpath: ResolverTypeWrapper<BinanceCoinpath>;
+  BinanceCurrencySelector: BinanceCurrencySelector;
+  BinanceOrderFilter: BinanceOrderFilter;
+  BinanceOrderSide: BinanceOrderSide;
+  BinanceOrderStatus: BinanceOrderStatus;
+  BinanceOrderTimeInForce: BinanceOrderTimeInForce;
+  BinanceOrderType: BinanceOrderType;
+  BinanceOrders: ResolverTypeWrapper<BinanceOrders>;
+  BinanceOrdersMeasureable: BinanceOrdersMeasureable;
+  BinanceOrdersUniq: BinanceOrdersUniq;
+  BinanceTradeFilter: BinanceTradeFilter;
+  BinanceTrades: ResolverTypeWrapper<BinanceTrades>;
+  BinanceTradesMeasureable: BinanceTradesMeasureable;
+  BinanceTradesUniq: BinanceTradesUniq;
+  BinanceTransactionFilter: BinanceTransactionFilter;
+  BinanceTransactionType: BinanceTransactionType;
+  BinanceTransactionTypeSelector: BinanceTransactionTypeSelector;
+  BinanceTransactions: ResolverTypeWrapper<BinanceTransactions>;
+  BinanceTransactionsMeasureable: BinanceTransactionsMeasureable;
+  BinanceTransactionsUniq: BinanceTransactionsUniq;
+  BinanceTransferFilter: BinanceTransferFilter;
+  BinanceTransferType: BinanceTransferType;
+  BinanceTransferTypeSelector: BinanceTransferTypeSelector;
+  BinanceTransfers: ResolverTypeWrapper<BinanceTransfers>;
+  BinanceTransfersMeasureable: BinanceTransfersMeasureable;
+  Bitcoin: ResolverTypeWrapper<Bitcoin>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  BitcoinBlock: ResolverTypeWrapper<BitcoinBlock>;
+  BitcoinBlockFilter: BitcoinBlockFilter;
+  BitcoinBlockUniq: BitcoinBlockUniq;
+  BitcoinBlocksMeasureable: BitcoinBlocksMeasureable;
+  BitcoinCoinpath: ResolverTypeWrapper<BitcoinCoinpath>;
+  BitcoinCoinpathMethod: BitcoinCoinpathMethod;
+  BitcoinCoinpathOptions: BitcoinCoinpathOptions;
+  BitcoinInputFilter: BitcoinInputFilter;
+  BitcoinInputScriptType: BitcoinInputScriptType;
+  BitcoinInputScriptTypeSelector: BitcoinInputScriptTypeSelector;
+  BitcoinInputUniq: BitcoinInputUniq;
+  BitcoinInputsMeasureable: BitcoinInputsMeasureable;
+  BitcoinNetwork: BitcoinNetwork;
+  BitcoinOutputDirection: BitcoinOutputDirection;
+  BitcoinOutputDirectionSelector: BitcoinOutputDirectionSelector;
+  BitcoinOutputFilter: BitcoinOutputFilter;
+  BitcoinOutputScriptType: BitcoinOutputScriptType;
+  BitcoinOutputScriptTypeSelector: BitcoinOutputScriptTypeSelector;
+  BitcoinOutputUniq: BitcoinOutputUniq;
+  BitcoinOutputsMeasureable: BitcoinOutputsMeasureable;
+  BitcoinTransaction: ResolverTypeWrapper<BitcoinTransaction>;
+  BitcoinTransactionFilter: BitcoinTransactionFilter;
+  BitcoinTransactionInput: ResolverTypeWrapper<BitcoinTransactionInput>;
+  BitcoinTransactionOutput: ResolverTypeWrapper<BitcoinTransactionOutput>;
+  BitcoinTransactionUniq: BitcoinTransactionUniq;
+  BitcoinTransactionsMeasureable: BitcoinTransactionsMeasureable;
+  Block: ResolverTypeWrapper<Block>;
+  BlockExtended: ResolverTypeWrapper<BlockExtended>;
+  BlockInfo: ResolverTypeWrapper<BlockInfo>;
+  BlockSelector: BlockSelector;
+  BlockSelectorRange: BlockSelectorRange;
+  BlockchainNetwork: ResolverTypeWrapper<BlockchainNetwork>;
+  CoinpathEntry: ResolverTypeWrapper<CoinpathEntry>;
+  CoinpathMeasureable: CoinpathMeasureable;
+  CoinpathOptions: CoinpathOptions;
+  Conflux: ResolverTypeWrapper<Conflux>;
+  ConfluxBlockFilter: ConfluxBlockFilter;
+  ConfluxBlocks: ResolverTypeWrapper<ConfluxBlocks>;
+  ConfluxBlocksMeasureable: ConfluxBlocksMeasureable;
+  ConfluxNetwork: ConfluxNetwork;
+  ConfluxTransactionFilter: ConfluxTransactionFilter;
+  ConfluxTransactions: ResolverTypeWrapper<ConfluxTransactions>;
+  ConfluxTransactionsMeasureable: ConfluxTransactionsMeasureable;
+  Continent: Continent;
+  ContinentSelector: ContinentSelector;
+  CountryCode: CountryCode;
+  CountrySelector: CountrySelector;
+  CovidCountry: ResolverTypeWrapper<CovidCountry>;
+  CovidFact: ResolverTypeWrapper<CovidFact>;
+  CovidHistory: ResolverTypeWrapper<CovidHistory>;
+  CovidLocation: ResolverTypeWrapper<CovidLocation>;
+  Currency: ResolverTypeWrapper<Currency>;
+  Date: ResolverTypeWrapper<Date>;
+  DateInterval: DateInterval;
+  DateSelector: DateSelector;
+  DateTime: ResolverTypeWrapper<DateTime>;
+  DateTimeSelector: DateTimeSelector;
+  DiemNetwork: DiemNetwork;
+  Entity: ResolverTypeWrapper<Entity>;
+  EntitySelector: EntitySelector;
+  EntityTypeEnum: EntityTypeEnum;
+  EntityTypeSelector: EntityTypeSelector;
+  Eos: ResolverTypeWrapper<Eos>;
+  EosAddressInfo: ResolverTypeWrapper<EosAddressInfo>;
+  EosBlockFilter: EosBlockFilter;
+  EosBlocks: ResolverTypeWrapper<EosBlocks>;
+  EosBlocksMeasureable: EosBlocksMeasureable;
+  EosBlocksUniq: EosBlocksUniq;
+  EosCallsMeasureable: EosCallsMeasureable;
+  EosCoinpath: ResolverTypeWrapper<EosCoinpath>;
+  EosCurrencySelector: EosCurrencySelector;
+  EosSmartContract: ResolverTypeWrapper<EosSmartContract>;
+  EosSmartContractCallFilter: EosSmartContractCallFilter;
+  EosSmartContractCalls: ResolverTypeWrapper<EosSmartContractCalls>;
+  EosSmartContractInfo: ResolverTypeWrapper<EosSmartContractInfo>;
+  EosTransactionFilter: EosTransactionFilter;
+  EosTransactions: ResolverTypeWrapper<EosTransactions>;
+  EosTransactionsMeasureable: EosTransactionsMeasureable;
+  EosTransactionsUniq: EosTransactionsUniq;
+  EosTransferFilter: EosTransferFilter;
+  EosTransfers: ResolverTypeWrapper<EosTransfers>;
+  EosTransfersMeasureable: EosTransfersMeasureable;
+  Ethereum: ResolverTypeWrapper<Ethereum>;
+  Ethereum2: ResolverTypeWrapper<Ethereum2>;
+  Ethereum2Attestation: ResolverTypeWrapper<Ethereum2Attestation>;
+  Ethereum2AttestationFieldInfo: ResolverTypeWrapper<Ethereum2AttestationFieldInfo>;
+  Ethereum2AttestationInfo: ResolverTypeWrapper<Ethereum2AttestationInfo>;
+  Ethereum2AttestationsMeasureable: Ethereum2AttestationsMeasureable;
+  Ethereum2AttestationsUniq: Ethereum2AttestationsUniq;
+  Ethereum2AttesterSlashing: ResolverTypeWrapper<Ethereum2AttesterSlashing>;
+  Ethereum2AttesterSlashingMeasureable: Ethereum2AttesterSlashingMeasureable;
+  Ethereum2AttesterSlashingsUniq: Ethereum2AttesterSlashingsUniq;
+  Ethereum2Blocks: ResolverTypeWrapper<Ethereum2Blocks>;
+  Ethereum2BlocksMeasureable: Ethereum2BlocksMeasureable;
+  Ethereum2BlocksUniq: Ethereum2BlocksUniq;
+  Ethereum2Deposit: ResolverTypeWrapper<Ethereum2Deposit>;
+  Ethereum2DepositsMeasureable: Ethereum2DepositsMeasureable;
+  Ethereum2DepositsUniq: Ethereum2DepositsUniq;
+  Ethereum2Eth1Info: ResolverTypeWrapper<Ethereum2Eth1Info>;
+  Ethereum2Filter: Ethereum2Filter;
+  Ethereum2Network: Ethereum2Network;
+  Ethereum2ProposerSlashing: ResolverTypeWrapper<Ethereum2ProposerSlashing>;
+  Ethereum2ProposerSlashingMeasureable: Ethereum2ProposerSlashingMeasureable;
+  Ethereum2ProposerSlashingsUniq: Ethereum2ProposerSlashingsUniq;
+  Ethereum2SlashingInfo: ResolverTypeWrapper<Ethereum2SlashingInfo>;
+  Ethereum2ValidatorInfo: ResolverTypeWrapper<Ethereum2ValidatorInfo>;
+  Ethereum2VoluntaryExit: ResolverTypeWrapper<Ethereum2VoluntaryExit>;
+  Ethereum2VoluntaryExitsMeasureable: Ethereum2VoluntaryExitsMeasureable;
+  Ethereum2VoluntaryExitsUniq: Ethereum2VoluntaryExitsUniq;
+  EthereumAddressInfo: ResolverTypeWrapper<EthereumAddressInfo>;
+  EthereumAddressInfoWithBalance: ResolverTypeWrapper<EthereumAddressInfoWithBalance>;
+  EthereumAddressSelector: EthereumAddressSelector;
+  EthereumAddressSelectorIn: EthereumAddressSelectorIn;
+  EthereumArgumentFilter: EthereumArgumentFilter;
+  EthereumArguments: ResolverTypeWrapper<
+    Omit<EthereumArguments, 'smartContractSignature'> & {
+      smartContractSignature?: Maybe<ResolversTypes['Signature']>;
+    }
+  >;
+  EthereumArgumentsConvertable: EthereumArgumentsConvertable;
+  EthereumArgumentsMeasureable: EthereumArgumentsMeasureable;
+  EthereumBalance: ResolverTypeWrapper<EthereumBalance>;
+  EthereumBalanceChange: ResolverTypeWrapper<EthereumBalanceChange>;
+  EthereumBlockFilter: EthereumBlockFilter;
+  EthereumBlocks: ResolverTypeWrapper<EthereumBlocks>;
+  EthereumBlocksMeasureable: EthereumBlocksMeasureable;
+  EthereumBlocksUniq: EthereumBlocksUniq;
+  EthereumCallsMeasureable: EthereumCallsMeasureable;
+  EthereumCoinpath: ResolverTypeWrapper<EthereumCoinpath>;
+  EthereumCurrencySelector: EthereumCurrencySelector;
+  EthereumDex: ResolverTypeWrapper<EthereumDex>;
+  EthereumDexTradeFilter: EthereumDexTradeFilter;
+  EthereumDexTrades: ResolverTypeWrapper<EthereumDexTrades>;
+  EthereumDexTradesMeasureable: EthereumDexTradesMeasureable;
+  EthereumDexTradesUniq: EthereumDexTradesUniq;
+  EthereumEventsMeasureable: EthereumEventsMeasureable;
+  EthereumNetwork: EthereumNetwork;
+  EthereumSmartContract: ResolverTypeWrapper<EthereumSmartContract>;
+  EthereumSmartContractCallFilter: EthereumSmartContractCallFilter;
+  EthereumSmartContractCalls: ResolverTypeWrapper<EthereumSmartContractCalls>;
+  EthereumSmartContractEvent: ResolverTypeWrapper<EthereumSmartContractEvent>;
+  EthereumSmartContractEventFilter: EthereumSmartContractEventFilter;
+  EthereumSmartContractInfo: ResolverTypeWrapper<EthereumSmartContractInfo>;
+  EthereumSmartContractInfoWithAttributes: ResolverTypeWrapper<EthereumSmartContractInfoWithAttributes>;
+  EthereumTransactionFilter: EthereumTransactionFilter;
+  EthereumTransactionInfo: ResolverTypeWrapper<EthereumTransactionInfo>;
+  EthereumTransactionInfoExtended: ResolverTypeWrapper<EthereumTransactionInfoExtended>;
+  EthereumTransactions: ResolverTypeWrapper<EthereumTransactions>;
+  EthereumTransactionsMeasureable: EthereumTransactionsMeasureable;
+  EthereumTransactionsUniq: EthereumTransactionsUniq;
+  EthereumTransferFilter: EthereumTransferFilter;
+  EthereumTransfers: ResolverTypeWrapper<EthereumTransfers>;
+  EthereumTransfersMeasureable: EthereumTransfersMeasureable;
+  Event: ResolverTypeWrapper<Event>;
+  EventSelector: EventSelector;
+  Filecoin: ResolverTypeWrapper<Filecoin>;
+  FilecoinBlock: ResolverTypeWrapper<FilecoinBlock>;
+  FilecoinBlockFilter: FilecoinBlockFilter;
+  FilecoinBlockUniq: FilecoinBlockUniq;
+  FilecoinBlocksMeasureable: FilecoinBlocksMeasureable;
+  FilecoinCallFilter: FilecoinCallFilter;
+  FilecoinCalls: ResolverTypeWrapper<FilecoinCalls>;
+  FilecoinCallsMeasureable: FilecoinCallsMeasureable;
+  FilecoinCoinpath: ResolverTypeWrapper<FilecoinCoinpath>;
+  FilecoinMessageFilter: FilecoinMessageFilter;
+  FilecoinMessages: ResolverTypeWrapper<FilecoinMessages>;
+  FilecoinMessagesMeasureable: FilecoinMessagesMeasureable;
+  FilecoinMessagesUniq: FilecoinMessagesUniq;
+  FilecoinMinedBlock: ResolverTypeWrapper<FilecoinMinedBlock>;
+  FilecoinNetwork: FilecoinNetwork;
+  FilecoinTransferFilter: FilecoinTransferFilter;
+  FilecoinTransferType: FilecoinTransferType;
+  FilecoinTransfers: ResolverTypeWrapper<FilecoinTransfers>;
+  FilecoinTransfersMeasureable: FilecoinTransfersMeasureable;
+  FloatSelector: FloatSelector;
+  FlowDirection: FlowDirection;
+  HashSelector: HashSelector;
+  Hedera: ResolverTypeWrapper<Hedera>;
+  HederaAccount: ResolverTypeWrapper<HederaAccount>;
+  HederaArgument: ResolverTypeWrapper<HederaArgument>;
+  HederaArgumentFilter: HederaArgumentFilter;
+  HederaArgumentsMeasureable: HederaArgumentsMeasureable;
+  HederaArgumentsUniq: HederaArgumentsUniq;
+  HederaCall: ResolverTypeWrapper<HederaCall>;
+  HederaCallFilter: HederaCallFilter;
+  HederaCallsMeasureable: HederaCallsMeasureable;
+  HederaCallsUniq: HederaCallsUniq;
+  HederaCoinpath: ResolverTypeWrapper<HederaCoinpath>;
+  HederaCurrencySelector: HederaCurrencySelector;
+  HederaInput: ResolverTypeWrapper<HederaInput>;
+  HederaInputFilter: HederaInputFilter;
+  HederaInputMeasureable: HederaInputMeasureable;
+  HederaInputsUniq: HederaInputsUniq;
+  HederaMessage: ResolverTypeWrapper<HederaMessage>;
+  HederaMessageFilter: HederaMessageFilter;
+  HederaMessageMeasureable: HederaMessageMeasureable;
+  HederaMessagesUniq: HederaMessagesUniq;
+  HederaNetwork: HederaNetwork;
+  HederaOutput: ResolverTypeWrapper<HederaOutput>;
+  HederaOutputFilter: HederaOutputFilter;
+  HederaOutputMeasureable: HederaOutputMeasureable;
+  HederaOutputUniq: HederaOutputUniq;
+  HederaTransaction: ResolverTypeWrapper<HederaTransaction>;
+  HederaTransactionFilter: HederaTransactionFilter;
+  HederaTransactionMeasureable: HederaTransactionMeasureable;
+  HederaTransactionsUniq: HederaTransactionsUniq;
+  ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
+  ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']>;
+  InputScript: ResolverTypeWrapper<InputScript>;
+  IntIdSelector: IntIdSelector;
+  IntegerLimitedSelector: IntegerLimitedSelector;
+  IntegerSelector: IntegerSelector;
+  Libra: ResolverTypeWrapper<Libra>;
+  LibraBlock: ResolverTypeWrapper<LibraBlock>;
+  LibraBlockFilter: LibraBlockFilter;
+  LibraBlockUniq: LibraBlockUniq;
+  LibraBlocksMeasureable: LibraBlocksMeasureable;
+  LibraCoinpath: ResolverTypeWrapper<LibraCoinpath>;
+  LibraCoinpathMeasureable: LibraCoinpathMeasureable;
+  LibraCurrencySelector: LibraCurrencySelector;
+  LibraMintFilter: LibraMintFilter;
+  LibraMints: ResolverTypeWrapper<LibraMints>;
+  LibraMintsMeasureable: LibraMintsMeasureable;
+  LibraMintsUniq: LibraMintsUniq;
+  LibraTransactionFilter: LibraTransactionFilter;
+  LibraTransactionValue: ResolverTypeWrapper<LibraTransactionValue>;
+  LibraTransactions: ResolverTypeWrapper<LibraTransactions>;
+  LibraTransactionsMeasureable: LibraTransactionsMeasureable;
+  LibraTransactionsUniq: LibraTransactionsUniq;
+  LibraTransferFilter: LibraTransferFilter;
+  LibraTransfers: ResolverTypeWrapper<LibraTransfers>;
+  LibraTransfersMeasureable: LibraTransfersMeasureable;
+  LimitByOption: LimitByOption;
+  Method: ResolverTypeWrapper<Method>;
+  MethodSelector: MethodSelector;
+  NameWithId: ResolverTypeWrapper<NameWithId>;
+  Network: Network;
+  Offchain: ResolverTypeWrapper<Offchain>;
+  OrderIdSelector: OrderIdSelector;
+  OrderSideSelector: OrderSideSelector;
+  OrderStatusSelector: OrderStatusSelector;
+  OrderTimeInForceSelector: OrderTimeInForceSelector;
+  OrderTypeSelector: OrderTypeSelector;
+  OutputIndexSelector: OutputIndexSelector;
+  OutputScript: ResolverTypeWrapper<OutputScript>;
+  PriceAggregateFunction: PriceAggregateFunction;
+  Protocol: Protocol;
+  Query: ResolverTypeWrapper<{}>;
+  QueryOptions: QueryOptions;
+  Result: ResolverTypeWrapper<
+    Omit<Result, 'subject'> & { subject: ResolversTypes['Subject'] }
+  >;
+  ScriptTypeSelectorSelector: ScriptTypeSelectorSelector;
+  Signature: ResolversTypes['Event'] | ResolversTypes['Method'];
+  SignatureTypeSelector: SignatureTypeSelector;
+  SmartContract: ResolverTypeWrapper<SmartContract>;
+  SmartContractArgumentsUniq: SmartContractArgumentsUniq;
+  SmartContractCallsUniq: SmartContractCallsUniq;
+  SmartContractReadonlyAttribute: ResolverTypeWrapper<SmartContractReadonlyAttribute>;
+  SmartContractType: SmartContractType;
+  SmartContractTypeSelector: SmartContractTypeSelector;
+  StringIdSelector: StringIdSelector;
+  StringSelector: StringSelector;
+  Subject:
+    | ResolversTypes['Address']
+    | ResolversTypes['Currency']
+    | ResolversTypes['HederaAccount']
+    | ResolversTypes['SmartContract']
+    | ResolversTypes['TransactionHash'];
+  TimeInterval: ResolverTypeWrapper<TimeInterval>;
+  Timestamp: ResolverTypeWrapper<Timestamp>;
+  TradeIdSelector: TradeIdSelector;
+  TradeSide: TradeSide;
+  TransactionHash: ResolverTypeWrapper<TransactionHash>;
+  TransactionHashIndex: ResolverTypeWrapper<TransactionHashIndex>;
+  TransactionHashIndexValues: ResolverTypeWrapper<TransactionHashIndexValues>;
+  TransactionHashValue: ResolverTypeWrapper<TransactionHashValue>;
+  TransactionResult: ResolverTypeWrapper<TransactionResult>;
+  TransactionSource: ResolverTypeWrapper<TransactionSource>;
+  TransferTypeSelector: TransferTypeSelector;
+  TransfersUniq: TransfersUniq;
+  Tron: ResolverTypeWrapper<Tron>;
+  TronAddressInfo: ResolverTypeWrapper<TronAddressInfo>;
+  TronBlockFilter: TronBlockFilter;
+  TronBlocks: ResolverTypeWrapper<TronBlocks>;
+  TronBlocksMeasureable: TronBlocksMeasureable;
+  TronBlocksUniq: TronBlocksUniq;
+  TronCallsMeasureable: TronCallsMeasureable;
+  TronCoinpath: ResolverTypeWrapper<TronCoinpath>;
+  TronContractFilter: TronContractFilter;
+  TronContractType: TronContractType;
+  TronContractTypeSelector: TronContractTypeSelector;
+  TronContractsMeasureable: TronContractsMeasureable;
+  TronCurrencySelector: TronCurrencySelector;
+  TronEventsMeasureable: TronEventsMeasureable;
+  TronSmartContract: ResolverTypeWrapper<TronSmartContract>;
+  TronSmartContractCallFilter: TronSmartContractCallFilter;
+  TronSmartContractCalls: ResolverTypeWrapper<TronSmartContractCalls>;
+  TronSmartContractEventFilter: TronSmartContractEventFilter;
+  TronSmartContractEvents: ResolverTypeWrapper<TronSmartContractEvents>;
+  TronSmartContractInfo: ResolverTypeWrapper<TronSmartContractInfo>;
+  TronSmartContracts: ResolverTypeWrapper<TronSmartContracts>;
+  TronTradeFilter: TronTradeFilter;
+  TronTrades: ResolverTypeWrapper<TronTrades>;
+  TronTradesMeasureable: TronTradesMeasureable;
+  TronTradesUniq: TronTradesUniq;
+  TronTransactionFilter: TronTransactionFilter;
+  TronTransactions: ResolverTypeWrapper<TronTransactions>;
+  TronTransactionsMeasureable: TronTransactionsMeasureable;
+  TronTransactionsUniq: TronTransactionsUniq;
+  TronTransferFilter: TronTransferFilter;
+  TronTransfers: ResolverTypeWrapper<TronTransfers>;
+  TronTransfersMeasureable: TronTransfersMeasureable;
+  TxIndexSelector: TxIndexSelector;
+  TxSubtypeSelector: TxSubtypeSelector;
+  TxTypeSelector: TxTypeSelector;
+};
+
+/** Mapping between all available schema types and the resolvers parents */
+export type ResolversParentTypes = {
+  Account: Account;
+  String: Scalars['String'];
+  Int: Scalars['Int'];
+  Address: Address;
+  AddressSelector: AddressSelector;
+  AddressSelectorIn: AddressSelectorIn;
+  AddressWithAccount: AddressWithAccount;
+  Algorand: Algorand;
+  AlgorandAddressInfo: AlgorandAddressInfo;
+  AlgorandAddressSelector: AlgorandAddressSelector;
+  AlgorandArgumentFilter: AlgorandArgumentFilter;
+  AlgorandArguments: AlgorandArguments;
+  AlgorandBlockFilter: AlgorandBlockFilter;
+  AlgorandBlocks: AlgorandBlocks;
+  Float: Scalars['Float'];
+  AlgorandCoinpath: AlgorandCoinpath;
+  AlgorandCurrencySelector: AlgorandCurrencySelector;
+  AlgorandSmartContract: AlgorandSmartContract;
+  AlgorandSmartContractCallFilter: AlgorandSmartContractCallFilter;
+  AlgorandSmartContractCalls: AlgorandSmartContractCalls;
+  AlgorandTransactionFilter: AlgorandTransactionFilter;
+  AlgorandTransactions: AlgorandTransactions;
+  AlgorandTransferFilter: AlgorandTransferFilter;
+  AlgorandTransferTypeSelector: AlgorandTransferTypeSelector;
+  AlgorandTransfers: AlgorandTransfers;
+  AmountSelector: AmountSelector;
+  ArgumentIndexSelector: ArgumentIndexSelector;
+  ArgumentName: ArgumentName;
+  ArgumentNameValue: ArgumentNameValue;
+  ArgumentSelector: ArgumentSelector;
+  ArgumentTypeSelector: ArgumentTypeSelector;
+  ArgumentValue: ArgumentValue;
+  ArgumentValueSelector: ArgumentValueSelector;
+  BigInt: Scalars['BigInt'];
+  Binance: Binance;
+  BinanceAddressSelector: BinanceAddressSelector;
+  BinanceBlock: BinanceBlock;
+  BinanceBlockFilter: BinanceBlockFilter;
+  BinanceCoinpath: BinanceCoinpath;
+  BinanceCurrencySelector: BinanceCurrencySelector;
+  BinanceOrderFilter: BinanceOrderFilter;
+  BinanceOrders: BinanceOrders;
+  BinanceTradeFilter: BinanceTradeFilter;
+  BinanceTrades: BinanceTrades;
+  BinanceTransactionFilter: BinanceTransactionFilter;
+  BinanceTransactionTypeSelector: BinanceTransactionTypeSelector;
+  BinanceTransactions: BinanceTransactions;
+  BinanceTransferFilter: BinanceTransferFilter;
+  BinanceTransferTypeSelector: BinanceTransferTypeSelector;
+  BinanceTransfers: BinanceTransfers;
+  Bitcoin: Bitcoin;
+  Boolean: Scalars['Boolean'];
+  BitcoinBlock: BitcoinBlock;
+  BitcoinBlockFilter: BitcoinBlockFilter;
+  BitcoinCoinpath: BitcoinCoinpath;
+  BitcoinCoinpathOptions: BitcoinCoinpathOptions;
+  BitcoinInputFilter: BitcoinInputFilter;
+  BitcoinInputScriptTypeSelector: BitcoinInputScriptTypeSelector;
+  BitcoinOutputDirectionSelector: BitcoinOutputDirectionSelector;
+  BitcoinOutputFilter: BitcoinOutputFilter;
+  BitcoinOutputScriptTypeSelector: BitcoinOutputScriptTypeSelector;
+  BitcoinTransaction: BitcoinTransaction;
+  BitcoinTransactionFilter: BitcoinTransactionFilter;
+  BitcoinTransactionInput: BitcoinTransactionInput;
+  BitcoinTransactionOutput: BitcoinTransactionOutput;
+  Block: Block;
+  BlockExtended: BlockExtended;
+  BlockInfo: BlockInfo;
+  BlockSelector: BlockSelector;
+  BlockSelectorRange: BlockSelectorRange;
+  BlockchainNetwork: BlockchainNetwork;
+  CoinpathEntry: CoinpathEntry;
+  CoinpathOptions: CoinpathOptions;
+  Conflux: Conflux;
+  ConfluxBlockFilter: ConfluxBlockFilter;
+  ConfluxBlocks: ConfluxBlocks;
+  ConfluxTransactionFilter: ConfluxTransactionFilter;
+  ConfluxTransactions: ConfluxTransactions;
+  ContinentSelector: ContinentSelector;
+  CountrySelector: CountrySelector;
+  CovidCountry: CovidCountry;
+  CovidFact: CovidFact;
+  CovidHistory: CovidHistory;
+  CovidLocation: CovidLocation;
+  Currency: Currency;
+  Date: Date;
+  DateSelector: DateSelector;
+  DateTime: DateTime;
+  DateTimeSelector: DateTimeSelector;
+  Entity: Entity;
+  EntitySelector: EntitySelector;
+  EntityTypeSelector: EntityTypeSelector;
+  Eos: Eos;
+  EosAddressInfo: EosAddressInfo;
+  EosBlockFilter: EosBlockFilter;
+  EosBlocks: EosBlocks;
+  EosCoinpath: EosCoinpath;
+  EosCurrencySelector: EosCurrencySelector;
+  EosSmartContract: EosSmartContract;
+  EosSmartContractCallFilter: EosSmartContractCallFilter;
+  EosSmartContractCalls: EosSmartContractCalls;
+  EosSmartContractInfo: EosSmartContractInfo;
+  EosTransactionFilter: EosTransactionFilter;
+  EosTransactions: EosTransactions;
+  EosTransferFilter: EosTransferFilter;
+  EosTransfers: EosTransfers;
+  Ethereum: Ethereum;
+  Ethereum2: Ethereum2;
+  Ethereum2Attestation: Ethereum2Attestation;
+  Ethereum2AttestationFieldInfo: Ethereum2AttestationFieldInfo;
+  Ethereum2AttestationInfo: Ethereum2AttestationInfo;
+  Ethereum2AttesterSlashing: Ethereum2AttesterSlashing;
+  Ethereum2Blocks: Ethereum2Blocks;
+  Ethereum2Deposit: Ethereum2Deposit;
+  Ethereum2Eth1Info: Ethereum2Eth1Info;
+  Ethereum2Filter: Ethereum2Filter;
+  Ethereum2ProposerSlashing: Ethereum2ProposerSlashing;
+  Ethereum2SlashingInfo: Ethereum2SlashingInfo;
+  Ethereum2ValidatorInfo: Ethereum2ValidatorInfo;
+  Ethereum2VoluntaryExit: Ethereum2VoluntaryExit;
+  EthereumAddressInfo: EthereumAddressInfo;
+  EthereumAddressInfoWithBalance: EthereumAddressInfoWithBalance;
+  EthereumAddressSelector: EthereumAddressSelector;
+  EthereumAddressSelectorIn: EthereumAddressSelectorIn;
+  EthereumArgumentFilter: EthereumArgumentFilter;
+  EthereumArguments: Omit<EthereumArguments, 'smartContractSignature'> & {
+    smartContractSignature?: Maybe<ResolversParentTypes['Signature']>;
+  };
+  EthereumBalance: EthereumBalance;
+  EthereumBalanceChange: EthereumBalanceChange;
+  EthereumBlockFilter: EthereumBlockFilter;
+  EthereumBlocks: EthereumBlocks;
+  EthereumCoinpath: EthereumCoinpath;
+  EthereumCurrencySelector: EthereumCurrencySelector;
+  EthereumDex: EthereumDex;
+  EthereumDexTradeFilter: EthereumDexTradeFilter;
+  EthereumDexTrades: EthereumDexTrades;
+  EthereumSmartContract: EthereumSmartContract;
+  EthereumSmartContractCallFilter: EthereumSmartContractCallFilter;
+  EthereumSmartContractCalls: EthereumSmartContractCalls;
+  EthereumSmartContractEvent: EthereumSmartContractEvent;
+  EthereumSmartContractEventFilter: EthereumSmartContractEventFilter;
+  EthereumSmartContractInfo: EthereumSmartContractInfo;
+  EthereumSmartContractInfoWithAttributes: EthereumSmartContractInfoWithAttributes;
+  EthereumTransactionFilter: EthereumTransactionFilter;
+  EthereumTransactionInfo: EthereumTransactionInfo;
+  EthereumTransactionInfoExtended: EthereumTransactionInfoExtended;
+  EthereumTransactions: EthereumTransactions;
+  EthereumTransferFilter: EthereumTransferFilter;
+  EthereumTransfers: EthereumTransfers;
+  Event: Event;
+  EventSelector: EventSelector;
+  Filecoin: Filecoin;
+  FilecoinBlock: FilecoinBlock;
+  FilecoinBlockFilter: FilecoinBlockFilter;
+  FilecoinCallFilter: FilecoinCallFilter;
+  FilecoinCalls: FilecoinCalls;
+  FilecoinCoinpath: FilecoinCoinpath;
+  FilecoinMessageFilter: FilecoinMessageFilter;
+  FilecoinMessages: FilecoinMessages;
+  FilecoinMinedBlock: FilecoinMinedBlock;
+  FilecoinTransferFilter: FilecoinTransferFilter;
+  FilecoinTransfers: FilecoinTransfers;
+  FloatSelector: FloatSelector;
+  HashSelector: HashSelector;
+  Hedera: Hedera;
+  HederaAccount: HederaAccount;
+  HederaArgument: HederaArgument;
+  HederaArgumentFilter: HederaArgumentFilter;
+  HederaCall: HederaCall;
+  HederaCallFilter: HederaCallFilter;
+  HederaCoinpath: HederaCoinpath;
+  HederaCurrencySelector: HederaCurrencySelector;
+  HederaInput: HederaInput;
+  HederaInputFilter: HederaInputFilter;
+  HederaMessage: HederaMessage;
+  HederaMessageFilter: HederaMessageFilter;
+  HederaOutput: HederaOutput;
+  HederaOutputFilter: HederaOutputFilter;
+  HederaTransaction: HederaTransaction;
+  HederaTransactionFilter: HederaTransactionFilter;
+  ISO8601Date: Scalars['ISO8601Date'];
+  ISO8601DateTime: Scalars['ISO8601DateTime'];
+  InputScript: InputScript;
+  IntIdSelector: IntIdSelector;
+  IntegerLimitedSelector: IntegerLimitedSelector;
+  IntegerSelector: IntegerSelector;
+  Libra: Libra;
+  LibraBlock: LibraBlock;
+  LibraBlockFilter: LibraBlockFilter;
+  LibraCoinpath: LibraCoinpath;
+  LibraCurrencySelector: LibraCurrencySelector;
+  LibraMintFilter: LibraMintFilter;
+  LibraMints: LibraMints;
+  LibraTransactionFilter: LibraTransactionFilter;
+  LibraTransactionValue: LibraTransactionValue;
+  LibraTransactions: LibraTransactions;
+  LibraTransferFilter: LibraTransferFilter;
+  LibraTransfers: LibraTransfers;
+  LimitByOption: LimitByOption;
+  Method: Method;
+  MethodSelector: MethodSelector;
+  NameWithId: NameWithId;
+  Offchain: Offchain;
+  OrderIdSelector: OrderIdSelector;
+  OrderSideSelector: OrderSideSelector;
+  OrderStatusSelector: OrderStatusSelector;
+  OrderTimeInForceSelector: OrderTimeInForceSelector;
+  OrderTypeSelector: OrderTypeSelector;
+  OutputIndexSelector: OutputIndexSelector;
+  OutputScript: OutputScript;
+  Query: {};
+  QueryOptions: QueryOptions;
+  Result: Omit<Result, 'subject'> & {
+    subject: ResolversParentTypes['Subject'];
+  };
+  Signature: ResolversParentTypes['Event'] | ResolversParentTypes['Method'];
+  SmartContract: SmartContract;
+  SmartContractReadonlyAttribute: SmartContractReadonlyAttribute;
+  SmartContractTypeSelector: SmartContractTypeSelector;
+  StringIdSelector: StringIdSelector;
+  StringSelector: StringSelector;
+  Subject:
+    | ResolversParentTypes['Address']
+    | ResolversParentTypes['Currency']
+    | ResolversParentTypes['HederaAccount']
+    | ResolversParentTypes['SmartContract']
+    | ResolversParentTypes['TransactionHash'];
+  TimeInterval: TimeInterval;
+  Timestamp: Timestamp;
+  TradeIdSelector: TradeIdSelector;
+  TransactionHash: TransactionHash;
+  TransactionHashIndex: TransactionHashIndex;
+  TransactionHashIndexValues: TransactionHashIndexValues;
+  TransactionHashValue: TransactionHashValue;
+  TransactionResult: TransactionResult;
+  TransactionSource: TransactionSource;
+  TransferTypeSelector: TransferTypeSelector;
+  Tron: Tron;
+  TronAddressInfo: TronAddressInfo;
+  TronBlockFilter: TronBlockFilter;
+  TronBlocks: TronBlocks;
+  TronCoinpath: TronCoinpath;
+  TronContractFilter: TronContractFilter;
+  TronContractTypeSelector: TronContractTypeSelector;
+  TronCurrencySelector: TronCurrencySelector;
+  TronSmartContract: TronSmartContract;
+  TronSmartContractCallFilter: TronSmartContractCallFilter;
+  TronSmartContractCalls: TronSmartContractCalls;
+  TronSmartContractEventFilter: TronSmartContractEventFilter;
+  TronSmartContractEvents: TronSmartContractEvents;
+  TronSmartContractInfo: TronSmartContractInfo;
+  TronSmartContracts: TronSmartContracts;
+  TronTradeFilter: TronTradeFilter;
+  TronTrades: TronTrades;
+  TronTransactionFilter: TronTransactionFilter;
+  TronTransactions: TronTransactions;
+  TronTransferFilter: TronTransferFilter;
+  TronTransfers: TronTransfers;
+  TxIndexSelector: TxIndexSelector;
+  TxSubtypeSelector: TxSubtypeSelector;
+  TxTypeSelector: TxTypeSelector;
+};
+
+export type AccountResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Account'] = ResolversParentTypes['Account'],
+> = {
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  num?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  realmId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  shardId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AddressResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AddressWithAccountResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AddressWithAccount'] = ResolversParentTypes['AddressWithAccount'],
+> = {
+  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Algorand'] = ResolversParentTypes['Algorand'],
+> = {
+  address?: Resolver<
+    Array<ResolversTypes['AlgorandAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandAddressArgs, 'address'>
+  >;
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandArguments']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsArgs, never>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandBlocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandCoinpathArgs, never>
+  >;
+  smartContractCalls?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandSmartContractCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['AlgorandTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandAddressInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandAddressInfo'] = ResolversParentTypes['AlgorandAddressInfo'],
+> = {
+  address?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['AlgorandSmartContract']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandArgumentsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandArguments'] = ResolversParentTypes['AlgorandArguments'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsAnyArgs, 'of'>
+  >;
+  argindex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  firstRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  genesisHash64?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  genesisId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  lastRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsMinimumArgs, 'of'>
+  >;
+  note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poolerror?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['AlgorandSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsSmartContractArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsTransactionArgs, never>
+  >;
+  txSender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsTxSenderArgs, never>
+  >;
+  txType?: Resolver<
+    Maybe<ResolversTypes['AlgorandTxType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsTxTypeArgs, never>
+  >;
+  value?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandArgumentsValueArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandBlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandBlocks'] = ResolversParentTypes['AlgorandBlocks'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksAnyArgs, 'of'>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksCountArgs, never>
+  >;
+  currentProtocol?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  frac?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksMinimumArgs, 'of'>
+  >;
+  nextProtocol?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  nextProtocolApprovals?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  nextProtocolSwitchOn?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  nextProtocolVoteBefore?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  previousBlockHash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksProposerArgs, never>
+  >;
+  rate?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksRateArgs, never>
+  >;
+  reward?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksRewardArgs, never>
+  >;
+  seed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandBlocksTimestampArgs, never>
+  >;
+  txnRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  upgradeApprove?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  upgradePropose?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandCoinpath'] = ResolversParentTypes['AlgorandCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandSmartContractResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandSmartContract'] = ResolversParentTypes['AlgorandSmartContract'],
+> = {
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  bytecode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandSmartContractCallsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandSmartContractCalls'] = ResolversParentTypes['AlgorandSmartContractCalls'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsFeeArgs, never>
+  >;
+  firstRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  genesisHash64?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  genesisId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  lastRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsMinimumArgs, 'of'>
+  >;
+  note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poolerror?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['AlgorandSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsSmartContractArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsTransactionArgs, never>
+  >;
+  txSender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsTxSenderArgs, never>
+  >;
+  txType?: Resolver<
+    Maybe<ResolversTypes['AlgorandTxType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandSmartContractCallsTxTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandTransactions'] = ResolversParentTypes['AlgorandTransactions'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsFeeArgs, never>
+  >;
+  firstRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  genesisHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  genesisId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsHashArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsIndexArgs, never>
+  >;
+  lastRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsMinimumArgs, 'of'>
+  >;
+  note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  poolerror?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsSenderArgs, never>
+  >;
+  subtype?: Resolver<
+    Maybe<ResolversTypes['AlgorandTxSubType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsSubtypeArgs, never>
+  >;
+  type?: Resolver<
+    Maybe<ResolversTypes['AlgorandTxType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransactionsTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AlgorandTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['AlgorandTransfers'] = ResolversParentTypes['AlgorandTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  firstRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  lastRound?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersSenderArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersTransactionArgs, never>
+  >;
+  transferType?: Resolver<
+    Maybe<ResolversTypes['AlgorandTransferType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersTransferTypeArgs, never>
+  >;
+  txSender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersTxSenderArgs, never>
+  >;
+  txType?: Resolver<
+    Maybe<ResolversTypes['AlgorandTxType']>,
+    ParentType,
+    ContextType,
+    RequireFields<AlgorandTransfersTxTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ArgumentNameResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ArgumentName'] = ResolversParentTypes['ArgumentName'],
+> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ArgumentNameValueResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ArgumentNameValue'] = ResolversParentTypes['ArgumentNameValue'],
+> = {
+  argument?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  argumentType?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  index?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ArgumentValueResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ArgumentValue'] = ResolversParentTypes['ArgumentValue'],
+> = {
+  address?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface BigIntScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['BigInt'], any> {
+  name: 'BigInt';
+}
+
+export type BinanceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Binance'] = ResolversParentTypes['Binance'],
+> = {
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceBlock']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceCoinpathArgs, never>
+  >;
+  orders?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceOrders']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersArgs, never>
+  >;
+  trades?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceTrades']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['BinanceTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceBlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceBlock'] = ResolversParentTypes['BinanceBlock'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockAnyArgs, 'of'>
+  >;
+  blockId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockBlockIdArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockMinimumArgs, 'of'>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockTimestampArgs, never>
+  >;
+  validatorConsensusPubkey?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockValidatorConsensusPubkeyArgs, never>
+  >;
+  validatorFeeAddr?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockValidatorFeeAddrArgs, never>
+  >;
+  validatorMoniker?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockValidatorMonikerArgs, never>
+  >;
+  validatorOperaHrAddress?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockValidatorOperaHrAddressArgs, never>
+  >;
+  validatorOperatorAddress?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceBlockValidatorOperatorAddressArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceCoinpath'] = ResolversParentTypes['BinanceCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceOrdersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceOrders'] = ResolversParentTypes['BinanceOrders'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersAnyArgs, 'of'>
+  >;
+  baseAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersBaseAmountArgs, never>
+  >;
+  baseCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersBaseCurrencyArgs, never>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersMinimumArgs, 'of'>
+  >;
+  orderId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderIdArgs, never>
+  >;
+  orderOwner?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderOwnerArgs, never>
+  >;
+  orderSide?: Resolver<
+    Maybe<ResolversTypes['BinanceOrderSide']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderSideArgs, never>
+  >;
+  orderStatus?: Resolver<
+    Maybe<ResolversTypes['BinanceOrderStatus']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderStatusArgs, never>
+  >;
+  orderTimeInForce?: Resolver<
+    Maybe<ResolversTypes['BinanceOrderTimeInForce']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderTimeInForceArgs, never>
+  >;
+  orderType?: Resolver<
+    Maybe<ResolversTypes['BinanceOrderType']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersOrderTypeArgs, never>
+  >;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  quoteAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersQuoteAmountArgs, never>
+  >;
+  quoteCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersQuoteCurrencyArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHash']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceOrdersTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceTradesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceTrades'] = ResolversParentTypes['BinanceTrades'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesAnyArgs, 'of'>
+  >;
+  baseAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesBaseAmountArgs, never>
+  >;
+  baseCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesBaseCurrencyArgs, never>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesBlockArgs, never>
+  >;
+  buyOrderId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesBuyOrderIdArgs, never>
+  >;
+  buyer?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesBuyerArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesMinimumArgs, 'of'>
+  >;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  quoteAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesQuoteAmountArgs, never>
+  >;
+  quoteCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesQuoteCurrencyArgs, never>
+  >;
+  sellOrderId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesSellOrderIdArgs, never>
+  >;
+  seller?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesSellerArgs, never>
+  >;
+  tradeId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesTradeIdArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTradesTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceTransactions'] = ResolversParentTypes['BinanceTransactions'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  deposit?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsDepositArgs, never>
+  >;
+  description?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsHashArgs, never>
+  >;
+  index?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  log?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsMinimumArgs, 'of'>
+  >;
+  proposalId?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsProposalIdArgs, never>
+  >;
+  transactionCode?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsTransactionCodeArgs, never>
+  >;
+  transactionSource?: Resolver<
+    Maybe<ResolversTypes['TransactionSource']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsTransactionSourceArgs, never>
+  >;
+  transactionType?: Resolver<
+    Maybe<ResolversTypes['BinanceTransactionType']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransactionsTransactionTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BinanceTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BinanceTransfers'] = ResolversParentTypes['BinanceTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersMinimumArgs, 'of'>
+  >;
+  orderId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersOrderIdArgs, never>
+  >;
+  outputIndex?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersOutputIndexArgs, never>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersSenderArgs, never>
+  >;
+  tradeId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersTradeIdArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersTransactionArgs, never>
+  >;
+  transferType?: Resolver<
+    Maybe<ResolversTypes['BinanceTransferType']>,
+    ParentType,
+    ContextType,
+    RequireFields<BinanceTransfersTransferTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Bitcoin'] = ResolversParentTypes['Bitcoin'],
+> = {
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['BitcoinBlock']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['BitcoinCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinCoinpathArgs, never>
+  >;
+  inputs?: Resolver<
+    Maybe<Array<ResolversTypes['BitcoinTransactionInput']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinInputsArgs, never>
+  >;
+  outputs?: Resolver<
+    Maybe<Array<ResolversTypes['BitcoinTransactionOutput']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinOutputsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['BitcoinTransaction']>>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionsArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinBlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BitcoinBlock'] = ResolversParentTypes['BitcoinBlock'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockAnyArgs, 'of'>
+  >;
+  blockHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockBlockHashArgs, never>
+  >;
+  blockSize?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockBlockSizeArgs, never>
+  >;
+  blockStrippedSize?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockBlockStrippedSizeArgs, never>
+  >;
+  blockVersion?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockBlockVersionArgs, never>
+  >;
+  blockWeight?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockBlockWeightArgs, never>
+  >;
+  chainwork?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  difficulty?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockDifficultyArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockMaximumArgs, 'of'>
+  >;
+  medianTime?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockMinimumArgs, 'of'>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockTimestampArgs, never>
+  >;
+  transactionCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinBlockTransactionCountArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BitcoinCoinpath'] = ResolversParentTypes['BitcoinCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndexValues']>,
+    ParentType,
+    ContextType
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['CoinpathEntry']>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinTransactionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BitcoinTransaction'] = ResolversParentTypes['BitcoinTransaction'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  feeValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionFeeValueArgs, never>
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionHashArgs, never>
+  >;
+  index?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionIndexArgs, never>
+  >;
+  inputCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputCountArgs, never>
+  >;
+  inputValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputValueArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionMaximumArgs, 'of'>
+  >;
+  minedValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionMinedValueArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionMinimumArgs, 'of'>
+  >;
+  outputCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputCountArgs, never>
+  >;
+  outputValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputValueArgs, never>
+  >;
+  txCoinbase?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxCoinbaseArgs, never>
+  >;
+  txLocktime?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxLocktimeArgs, never>
+  >;
+  txSize?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxSizeArgs, never>
+  >;
+  txVersion?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxVersionArgs, never>
+  >;
+  txVsize?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxVsizeArgs, never>
+  >;
+  txWeight?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionTxWeightArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinTransactionInputResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BitcoinTransactionInput'] = ResolversParentTypes['BitcoinTransactionInput'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  inputAddress?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputInputAddressArgs, never>
+  >;
+  inputIndex?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputInputIndexArgs, never>
+  >;
+  inputScript?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  inputScriptType?: Resolver<
+    Maybe<ResolversTypes['InputScript']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputInputScriptTypeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputMinimumArgs, 'of'>
+  >;
+  outputTransaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputOutputTransactionArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputTransactionArgs, never>
+  >;
+  value?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionInputValueArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BitcoinTransactionOutputResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BitcoinTransactionOutput'] = ResolversParentTypes['BitcoinTransactionOutput'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputMinimumArgs, 'of'>
+  >;
+  outputAddress?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputOutputAddressArgs, never>
+  >;
+  outputDirection?: Resolver<
+    Maybe<ResolversTypes['BitcoinOutputDirection']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputOutputDirectionArgs, never>
+  >;
+  outputIndex?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputOutputIndexArgs, never>
+  >;
+  outputScript?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  outputScriptType?: Resolver<
+    Maybe<ResolversTypes['OutputScript']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputOutputScriptTypeArgs, never>
+  >;
+  reqSigs?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashIndex']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputTransactionArgs, never>
+  >;
+  value?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<BitcoinTransactionOutputValueArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Block'] = ResolversParentTypes['Block'],
+> = {
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BlockExtendedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BlockExtended'] = ResolversParentTypes['BlockExtended'],
+> = {
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BlockInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BlockInfo'] = ResolversParentTypes['BlockInfo'],
+> = {
+  hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type BlockchainNetworkResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['BlockchainNetwork'] = ResolversParentTypes['BlockchainNetwork'],
+> = {
+  network?: Resolver<ResolversTypes['Network'], ParentType, ContextType>;
+  protocol?: Resolver<ResolversTypes['Protocol'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CoinpathEntryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CoinpathEntry'] = ResolversParentTypes['CoinpathEntry'],
+> = {
+  amount?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  height?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    ResolversTypes['ISO8601DateTime'],
+    ParentType,
+    ContextType
+  >;
+  txHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  txValue?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ConfluxResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Conflux'] = ResolversParentTypes['Conflux'],
+> = {
+  address?: Resolver<
+    Array<ResolversTypes['EthereumAddressInfoWithBalance']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxAddressArgs, 'address'>
+  >;
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumArguments']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxArgumentsArgs, never>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['ConfluxBlocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxCoinpathArgs, never>
+  >;
+  dexTrades?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumDexTrades']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxDexTradesArgs, never>
+  >;
+  smartContractCalls?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumSmartContractCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxSmartContractCallsArgs, never>
+  >;
+  smartContractEvents?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumSmartContractEvent']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxSmartContractEventsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['ConfluxTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ConfluxBlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ConfluxBlocks'] = ResolversParentTypes['ConfluxBlocks'],
+> = {
+  adaptive?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksAnyArgs, 'of'>
+  >;
+  blame?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  blockPosition?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  epoch?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksEpochArgs, never>
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksMaximumArgs, 'of'>
+  >;
+  miner?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksMinerArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  parentHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  pivot?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  powerQuality?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  refereeCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksRefereeCountArgs, never>
+  >;
+  referenceBlockHash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksReferenceBlockHashArgs, never>
+  >;
+  size?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksSizeArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksTimestampArgs, never>
+  >;
+  totalDifficulty?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksTotalDifficultyArgs, never>
+  >;
+  transactionCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksTransactionCountArgs, never>
+  >;
+  txHash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksTxHashArgs, never>
+  >;
+  uncleCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxBlocksUncleCountArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ConfluxTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ConfluxTransactions'] = ResolversParentTypes['ConfluxTransactions'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['BlockInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsCountArgs, never>
+  >;
+  creates?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsCreatesArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsGasArgs, never>
+  >;
+  gasCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsGasCurrencyArgs, never>
+  >;
+  gasPrice?: Resolver<
+    ResolversTypes['Float'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsGasPriceArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsGasValueArgs, never>
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsHashArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsIndexArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  sender?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsSenderArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsSuccessArgs, never>
+  >;
+  to?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<ConfluxTransactionsToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CovidCountryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CovidCountry'] = ResolversParentTypes['CovidCountry'],
+> = {
+  areaKm2?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  continent?: Resolver<
+    Maybe<ResolversTypes['Continent']>,
+    ParentType,
+    ContextType
+  >;
+  gdp?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  iso2?: Resolver<
+    Maybe<ResolversTypes['CountryCode']>,
+    ParentType,
+    ContextType
+  >;
+  iso3?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isoNumeric?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  latitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  longitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  populationPerKm2?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  populationTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CovidFactResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CovidFact'] = ResolversParentTypes['CovidFact'],
+> = {
+  confirmed?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<CovidFactConfirmedArgs, never>
+  >;
+  country?: Resolver<
+    Maybe<ResolversTypes['CovidCountry']>,
+    ParentType,
+    ContextType,
+    RequireFields<CovidFactCountryArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  deaths?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<CovidFactDeathsArgs, never>
+  >;
+  location?: Resolver<
+    Maybe<ResolversTypes['CovidLocation']>,
+    ParentType,
+    ContextType
+  >;
+  recovered?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<CovidFactRecoveredArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CovidHistoryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CovidHistory'] = ResolversParentTypes['CovidHistory'],
+> = {
+  facts?: Resolver<
+    Maybe<Array<ResolversTypes['CovidFact']>>,
+    ParentType,
+    ContextType,
+    RequireFields<CovidHistoryFactsArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CovidLocationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['CovidLocation'] = ResolversParentTypes['CovidLocation'],
+> = {
+  adminCenter?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  fipsCode?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  latitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  longitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  province?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CurrencyResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Currency'] = ResolversParentTypes['Currency'],
+> = {
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  decimals?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  symbol?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  tokenId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tokenType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DateResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Date'] = ResolversParentTypes['Date'],
+> = {
+  date?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<DateDateArgs, never>
+  >;
+  dayOfMonth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dayOfWeek?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  startOfInterval?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<DateStartOfIntervalArgs, 'unit'>
+  >;
+  year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DateTimeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['DateTime'] = ResolversParentTypes['DateTime'],
+> = {
+  dayOfMonth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dayOfWeek?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  hour?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  iso8601?: Resolver<
+    ResolversTypes['ISO8601DateTime'],
+    ParentType,
+    ContextType
+  >;
+  minute?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  month?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  second?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  time?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<DateTimeTimeArgs, never>
+  >;
+  unixtime?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  year?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EntityResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Entity'] = ResolversParentTypes['Entity'],
+> = {
+  id?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EntityIdArgs, never>
+  >;
+  num?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  realmId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  shardId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Eos'] = ResolversParentTypes['Eos'],
+> = {
+  address?: Resolver<
+    Array<ResolversTypes['EosAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosAddressArgs, 'address'>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['EosBlocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['EosCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EosCoinpathArgs, never>
+  >;
+  smartContractCalls?: Resolver<
+    Maybe<Array<ResolversTypes['EosSmartContractCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['EosTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['EosTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosAddressInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosAddressInfo'] = ResolversParentTypes['EosAddressInfo'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EosSmartContractInfo']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosBlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosBlocks'] = ResolversParentTypes['EosBlocks'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksAnyArgs, 'of'>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksMinimumArgs, 'of'>
+  >;
+  producer?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksProducerArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosBlocksTimestampArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosCoinpath'] = ResolversParentTypes['EosCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['EosAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['EosAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosSmartContractResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosSmartContract'] = ResolversParentTypes['EosSmartContract'],
+> = {
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosSmartContractCallsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosSmartContractCalls'] = ResolversParentTypes['EosSmartContractCalls'],
+> = {
+  actors?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsBlockArgs, never>
+  >;
+  callDepth?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  console?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  errorCode?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsErrorCodeArgs, never>
+  >;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsExternalArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsMinimumArgs, 'of'>
+  >;
+  permissions?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  receivers?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  scheduled?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsScheduledArgs, never>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EosSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsSmartContractArgs, never>
+  >;
+  smartContractMethod?: Resolver<
+    Maybe<ResolversTypes['Method']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsSmartContractMethodArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsSuccessArgs, never>
+  >;
+  txFrom?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsTxFromArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsTxHashArgs, never>
+  >;
+  txTo?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosSmartContractCallsTxToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosSmartContractInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosSmartContractInfo'] = ResolversParentTypes['EosSmartContractInfo'],
+> = {
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosTransactions'] = ResolversParentTypes['EosTransactions'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsCountArgs, never>
+  >;
+  cpuUsageUs?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsCpuUsageUsArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsHashArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsIndexArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsMinimumArgs, 'of'>
+  >;
+  netUsageWords?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsNetUsageWordsArgs, never>
+  >;
+  scheduled?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsScheduledArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransactionsSuccessArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EosTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EosTransfers'] = ResolversParentTypes['EosTransfers'],
+> = {
+  actors?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entityId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersEntityIdArgs, never>
+  >;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersExternalArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersSenderArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersSuccessArgs, never>
+  >;
+  txFrom?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersTxFromArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersTxHashArgs, never>
+  >;
+  txTo?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<EosTransfersTxToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum'] = ResolversParentTypes['Ethereum'],
+> = {
+  address?: Resolver<
+    Array<ResolversTypes['EthereumAddressInfoWithBalance']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumAddressArgs, 'address'>
+  >;
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumArguments']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsArgs, never>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumBlocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumCoinpathArgs, never>
+  >;
+  dexTrades?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumDexTrades']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesArgs, never>
+  >;
+  smartContractCalls?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumSmartContractCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsArgs, never>
+  >;
+  smartContractEvents?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumSmartContractEvent']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2Resolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2'] = ResolversParentTypes['Ethereum2'],
+> = {
+  attestations?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2Attestation']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationsArgs, never>
+  >;
+  attesterSlashings?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2AttesterSlashing']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingsArgs, never>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2Blocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksArgs, never>
+  >;
+  deposits?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2Deposit']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositsArgs, never>
+  >;
+  proposerSlashings?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2ProposerSlashing']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingsArgs, never>
+  >;
+  voluntaryExits?: Resolver<
+    Maybe<Array<ResolversTypes['Ethereum2VoluntaryExit']>>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitsArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2AttestationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2Attestation'] = ResolversParentTypes['Ethereum2Attestation'],
+> = {
+  aggregationBits?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationAnyArgs, 'of'>
+  >;
+  attestation?: Resolver<
+    ResolversTypes['Ethereum2AttestationInfo'],
+    ParentType,
+    ContextType
+  >;
+  attestationIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationBlockArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationBlockRootArgs, never>
+  >;
+  committeeIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  count?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttestationProposerArgs, never>
+  >;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  validator?: Resolver<
+    ResolversTypes['Ethereum2ValidatorInfo'],
+    ParentType,
+    ContextType
+  >;
+  validatorInCommitteeIndex?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2AttestationFieldInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2AttestationFieldInfo'] = ResolversParentTypes['Ethereum2AttestationFieldInfo'],
+> = {
+  epoch?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  root?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2AttestationInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2AttestationInfo'] = ResolversParentTypes['Ethereum2AttestationInfo'],
+> = {
+  beaconBlockRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  epoch?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slot?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  source?: Resolver<
+    ResolversTypes['Ethereum2AttestationFieldInfo'],
+    ParentType,
+    ContextType
+  >;
+  target?: Resolver<
+    ResolversTypes['Ethereum2AttestationFieldInfo'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2AttesterSlashingResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2AttesterSlashing'] = ResolversParentTypes['Ethereum2AttesterSlashing'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingAnyArgs, 'of'>
+  >;
+  attestation?: Resolver<
+    ResolversTypes['Ethereum2AttestationInfo'],
+    ParentType,
+    ContextType
+  >;
+  attestationOrder?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  attesterSlashingIndex?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingBlockArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingBlockRootArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2AttesterSlashingProposerArgs, never>
+  >;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  validator?: Resolver<
+    ResolversTypes['Ethereum2ValidatorInfo'],
+    ParentType,
+    ContextType
+  >;
+  validatorInAttestationIndex?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2BlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2Blocks'] = ResolversParentTypes['Ethereum2Blocks'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksAnyArgs, 'of'>
+  >;
+  attestationsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksAttestationsCountArgs, never>
+  >;
+  attesterSlashingsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksAttesterSlashingsCountArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksBlockRootArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  depositsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksDepositsCountArgs, never>
+  >;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  graffiti?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksProposerArgs, never>
+  >;
+  proposerSlashingsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksProposerSlashingsCountArgs, never>
+  >;
+  randaoReveal?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksTimestampArgs, never>
+  >;
+  voluntaryExitsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2BlocksVoluntaryExitsCountArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2DepositResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2Deposit'] = ResolversParentTypes['Ethereum2Deposit'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositBlockArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositBlockRootArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  depositIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proof?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2DepositProposerArgs, never>
+  >;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  validator?: Resolver<
+    ResolversTypes['Ethereum2ValidatorInfo'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2Eth1InfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2Eth1Info'] = ResolversParentTypes['Ethereum2Eth1Info'],
+> = {
+  blockHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  depositCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  depositRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2ProposerSlashingResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2ProposerSlashing'] = ResolversParentTypes['Ethereum2ProposerSlashing'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingBlockArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingBlockRootArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  headerOrder?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2ProposerSlashingProposerArgs, never>
+  >;
+  proposerSlashingIndex?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType
+  >;
+  slashing?: Resolver<
+    ResolversTypes['Ethereum2SlashingInfo'],
+    ParentType,
+    ContextType
+  >;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2SlashingInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2SlashingInfo'] = ResolversParentTypes['Ethereum2SlashingInfo'],
+> = {
+  bodyRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  epoch?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType
+  >;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slot?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2ValidatorInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2ValidatorInfo'] = ResolversParentTypes['Ethereum2ValidatorInfo'],
+> = {
+  index?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  pubkey?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  withdrawalCredentials?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Ethereum2VoluntaryExitResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Ethereum2VoluntaryExit'] = ResolversParentTypes['Ethereum2VoluntaryExit'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitBlockArgs, never>
+  >;
+  blockRoot?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitBlockRootArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  eth1?: Resolver<ResolversTypes['Ethereum2Eth1Info'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitMinimumArgs, 'of'>
+  >;
+  parentRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Ethereum2ValidatorInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<Ethereum2VoluntaryExitProposerArgs, never>
+  >;
+  signature?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  stateRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  validator?: Resolver<
+    ResolversTypes['Ethereum2ValidatorInfo'],
+    ParentType,
+    ContextType
+  >;
+  voluntaryExitEpoch?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  voluntaryExitIndex?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumAddressInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumAddressInfo'] = ResolversParentTypes['EthereumAddressInfo'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContractInfo']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumAddressInfoWithBalanceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumAddressInfoWithBalance'] = ResolversParentTypes['EthereumAddressInfoWithBalance'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  balance?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  balances?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumBalance']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumAddressInfoWithBalanceBalancesArgs, never>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContractInfoWithAttributes']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumArgumentsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumArguments'] = ResolversParentTypes['EthereumArguments'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsAnyArgs, 'of'>
+  >;
+  argument?: Resolver<
+    Maybe<ResolversTypes['ArgumentName']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsArgumentArgs, never>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsBlockArgs, never>
+  >;
+  callDepth?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  caller?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsCallerArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsExternalArgs, never>
+  >;
+  index?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsMinimumArgs, 'of'>
+  >;
+  number?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsNumberArgs, never>
+  >;
+  reference?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsReferenceArgs, never>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsSmartContractArgs, never>
+  >;
+  smartContractSignature?: Resolver<
+    Maybe<ResolversTypes['Signature']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsSmartContractSignatureArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsSuccessArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['EthereumTransactionInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsTransactionArgs, never>
+  >;
+  value?: Resolver<
+    Maybe<ResolversTypes['ArgumentValue']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumArgumentsValueArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumBalanceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumBalance'] = ResolversParentTypes['EthereumBalance'],
+> = {
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  history?: Resolver<
+    Maybe<Array<ResolversTypes['EthereumBalanceChange']>>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBalanceHistoryArgs, never>
+  >;
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumBalanceChangeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumBalanceChange'] = ResolversParentTypes['EthereumBalanceChange'],
+> = {
+  block?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['ISO8601DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  transferAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  value?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumBlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumBlocks'] = ResolversParentTypes['EthereumBlocks'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksAnyArgs, 'of'>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  difficulty?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksDifficultyArgs, never>
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksMaximumArgs, 'of'>
+  >;
+  miner?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksMinerArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  parentHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  reward?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksRewardArgs, never>
+  >;
+  rewardCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  size?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksSizeArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksTimestampArgs, never>
+  >;
+  totalDifficulty?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksTotalDifficultyArgs, never>
+  >;
+  transactionCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksTransactionCountArgs, never>
+  >;
+  uncleCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumBlocksUncleCountArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumCoinpath'] = ResolversParentTypes['EthereumCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['CoinpathEntry']>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumDexResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumDex'] = ResolversParentTypes['EthereumDex'],
+> = {
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  fullName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  fullNameWithId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumDexTradesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumDexTrades'] = ResolversParentTypes['EthereumDexTrades'],
+> = {
+  address?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesAddressArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesAnyArgs, 'of'>
+  >;
+  baseAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesBaseAmountArgs, never>
+  >;
+  baseCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesBaseCurrencyArgs, never>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['BlockExtended']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesBlockArgs, never>
+  >;
+  buyAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesBuyAmountArgs, never>
+  >;
+  buyCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesBuyCurrencyArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  exchange?: Resolver<
+    Maybe<ResolversTypes['EthereumDex']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesExchangeArgs, never>
+  >;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesGasArgs, never>
+  >;
+  gasPrice?: Resolver<
+    ResolversTypes['Float'],
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesGasPriceArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesGasValueArgs, never>
+  >;
+  maker?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesMakerArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesMinimumArgs, 'of'>
+  >;
+  price?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesPriceArgs, never>
+  >;
+  protocol?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesProtocolArgs, never>
+  >;
+  quoteAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesQuoteAmountArgs, never>
+  >;
+  quoteCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesQuoteCurrencyArgs, never>
+  >;
+  quotePrice?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesQuotePriceArgs, never>
+  >;
+  sellAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesSellAmountArgs, never>
+  >;
+  sellCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesSellCurrencyArgs, never>
+  >;
+  side?: Resolver<Maybe<ResolversTypes['TradeSide']>, ParentType, ContextType>;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesSmartContractArgs, never>
+  >;
+  taker?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesTakerArgs, never>
+  >;
+  timeInterval?: Resolver<
+    Maybe<ResolversTypes['TimeInterval']>,
+    ParentType,
+    ContextType
+  >;
+  tradeAmount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesTradeAmountArgs, 'in'>
+  >;
+  tradeIndex?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesTradeIndexArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['EthereumTransactionInfoExtended']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumDexTradesTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumSmartContractResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumSmartContract'] = ResolversParentTypes['EthereumSmartContract'],
+> = {
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumSmartContractCallsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumSmartContractCalls'] = ResolversParentTypes['EthereumSmartContractCalls'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsAnyArgs, 'of'>
+  >;
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['ArgumentNameValue']>>,
+    ParentType,
+    ContextType
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsBlockArgs, never>
+  >;
+  callDepth?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  caller?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsCallerArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsExternalArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsGasValueArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsMinimumArgs, 'of'>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsSmartContractArgs, never>
+  >;
+  smartContractMethod?: Resolver<
+    Maybe<ResolversTypes['Method']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsSmartContractMethodArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsSuccessArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['EthereumTransactionInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractCallsTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumSmartContractEventResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumSmartContractEvent'] = ResolversParentTypes['EthereumSmartContractEvent'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventAnyArgs, 'of'>
+  >;
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['ArgumentNameValue']>>,
+    ParentType,
+    ContextType
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  eventIndex?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventMinimumArgs, 'of'>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['EthereumSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventSmartContractArgs, never>
+  >;
+  smartContractEvent?: Resolver<
+    Maybe<ResolversTypes['Event']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventSmartContractEventArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['EthereumTransactionInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumSmartContractEventTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumSmartContractInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumSmartContractInfo'] = ResolversParentTypes['EthereumSmartContractInfo'],
+> = {
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumSmartContractInfoWithAttributesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumSmartContractInfoWithAttributes'] = ResolversParentTypes['EthereumSmartContractInfoWithAttributes'],
+> = {
+  attributes?: Resolver<
+    Maybe<Array<ResolversTypes['SmartContractReadonlyAttribute']>>,
+    ParentType,
+    ContextType
+  >;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumTransactionInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumTransactionInfo'] = ResolversParentTypes['EthereumTransactionInfo'],
+> = {
+  gas?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  gasPrice?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  gasValue?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  txFrom?: Resolver<
+    ResolversTypes['EthereumAddressInfo'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumTransactionInfoExtendedResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumTransactionInfoExtended'] = ResolversParentTypes['EthereumTransactionInfoExtended'],
+> = {
+  gas?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  gasPrice?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  gasValue?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  index?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  nonce?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  to?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  txFrom?: Resolver<
+    ResolversTypes['EthereumAddressInfo'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumTransactions'] = ResolversParentTypes['EthereumTransactions'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsCountArgs, never>
+  >;
+  creates?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsCreatesArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsGasArgs, never>
+  >;
+  gasCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsGasCurrencyArgs, never>
+  >;
+  gasPrice?: Resolver<
+    ResolversTypes['Float'],
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsGasPriceArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsGasValueArgs, never>
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsHashArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsIndexArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  sender?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsSenderArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsSuccessArgs, never>
+  >;
+  to?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransactionsToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EthereumTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['EthereumTransfers'] = ResolversParentTypes['EthereumTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entityId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersEntityIdArgs, never>
+  >;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersExternalArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersGasValueArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersSenderArgs, never>
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['EthereumTransactionInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<EthereumTransfersTransactionArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EventResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Event'] = ResolversParentTypes['Event'],
+> = {
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  signature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatureHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Filecoin'] = ResolversParentTypes['Filecoin'],
+> = {
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['FilecoinBlock']>>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlocksArgs, never>
+  >;
+  calls?: Resolver<
+    Maybe<Array<ResolversTypes['FilecoinCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['FilecoinCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCoinpathArgs, never>
+  >;
+  messages?: Resolver<
+    Maybe<Array<ResolversTypes['FilecoinMessages']>>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['FilecoinTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinBlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinBlock'] = ResolversParentTypes['FilecoinBlock'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockAnyArgs, 'of'>
+  >;
+  blockSig?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType
+  >;
+  blsAggregate?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  electionProof?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  forkSignalling?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockHeightArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockIndexArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockMaximumArgs, 'of'>
+  >;
+  messageCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockMessageCountArgs, never>
+  >;
+  messages?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  miner?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockMinerArgs, never>
+  >;
+  minerTips?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockMinerTipsArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockMinimumArgs, 'of'>
+  >;
+  parentMessageReceipts?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  parentStateRoot?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  parentWeight?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  reward?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockRewardArgs, never>
+  >;
+  ticket?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockTimestampArgs, never>
+  >;
+  totalReward?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockTotalRewardArgs, never>
+  >;
+  winCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinBlockWinCountArgs, never>
+  >;
+  wincount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinCallsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinCalls'] = ResolversParentTypes['FilecoinCalls'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsBlockArgs, never>
+  >;
+  callHash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  callPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  exitCode?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsGasArgs, never>
+  >;
+  gasFeeCap?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  gasLimit?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  gasPremium?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  hash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsHashArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsMaximumArgs, 'of'>
+  >;
+  messageMethod?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsMessageMethodArgs, never>
+  >;
+  method?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsMethodArgs, never>
+  >;
+  minedBlock?: Resolver<
+    Maybe<ResolversTypes['FilecoinMinedBlock']>,
+    ParentType,
+    ContextType
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['AddressWithAccount']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsReceiverArgs, never>
+  >;
+  returnValue?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['AddressWithAccount']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsSenderArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCallsSuccessArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinCoinpath'] = ResolversParentTypes['FilecoinCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCoinpathMaximumArgs, 'of'>
+  >;
+  message?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinMessagesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinMessages'] = ResolversParentTypes['FilecoinMessages'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesAnyArgs, 'of'>
+  >;
+  baseFeeBurn?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesBaseFeeBurnArgs, never>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesBlockArgs, never>
+  >;
+  burned?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesBurnedArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  exitCode?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesGasArgs, never>
+  >;
+  gasFeeCap?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  gasLimit?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  gasPremium?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType
+  >;
+  hash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesHashArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesMaximumArgs, 'of'>
+  >;
+  method?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesMethodArgs, never>
+  >;
+  minedBlock?: Resolver<
+    Maybe<ResolversTypes['FilecoinMinedBlock']>,
+    ParentType,
+    ContextType
+  >;
+  minerPenalty?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesMinerPenaltyArgs, never>
+  >;
+  minerTip?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesMinerTipArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesMinimumArgs, 'of'>
+  >;
+  nonce?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  overEstimationBurn?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesOverEstimationBurnArgs, never>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['AddressWithAccount']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesReceiverArgs, never>
+  >;
+  refund?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesRefundArgs, never>
+  >;
+  returnValue?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['AddressWithAccount']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesSenderArgs, never>
+  >;
+  signature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatureType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signedHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesSuccessArgs, never>
+  >;
+  totalCost?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinMessagesTotalCostArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinMinedBlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinMinedBlock'] = ResolversParentTypes['FilecoinMinedBlock'],
+> = {
+  hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  index?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  miner?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FilecoinTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['FilecoinTransfers'] = ResolversParentTypes['FilecoinTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['BlockExtended']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersBlockArgs, never>
+  >;
+  callHash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  callPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  hash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersHashArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersMaximumArgs, 'of'>
+  >;
+  messageMethod?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersMessageMethodArgs, never>
+  >;
+  method?: Resolver<
+    Maybe<ResolversTypes['NameWithId']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersMethodArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersSenderArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersTimestampArgs, never>
+  >;
+  transferType?: Resolver<
+    Maybe<ResolversTypes['FilecoinTransferType']>,
+    ParentType,
+    ContextType,
+    RequireFields<FilecoinTransfersTransferTypeArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Hedera'] = ResolversParentTypes['Hedera'],
+> = {
+  arguments?: Resolver<
+    Maybe<Array<ResolversTypes['HederaArgument']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentsArgs, never>
+  >;
+  calls?: Resolver<
+    Maybe<Array<ResolversTypes['HederaCall']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallsArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['HederaCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCoinpathArgs, never>
+  >;
+  inputs?: Resolver<
+    Maybe<Array<ResolversTypes['HederaInput']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputsArgs, never>
+  >;
+  messages?: Resolver<
+    Maybe<Array<ResolversTypes['HederaMessage']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessagesArgs, never>
+  >;
+  outputs?: Resolver<
+    Maybe<Array<ResolversTypes['HederaOutput']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['HederaTransaction']>>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionsArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaAccountResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaAccount'] = ResolversParentTypes['HederaAccount'],
+> = {
+  account?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaArgumentResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaArgument'] = ResolversParentTypes['HederaArgument'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentAnyArgs, 'of'>
+  >;
+  argtype?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  argument?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  chargedTxFee?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentResultArgs, never>
+  >;
+  smartContractEntity?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentSuccessArgs, never>
+  >;
+  transactionBytes?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentTransactionHashArgs, never>
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaArgumentValidStartArgs, never>
+  >;
+  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaCallResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaCall'] = ResolversParentTypes['HederaCall'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallAnyArgs, 'of'>
+  >;
+  callInput?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallCallInputArgs, never>
+  >;
+  callResult?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallCallResultArgs, never>
+  >;
+  chargedTxFee?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallGasArgs, never>
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallResultArgs, never>
+  >;
+  smartContractEntity?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallSuccessArgs, never>
+  >;
+  transactionBytes?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallTransactionHashArgs, never>
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCallValidStartArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaCoinpath'] = ResolversParentTypes['HederaCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['CoinpathEntry']>>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaInputResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaInput'] = ResolversParentTypes['HederaInput'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputAnyArgs, 'of'>
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entity?: Resolver<
+    Maybe<ResolversTypes['Entity']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputEntityArgs, never>
+  >;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputResultArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputSuccessArgs, never>
+  >;
+  time?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputTransactionHashArgs, never>
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  transferEntity?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaInputValidStartArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaMessageResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaMessage'] = ResolversParentTypes['HederaMessage'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageAnyArgs, 'of'>
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entity?: Resolver<
+    Maybe<ResolversTypes['Entity']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageEntityArgs, never>
+  >;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageResultArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageSuccessArgs, never>
+  >;
+  time?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  topicRunningHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageTopicRunningHashArgs, never>
+  >;
+  topicSequenceNumber?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageTopicSequenceNumberArgs, never>
+  >;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageTransactionHashArgs, never>
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaMessageValidStartArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaOutputResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaOutput'] = ResolversParentTypes['HederaOutput'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputAnyArgs, 'of'>
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entity?: Resolver<
+    Maybe<ResolversTypes['Entity']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputEntityArgs, never>
+  >;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputResultArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputSuccessArgs, never>
+  >;
+  time?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputTransactionHashArgs, never>
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  transferEntity?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaOutputValidStartArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HederaTransactionResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['HederaTransaction'] = ResolversParentTypes['HederaTransaction'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionAnyArgs, 'of'>
+  >;
+  consensusTimestamp?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  entity?: Resolver<
+    Maybe<ResolversTypes['Entity']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionEntityArgs, never>
+  >;
+  feeCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  initialBalance?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionInitialBalanceArgs, never>
+  >;
+  maxFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionMaxFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionMaximumArgs, 'of'>
+  >;
+  memo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionMinimumArgs, 'of'>
+  >;
+  nodeAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  payerAccount?: Resolver<
+    Maybe<ResolversTypes['Account']>,
+    ParentType,
+    ContextType
+  >;
+  result?: Resolver<
+    Maybe<ResolversTypes['TransactionResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionResultArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionSuccessArgs, never>
+  >;
+  time?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
+  transactionBytes?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  transactionFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionTransactionFeeArgs, never>
+  >;
+  transactionHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionTransactionHashArgs, never>
+  >;
+  transactionType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  transactionValidDurationInSec?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  validStart?: Resolver<
+    Maybe<ResolversTypes['Timestamp']>,
+    ParentType,
+    ContextType,
+    RequireFields<HederaTransactionValidStartArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export interface Iso8601DateScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['ISO8601Date'], any> {
+  name: 'ISO8601Date';
+}
+
+export interface Iso8601DateTimeScalarConfig
+  extends GraphQLScalarTypeConfig<ResolversTypes['ISO8601DateTime'], any> {
+  name: 'ISO8601DateTime';
+}
+
+export type InputScriptResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['InputScript'] = ResolversParentTypes['InputScript'],
+> = {
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  pattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  shortPattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  simplePattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<
+    Maybe<ResolversTypes['BitcoinInputScriptType']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Libra'] = ResolversParentTypes['Libra'],
+> = {
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['LibraBlock']>>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['LibraCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraCoinpathArgs, never>
+  >;
+  mints?: Resolver<
+    Maybe<Array<ResolversTypes['LibraMints']>>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['LibraTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['LibraTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraBlockResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraBlock'] = ResolversParentTypes['LibraBlock'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockAnyArgs, 'of'>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  gasUsed?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockGasUsedArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockHeightArgs, never>
+  >;
+  key?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockMaximumArgs, 'of'>
+  >;
+  metadata?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockMetadataArgs, never>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockMinimumArgs, 'of'>
+  >;
+  proposer?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockProposerArgs, never>
+  >;
+  sequenceNumber?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  statusName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockTimestampArgs, never>
+  >;
+  version?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraBlockVersionArgs, never>
+  >;
+  versionHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vmStatus?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraCoinpath'] = ResolversParentTypes['LibraCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['LibraTransactionValue']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraMintsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraMints'] = ResolversParentTypes['LibraMints'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsMinimumArgs, 'of'>
+  >;
+  minter?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsMinterArgs, never>
+  >;
+  sequenceNumber?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  statusName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsSuccessArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsTimestampArgs, never>
+  >;
+  version?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraMintsVersionArgs, never>
+  >;
+  versionHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vmStatus?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraTransactionValueResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraTransactionValue'] = ResolversParentTypes['LibraTransactionValue'],
+> = {
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  version?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraTransactions'] = ResolversParentTypes['LibraTransactions'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  expirationTime?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsGasArgs, never>
+  >;
+  gasCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsGasCurrencyArgs, never>
+  >;
+  gasPrice?: Resolver<
+    ResolversTypes['Float'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsGasPriceArgs, never>
+  >;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsGasValueArgs, never>
+  >;
+  maxGasAmount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsMinimumArgs, 'of'>
+  >;
+  publicKey?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  scriptHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsScriptHashArgs, never>
+  >;
+  scriptType?: Resolver<
+    Maybe<ResolversTypes['ScriptTypeSelectorSelector']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsSenderArgs, never>
+  >;
+  sequenceNumber?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  signature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatureScheme?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  statusName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsSuccessArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsTimestampArgs, never>
+  >;
+  version?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransactionsVersionArgs, never>
+  >;
+  versionHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vmStatus?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LibraTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['LibraTransfers'] = ResolversParentTypes['LibraTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['BigInt']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  expirationTime?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType
+  >;
+  gas?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersGasArgs, never>
+  >;
+  gasCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersGasCurrencyArgs, never>
+  >;
+  gasPrice?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  gasValue?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersGasValueArgs, never>
+  >;
+  maxGasAmount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersMinimumArgs, 'of'>
+  >;
+  publicKey?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersReceiverArgs, never>
+  >;
+  scriptHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersScriptHashArgs, never>
+  >;
+  scriptType?: Resolver<
+    Maybe<ResolversTypes['ScriptTypeSelectorSelector']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersSenderArgs, never>
+  >;
+  sequenceNumber?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType
+  >;
+  signature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatureScheme?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  statusName?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersSuccessArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersTimestampArgs, never>
+  >;
+  txSender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersTxSenderArgs, never>
+  >;
+  version?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<LibraTransfersVersionArgs, never>
+  >;
+  versionHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  vmStatus?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MethodResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Method'] = ResolversParentTypes['Method'],
+> = {
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  signature?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  signatureHash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type NameWithIdResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['NameWithId'] = ResolversParentTypes['NameWithId'],
+> = {
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OffchainResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Offchain'] = ResolversParentTypes['Offchain'],
+> = {
+  covid?: Resolver<
+    Maybe<ResolversTypes['CovidHistory']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OutputScriptResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['OutputScript'] = ResolversParentTypes['OutputScript'],
+> = {
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  pattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  simplePattern?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<
+    Maybe<ResolversTypes['BitcoinOutputScriptType']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query'],
+> = {
+  algorand?: Resolver<
+    Maybe<ResolversTypes['Algorand']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryAlgorandArgs, never>
+  >;
+  binance?: Resolver<Maybe<ResolversTypes['Binance']>, ParentType, ContextType>;
+  bitcoin?: Resolver<
+    Maybe<ResolversTypes['Bitcoin']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryBitcoinArgs, never>
+  >;
+  conflux?: Resolver<
+    Maybe<ResolversTypes['Conflux']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryConfluxArgs, never>
+  >;
+  diem?: Resolver<
+    Maybe<ResolversTypes['Libra']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryDiemArgs, never>
+  >;
+  eos?: Resolver<Maybe<ResolversTypes['Eos']>, ParentType, ContextType>;
+  ethereum?: Resolver<
+    Maybe<ResolversTypes['Ethereum']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryEthereumArgs, never>
+  >;
+  ethereum2?: Resolver<
+    Maybe<ResolversTypes['Ethereum2']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryEthereum2Args, never>
+  >;
+  filecoin?: Resolver<
+    Maybe<ResolversTypes['Filecoin']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryFilecoinArgs, never>
+  >;
+  hedera?: Resolver<
+    Maybe<ResolversTypes['Hedera']>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryHederaArgs, never>
+  >;
+  offchain?: Resolver<
+    Maybe<ResolversTypes['Offchain']>,
+    ParentType,
+    ContextType
+  >;
+  search?: Resolver<
+    Maybe<Array<ResolversTypes['Result']>>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerySearchArgs, 'string'>
+  >;
+  tron?: Resolver<Maybe<ResolversTypes['Tron']>, ParentType, ContextType>;
+};
+
+export type ResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result'],
+> = {
+  network?: Resolver<
+    ResolversTypes['BlockchainNetwork'],
+    ParentType,
+    ContextType
+  >;
+  subject?: Resolver<ResolversTypes['Subject'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SignatureResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Signature'] = ResolversParentTypes['Signature'],
+> = {
+  __resolveType: TypeResolveFn<'Event' | 'Method', ParentType, ContextType>;
+};
+
+export type SmartContractResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SmartContract'] = ResolversParentTypes['SmartContract'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  contractType?: Resolver<
+    ResolversTypes['SmartContractType'],
+    ParentType,
+    ContextType
+  >;
+  protocol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SmartContractReadonlyAttributeResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['SmartContractReadonlyAttribute'] = ResolversParentTypes['SmartContractReadonlyAttribute'],
+> = {
+  address?: Resolver<
+    Maybe<ResolversTypes['EthereumAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SubjectResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Subject'] = ResolversParentTypes['Subject'],
+> = {
+  __resolveType: TypeResolveFn<
+    | 'Address'
+    | 'Currency'
+    | 'HederaAccount'
+    | 'SmartContract'
+    | 'TransactionHash',
+    ParentType,
+    ContextType
+  >;
+};
+
+export type TimeIntervalResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TimeInterval'] = ResolversParentTypes['TimeInterval'],
+> = {
+  day?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalDayArgs, never>
+  >;
+  hour?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalHourArgs, never>
+  >;
+  minute?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalMinuteArgs, never>
+  >;
+  month?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalMonthArgs, never>
+  >;
+  second?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalSecondArgs, never>
+  >;
+  year?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TimeIntervalYearArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TimestampResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Timestamp'] = ResolversParentTypes['Timestamp'],
+> = {
+  nanoseconds?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  time?: Resolver<ResolversTypes['ISO8601Date'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionHashResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionHash'] = ResolversParentTypes['TransactionHash'],
+> = {
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionHashIndexResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionHashIndex'] = ResolversParentTypes['TransactionHashIndex'],
+> = {
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  index?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionHashIndexValuesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionHashIndexValues'] = ResolversParentTypes['TransactionHashIndexValues'],
+> = {
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  index?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  valueIn?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  valueOut?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionHashValueResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionHashValue'] = ResolversParentTypes['TransactionHashValue'],
+> = {
+  hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionResultResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionResult'] = ResolversParentTypes['TransactionResult'],
+> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TransactionSourceResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TransactionSource'] = ResolversParentTypes['TransactionSource'],
+> = {
+  code?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Tron'] = ResolversParentTypes['Tron'],
+> = {
+  address?: Resolver<
+    Array<ResolversTypes['TronAddressInfo']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronAddressArgs, 'address'>
+  >;
+  blocks?: Resolver<
+    Maybe<Array<ResolversTypes['TronBlocks']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksArgs, never>
+  >;
+  coinpath?: Resolver<
+    Maybe<Array<ResolversTypes['TronCoinpath']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronCoinpathArgs, never>
+  >;
+  contracts?: Resolver<
+    Maybe<Array<ResolversTypes['TronSmartContracts']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronContractsArgs, never>
+  >;
+  smartContractCalls?: Resolver<
+    Maybe<Array<ResolversTypes['TronSmartContractCalls']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsArgs, never>
+  >;
+  smartContractEvents?: Resolver<
+    Maybe<Array<ResolversTypes['TronSmartContractEvents']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsArgs, never>
+  >;
+  trades?: Resolver<
+    Maybe<Array<ResolversTypes['TronTrades']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesArgs, never>
+  >;
+  transactions?: Resolver<
+    Maybe<Array<ResolversTypes['TronTransactions']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsArgs, never>
+  >;
+  transfers?: Resolver<
+    Maybe<Array<ResolversTypes['TronTransfers']>>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronAddressInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronAddressInfo'] = ResolversParentTypes['TronAddressInfo'],
+> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  annotation?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['TronSmartContractInfo']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronBlocksResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronBlocks'] = ResolversParentTypes['TronBlocks'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksAnyArgs, 'of'>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksHashArgs, never>
+  >;
+  height?: Resolver<
+    ResolversTypes['Int'],
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksHeightArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksMinimumArgs, 'of'>
+  >;
+  parentBlockHash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksParentBlockHashArgs, never>
+  >;
+  timestamp?: Resolver<
+    Maybe<ResolversTypes['DateTime']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksTimestampArgs, never>
+  >;
+  txTrieRoot?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  version?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksVersionArgs, never>
+  >;
+  witness?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronBlocksWitnessArgs, never>
+  >;
+  witnessSignature?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronCoinpathResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronCoinpath'] = ResolversParentTypes['TronCoinpath'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronCoinpathAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronCoinpathAnyArgs, 'of'>
+  >;
+  block?: Resolver<Maybe<ResolversTypes['Block']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  depth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronCoinpathMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronCoinpathMinimumArgs, 'of'>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['TronAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['TronAddressInfo']>,
+    ParentType,
+    ContextType
+  >;
+  transaction?: Resolver<
+    Maybe<ResolversTypes['TransactionHashValue']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronSmartContractResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronSmartContract'] = ResolversParentTypes['TronSmartContract'],
+> = {
+  address?: Resolver<ResolversTypes['Address'], ParentType, ContextType>;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronSmartContractCallsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronSmartContractCalls'] = ResolversParentTypes['TronSmartContractCalls'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsBlockArgs, never>
+  >;
+  callDepth?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  energyUsageTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsEnergyUsageTotalArgs, never>
+  >;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsExternalArgs, never>
+  >;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsMinimumArgs, 'of'>
+  >;
+  netUsage?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsNetUsageArgs, never>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['TronSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsSmartContractArgs, never>
+  >;
+  smartContractMethod?: Resolver<
+    Maybe<ResolversTypes['Method']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsSmartContractMethodArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsSuccessArgs, never>
+  >;
+  txFrom?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsTxFromArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsTxHashArgs, never>
+  >;
+  txTo?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractCallsTxToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronSmartContractEventsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronSmartContractEvents'] = ResolversParentTypes['TronSmartContractEvents'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsBlockArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsMinimumArgs, 'of'>
+  >;
+  smartContract?: Resolver<
+    Maybe<ResolversTypes['TronSmartContract']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsSmartContractArgs, never>
+  >;
+  smartContractEvent?: Resolver<
+    Maybe<ResolversTypes['Event']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsSmartContractEventArgs, never>
+  >;
+  txFrom?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsTxFromArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsTxHashArgs, never>
+  >;
+  txTo?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractEventsTxToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronSmartContractInfoResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronSmartContractInfo'] = ResolversParentTypes['TronSmartContractInfo'],
+> = {
+  contractType?: Resolver<
+    Maybe<ResolversTypes['SmartContractType']>,
+    ParentType,
+    ContextType
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType
+  >;
+  protocolType?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronSmartContractsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronSmartContracts'] = ResolversParentTypes['TronSmartContracts'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsBlockArgs, never>
+  >;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['TronContractType']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsContractTypeArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  energyUsageTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsEnergyUsageTotalArgs, never>
+  >;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsMinimumArgs, 'of'>
+  >;
+  netUsage?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsNetUsageArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsSuccessArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsTxHashArgs, never>
+  >;
+  txOwner?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronSmartContractsTxOwnerArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronTradesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronTrades'] = ResolversParentTypes['TronTrades'],
+> = {
+  amountBuy?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesAmountBuyArgs, never>
+  >;
+  amountSell?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesAmountSellArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesBlockArgs, never>
+  >;
+  buyCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesBuyCurrencyArgs, never>
+  >;
+  buyer?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesBuyerArgs, never>
+  >;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['TronContractType']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesContractTypeArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  energyUsageTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesEnergyUsageTotalArgs, never>
+  >;
+  exchangeId?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesExchangeIdArgs, never>
+  >;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesMinimumArgs, 'of'>
+  >;
+  netUsage?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesNetUsageArgs, never>
+  >;
+  sellCurrency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesSellCurrencyArgs, never>
+  >;
+  seller?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesSellerArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesSuccessArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTradesTxHashArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronTransactionsResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronTransactions'] = ResolversParentTypes['TronTransactions'],
+> = {
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsBlockArgs, never>
+  >;
+  contractAddress?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsContractAddressArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsCountArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  energyFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsEnergyFeeArgs, never>
+  >;
+  energyUsageTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsEnergyUsageTotalArgs, never>
+  >;
+  expiration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsFeeArgs, never>
+  >;
+  feeLimit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  hash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsHashArgs, never>
+  >;
+  index?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsIndexArgs, never>
+  >;
+  internalTransactionsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsInternalTransactionsCountArgs, never>
+  >;
+  logsCount?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsLogsCountArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsMinimumArgs, 'of'>
+  >;
+  netFee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsNetFeeArgs, never>
+  >;
+  netUsage?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsNetUsageArgs, never>
+  >;
+  refBlockHash?: Resolver<
+    ResolversTypes['String'],
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsRefBlockHashArgs, never>
+  >;
+  result?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  signatures?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransactionsSuccessArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TronTransfersResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['TronTransfers'] = ResolversParentTypes['TronTransfers'],
+> = {
+  amount?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersAmountArgs, never>
+  >;
+  any?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersAnyArgs, 'of'>
+  >;
+  block?: Resolver<
+    Maybe<ResolversTypes['Block']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersBlockArgs, never>
+  >;
+  contractType?: Resolver<
+    Maybe<ResolversTypes['TronContractType']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersContractTypeArgs, never>
+  >;
+  count?: Resolver<
+    Maybe<ResolversTypes['Int']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersCountArgs, never>
+  >;
+  currency?: Resolver<
+    Maybe<ResolversTypes['Currency']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersCurrencyArgs, never>
+  >;
+  date?: Resolver<Maybe<ResolversTypes['Date']>, ParentType, ContextType>;
+  energyUsageTotal?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersEnergyUsageTotalArgs, never>
+  >;
+  entityId?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersEntityIdArgs, never>
+  >;
+  external?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersExternalArgs, never>
+  >;
+  fee?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersFeeArgs, never>
+  >;
+  maximum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersMaximumArgs, 'of'>
+  >;
+  minimum?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersMinimumArgs, 'of'>
+  >;
+  netUsage?: Resolver<
+    Maybe<ResolversTypes['Float']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersNetUsageArgs, never>
+  >;
+  receiver?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersReceiverArgs, never>
+  >;
+  sender?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersSenderArgs, never>
+  >;
+  success?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersSuccessArgs, never>
+  >;
+  txFrom?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersTxFromArgs, never>
+  >;
+  txHash?: Resolver<
+    Maybe<ResolversTypes['String']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersTxHashArgs, never>
+  >;
+  txTo?: Resolver<
+    Maybe<ResolversTypes['Address']>,
+    ParentType,
+    ContextType,
+    RequireFields<TronTransfersTxToArgs, never>
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type Resolvers<ContextType = any> = {
+  Account?: AccountResolvers<ContextType>;
+  Address?: AddressResolvers<ContextType>;
+  AddressWithAccount?: AddressWithAccountResolvers<ContextType>;
+  Algorand?: AlgorandResolvers<ContextType>;
+  AlgorandAddressInfo?: AlgorandAddressInfoResolvers<ContextType>;
+  AlgorandArguments?: AlgorandArgumentsResolvers<ContextType>;
+  AlgorandBlocks?: AlgorandBlocksResolvers<ContextType>;
+  AlgorandCoinpath?: AlgorandCoinpathResolvers<ContextType>;
+  AlgorandSmartContract?: AlgorandSmartContractResolvers<ContextType>;
+  AlgorandSmartContractCalls?: AlgorandSmartContractCallsResolvers<ContextType>;
+  AlgorandTransactions?: AlgorandTransactionsResolvers<ContextType>;
+  AlgorandTransfers?: AlgorandTransfersResolvers<ContextType>;
+  ArgumentName?: ArgumentNameResolvers<ContextType>;
+  ArgumentNameValue?: ArgumentNameValueResolvers<ContextType>;
+  ArgumentValue?: ArgumentValueResolvers<ContextType>;
+  BigInt?: GraphQLScalarType;
+  Binance?: BinanceResolvers<ContextType>;
+  BinanceBlock?: BinanceBlockResolvers<ContextType>;
+  BinanceCoinpath?: BinanceCoinpathResolvers<ContextType>;
+  BinanceOrders?: BinanceOrdersResolvers<ContextType>;
+  BinanceTrades?: BinanceTradesResolvers<ContextType>;
+  BinanceTransactions?: BinanceTransactionsResolvers<ContextType>;
+  BinanceTransfers?: BinanceTransfersResolvers<ContextType>;
+  Bitcoin?: BitcoinResolvers<ContextType>;
+  BitcoinBlock?: BitcoinBlockResolvers<ContextType>;
+  BitcoinCoinpath?: BitcoinCoinpathResolvers<ContextType>;
+  BitcoinTransaction?: BitcoinTransactionResolvers<ContextType>;
+  BitcoinTransactionInput?: BitcoinTransactionInputResolvers<ContextType>;
+  BitcoinTransactionOutput?: BitcoinTransactionOutputResolvers<ContextType>;
+  Block?: BlockResolvers<ContextType>;
+  BlockExtended?: BlockExtendedResolvers<ContextType>;
+  BlockInfo?: BlockInfoResolvers<ContextType>;
+  BlockchainNetwork?: BlockchainNetworkResolvers<ContextType>;
+  CoinpathEntry?: CoinpathEntryResolvers<ContextType>;
+  Conflux?: ConfluxResolvers<ContextType>;
+  ConfluxBlocks?: ConfluxBlocksResolvers<ContextType>;
+  ConfluxTransactions?: ConfluxTransactionsResolvers<ContextType>;
+  CovidCountry?: CovidCountryResolvers<ContextType>;
+  CovidFact?: CovidFactResolvers<ContextType>;
+  CovidHistory?: CovidHistoryResolvers<ContextType>;
+  CovidLocation?: CovidLocationResolvers<ContextType>;
+  Currency?: CurrencyResolvers<ContextType>;
+  Date?: DateResolvers<ContextType>;
+  DateTime?: DateTimeResolvers<ContextType>;
+  Entity?: EntityResolvers<ContextType>;
+  Eos?: EosResolvers<ContextType>;
+  EosAddressInfo?: EosAddressInfoResolvers<ContextType>;
+  EosBlocks?: EosBlocksResolvers<ContextType>;
+  EosCoinpath?: EosCoinpathResolvers<ContextType>;
+  EosSmartContract?: EosSmartContractResolvers<ContextType>;
+  EosSmartContractCalls?: EosSmartContractCallsResolvers<ContextType>;
+  EosSmartContractInfo?: EosSmartContractInfoResolvers<ContextType>;
+  EosTransactions?: EosTransactionsResolvers<ContextType>;
+  EosTransfers?: EosTransfersResolvers<ContextType>;
+  Ethereum?: EthereumResolvers<ContextType>;
+  Ethereum2?: Ethereum2Resolvers<ContextType>;
+  Ethereum2Attestation?: Ethereum2AttestationResolvers<ContextType>;
+  Ethereum2AttestationFieldInfo?: Ethereum2AttestationFieldInfoResolvers<ContextType>;
+  Ethereum2AttestationInfo?: Ethereum2AttestationInfoResolvers<ContextType>;
+  Ethereum2AttesterSlashing?: Ethereum2AttesterSlashingResolvers<ContextType>;
+  Ethereum2Blocks?: Ethereum2BlocksResolvers<ContextType>;
+  Ethereum2Deposit?: Ethereum2DepositResolvers<ContextType>;
+  Ethereum2Eth1Info?: Ethereum2Eth1InfoResolvers<ContextType>;
+  Ethereum2ProposerSlashing?: Ethereum2ProposerSlashingResolvers<ContextType>;
+  Ethereum2SlashingInfo?: Ethereum2SlashingInfoResolvers<ContextType>;
+  Ethereum2ValidatorInfo?: Ethereum2ValidatorInfoResolvers<ContextType>;
+  Ethereum2VoluntaryExit?: Ethereum2VoluntaryExitResolvers<ContextType>;
+  EthereumAddressInfo?: EthereumAddressInfoResolvers<ContextType>;
+  EthereumAddressInfoWithBalance?: EthereumAddressInfoWithBalanceResolvers<ContextType>;
+  EthereumArguments?: EthereumArgumentsResolvers<ContextType>;
+  EthereumBalance?: EthereumBalanceResolvers<ContextType>;
+  EthereumBalanceChange?: EthereumBalanceChangeResolvers<ContextType>;
+  EthereumBlocks?: EthereumBlocksResolvers<ContextType>;
+  EthereumCoinpath?: EthereumCoinpathResolvers<ContextType>;
+  EthereumDex?: EthereumDexResolvers<ContextType>;
+  EthereumDexTrades?: EthereumDexTradesResolvers<ContextType>;
+  EthereumSmartContract?: EthereumSmartContractResolvers<ContextType>;
+  EthereumSmartContractCalls?: EthereumSmartContractCallsResolvers<ContextType>;
+  EthereumSmartContractEvent?: EthereumSmartContractEventResolvers<ContextType>;
+  EthereumSmartContractInfo?: EthereumSmartContractInfoResolvers<ContextType>;
+  EthereumSmartContractInfoWithAttributes?: EthereumSmartContractInfoWithAttributesResolvers<ContextType>;
+  EthereumTransactionInfo?: EthereumTransactionInfoResolvers<ContextType>;
+  EthereumTransactionInfoExtended?: EthereumTransactionInfoExtendedResolvers<ContextType>;
+  EthereumTransactions?: EthereumTransactionsResolvers<ContextType>;
+  EthereumTransfers?: EthereumTransfersResolvers<ContextType>;
+  Event?: EventResolvers<ContextType>;
+  Filecoin?: FilecoinResolvers<ContextType>;
+  FilecoinBlock?: FilecoinBlockResolvers<ContextType>;
+  FilecoinCalls?: FilecoinCallsResolvers<ContextType>;
+  FilecoinCoinpath?: FilecoinCoinpathResolvers<ContextType>;
+  FilecoinMessages?: FilecoinMessagesResolvers<ContextType>;
+  FilecoinMinedBlock?: FilecoinMinedBlockResolvers<ContextType>;
+  FilecoinTransfers?: FilecoinTransfersResolvers<ContextType>;
+  Hedera?: HederaResolvers<ContextType>;
+  HederaAccount?: HederaAccountResolvers<ContextType>;
+  HederaArgument?: HederaArgumentResolvers<ContextType>;
+  HederaCall?: HederaCallResolvers<ContextType>;
+  HederaCoinpath?: HederaCoinpathResolvers<ContextType>;
+  HederaInput?: HederaInputResolvers<ContextType>;
+  HederaMessage?: HederaMessageResolvers<ContextType>;
+  HederaOutput?: HederaOutputResolvers<ContextType>;
+  HederaTransaction?: HederaTransactionResolvers<ContextType>;
+  ISO8601Date?: GraphQLScalarType;
+  ISO8601DateTime?: GraphQLScalarType;
+  InputScript?: InputScriptResolvers<ContextType>;
+  Libra?: LibraResolvers<ContextType>;
+  LibraBlock?: LibraBlockResolvers<ContextType>;
+  LibraCoinpath?: LibraCoinpathResolvers<ContextType>;
+  LibraMints?: LibraMintsResolvers<ContextType>;
+  LibraTransactionValue?: LibraTransactionValueResolvers<ContextType>;
+  LibraTransactions?: LibraTransactionsResolvers<ContextType>;
+  LibraTransfers?: LibraTransfersResolvers<ContextType>;
+  Method?: MethodResolvers<ContextType>;
+  NameWithId?: NameWithIdResolvers<ContextType>;
+  Offchain?: OffchainResolvers<ContextType>;
+  OutputScript?: OutputScriptResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
+  Result?: ResultResolvers<ContextType>;
+  Signature?: SignatureResolvers<ContextType>;
+  SmartContract?: SmartContractResolvers<ContextType>;
+  SmartContractReadonlyAttribute?: SmartContractReadonlyAttributeResolvers<ContextType>;
+  Subject?: SubjectResolvers<ContextType>;
+  TimeInterval?: TimeIntervalResolvers<ContextType>;
+  Timestamp?: TimestampResolvers<ContextType>;
+  TransactionHash?: TransactionHashResolvers<ContextType>;
+  TransactionHashIndex?: TransactionHashIndexResolvers<ContextType>;
+  TransactionHashIndexValues?: TransactionHashIndexValuesResolvers<ContextType>;
+  TransactionHashValue?: TransactionHashValueResolvers<ContextType>;
+  TransactionResult?: TransactionResultResolvers<ContextType>;
+  TransactionSource?: TransactionSourceResolvers<ContextType>;
+  Tron?: TronResolvers<ContextType>;
+  TronAddressInfo?: TronAddressInfoResolvers<ContextType>;
+  TronBlocks?: TronBlocksResolvers<ContextType>;
+  TronCoinpath?: TronCoinpathResolvers<ContextType>;
+  TronSmartContract?: TronSmartContractResolvers<ContextType>;
+  TronSmartContractCalls?: TronSmartContractCallsResolvers<ContextType>;
+  TronSmartContractEvents?: TronSmartContractEventsResolvers<ContextType>;
+  TronSmartContractInfo?: TronSmartContractInfoResolvers<ContextType>;
+  TronSmartContracts?: TronSmartContractsResolvers<ContextType>;
+  TronTrades?: TronTradesResolvers<ContextType>;
+  TronTransactions?: TronTransactionsResolvers<ContextType>;
+  TronTransfers?: TronTransfersResolvers<ContextType>;
+};
+
+/**
+ * @deprecated
+ * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
+ */
+export type IResolvers<ContextType = any> = Resolvers<ContextType>;
+
 export type GetAddressesBalancesQueryVariables = Exact<{
   network: EthereumNetwork;
   addresses: Array<Scalars['String']> | Scalars['String'];
 }>;
 
-
-export type GetAddressesBalancesQuery = (
-  { __typename?: 'Query' }
-  & { ethereum?: Maybe<(
-    { __typename?: 'Ethereum' }
-    & { address: Array<(
-      { __typename?: 'EthereumAddressInfoWithBalance' }
-      & { balances?: Maybe<Array<(
-        { __typename?: 'EthereumBalance' }
-        & Pick<EthereumBalance, 'value'>
-        & { currency?: Maybe<(
-          { __typename?: 'Currency' }
-          & Pick<Currency, 'address' | 'symbol' | 'name'>
-        )> }
-      )>> }
-    )> }
-  )> }
-);
+export type GetAddressesBalancesQuery = { __typename?: 'Query' } & {
+  ethereum?: Maybe<
+    { __typename?: 'Ethereum' } & {
+      address: Array<
+        { __typename?: 'EthereumAddressInfoWithBalance' } & {
+          balances?: Maybe<
+            Array<
+              { __typename?: 'EthereumBalance' } & Pick<
+                EthereumBalance,
+                'value'
+              > & {
+                  currency?: Maybe<
+                    { __typename?: 'Currency' } & Pick<
+                      Currency,
+                      'address' | 'symbol' | 'name'
+                    >
+                  >;
+                }
+            >
+          >;
+        }
+      >;
+    }
+  >;
+};
 
 export type GetTokenValueQueryVariables = Exact<{
   network: EthereumNetwork;
@@ -15345,117 +22919,113 @@ export type GetTokenValueQueryVariables = Exact<{
   outputToken: Scalars['String'];
 }>;
 
-
-export type GetTokenValueQuery = (
-  { __typename?: 'Query' }
-  & { ethereum?: Maybe<(
-    { __typename?: 'Ethereum' }
-    & { dexTrades?: Maybe<Array<(
-      { __typename?: 'EthereumDexTrades' }
-      & Pick<EthereumDexTrades, 'quotePrice'>
-      & { block?: Maybe<(
-        { __typename?: 'BlockExtended' }
-        & Pick<BlockExtended, 'height'>
-      )>, transaction?: Maybe<(
-        { __typename?: 'EthereumTransactionInfoExtended' }
-        & Pick<EthereumTransactionInfoExtended, 'index'>
-      )> }
-    )>> }
-  )> }
-);
-
+export type GetTokenValueQuery = { __typename?: 'Query' } & {
+  ethereum?: Maybe<
+    { __typename?: 'Ethereum' } & {
+      dexTrades?: Maybe<
+        Array<
+          { __typename?: 'EthereumDexTrades' } & Pick<
+            EthereumDexTrades,
+            'quotePrice'
+          > & {
+              block?: Maybe<
+                { __typename?: 'BlockExtended' } & Pick<BlockExtended, 'height'>
+              >;
+              transaction?: Maybe<
+                { __typename?: 'EthereumTransactionInfoExtended' } & Pick<
+                  EthereumTransactionInfoExtended,
+                  'index'
+                >
+              >;
+            }
+        >
+      >;
+    }
+  >;
+};
 
 export const GetAddressesBalancesDocument = gql`
-    query getAddressesBalances($network: EthereumNetwork!, $addresses: [String!]!) {
-  ethereum(network: $network) {
-    address(address: {in: $addresses}) {
-      balances {
-        currency {
-          address
-          symbol
-          name
+  query getAddressesBalances(
+    $network: EthereumNetwork!
+    $addresses: [String!]!
+  ) {
+    ethereum(network: $network) {
+      address(address: { in: $addresses }) {
+        balances {
+          currency {
+            address
+            symbol
+            name
+          }
+          value
         }
-        value
       }
     }
   }
-}
-    `;
-
-/**
- * __useGetAddressesBalancesQuery__
- *
- * To run a query within a React component, call `useGetAddressesBalancesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAddressesBalancesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetAddressesBalancesQuery({
- *   variables: {
- *      network: // value for 'network'
- *      addresses: // value for 'addresses'
- *   },
- * });
- */
-export function useGetAddressesBalancesQuery(baseOptions: Apollo.QueryHookOptions<GetAddressesBalancesQuery, GetAddressesBalancesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAddressesBalancesQuery, GetAddressesBalancesQueryVariables>(GetAddressesBalancesDocument, options);
-      }
-export function useGetAddressesBalancesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAddressesBalancesQuery, GetAddressesBalancesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAddressesBalancesQuery, GetAddressesBalancesQueryVariables>(GetAddressesBalancesDocument, options);
-        }
-export type GetAddressesBalancesQueryHookResult = ReturnType<typeof useGetAddressesBalancesQuery>;
-export type GetAddressesBalancesLazyQueryHookResult = ReturnType<typeof useGetAddressesBalancesLazyQuery>;
-export type GetAddressesBalancesQueryResult = Apollo.QueryResult<GetAddressesBalancesQuery, GetAddressesBalancesQueryVariables>;
+`;
 export const GetTokenValueDocument = gql`
-    query getTokenValue($network: EthereumNetwork!, $inputToken: String!, $outputToken: String!) {
-  ethereum(network: $network) {
-    dexTrades(
-      options: {limit: 1, desc: ["block.height", "transaction.index"]}
-      baseCurrency: {is: $inputToken}
-      quoteCurrency: {is: $outputToken}
-    ) {
-      block {
-        height
+  query getTokenValue(
+    $network: EthereumNetwork!
+    $inputToken: String!
+    $outputToken: String!
+  ) {
+    ethereum(network: $network) {
+      dexTrades(
+        options: { limit: 1, desc: ["block.height", "transaction.index"] }
+        baseCurrency: { is: $inputToken }
+        quoteCurrency: { is: $outputToken }
+      ) {
+        block {
+          height
+        }
+        transaction {
+          index
+        }
+        quotePrice
       }
-      transaction {
-        index
-      }
-      quotePrice
     }
   }
-}
-    `;
+`;
 
-/**
- * __useGetTokenValueQuery__
- *
- * To run a query within a React component, call `useGetTokenValueQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTokenValueQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetTokenValueQuery({
- *   variables: {
- *      network: // value for 'network'
- *      inputToken: // value for 'inputToken'
- *      outputToken: // value for 'outputToken'
- *   },
- * });
- */
-export function useGetTokenValueQuery(baseOptions: Apollo.QueryHookOptions<GetTokenValueQuery, GetTokenValueQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTokenValueQuery, GetTokenValueQueryVariables>(GetTokenValueDocument, options);
-      }
-export function useGetTokenValueLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTokenValueQuery, GetTokenValueQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTokenValueQuery, GetTokenValueQueryVariables>(GetTokenValueDocument, options);
-        }
-export type GetTokenValueQueryHookResult = ReturnType<typeof useGetTokenValueQuery>;
-export type GetTokenValueLazyQueryHookResult = ReturnType<typeof useGetTokenValueLazyQuery>;
-export type GetTokenValueQueryResult = Apollo.QueryResult<GetTokenValueQuery, GetTokenValueQueryVariables>;
+export type SdkFunctionWrapper = <T>(
+  action: (requestHeaders?: Record<string, string>) => Promise<T>,
+  operationName: string,
+) => Promise<T>;
+
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
+
+export function getSdk(
+  client: GraphQLClient,
+  withWrapper: SdkFunctionWrapper = defaultWrapper,
+) {
+  return {
+    getAddressesBalances(
+      variables: GetAddressesBalancesQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetAddressesBalancesQuery> {
+      return withWrapper(
+        wrappedRequestHeaders =>
+          client.request<GetAddressesBalancesQuery>(
+            GetAddressesBalancesDocument,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        'getAddressesBalances',
+      );
+    },
+    getTokenValue(
+      variables: GetTokenValueQueryVariables,
+      requestHeaders?: Dom.RequestInit['headers'],
+    ): Promise<GetTokenValueQuery> {
+      return withWrapper(
+        wrappedRequestHeaders =>
+          client.request<GetTokenValueQuery>(GetTokenValueDocument, variables, {
+            ...requestHeaders,
+            ...wrappedRequestHeaders,
+          }),
+        'getTokenValue',
+      );
+    },
+  };
+}
+export type Sdk = ReturnType<typeof getSdk>;

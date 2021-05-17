@@ -1,24 +1,25 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import React, { VoidFunctionComponent } from 'react';
+import { GraphQLClient } from 'graphql-request';
 import { Router as RouterProvider } from 'wouter';
 import I18nProvider from './providers/I18nProvider';
+import GraphQLProvider from './providers/GraphQLProvider';
 import Router from './containers/Router';
+import { getSdk } from './generated/graphql';
 
-const apolloClient = new ApolloClient({
-  uri: 'https://graphql.bitquery.io',
+const client = new GraphQLClient('https://graphql.bitquery.io', {
   headers: {
     'x-api-key': import.meta.env.VITE_BITQUERY_API_KEY,
   },
-  cache: new InMemoryCache(),
 });
+const sdk = getSdk(client);
 
 const App: VoidFunctionComponent = () => (
   <I18nProvider>
-    <ApolloProvider client={apolloClient}>
+    <GraphQLProvider sdk={sdk}>
       <RouterProvider>
         <Router />
       </RouterProvider>
-    </ApolloProvider>
+    </GraphQLProvider>
   </I18nProvider>
 );
 

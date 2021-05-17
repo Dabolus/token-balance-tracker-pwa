@@ -6,6 +6,7 @@ import GraphQLProvider from './providers/GraphQLProvider';
 import ProfilesProvider from './providers/ProfilesProvider';
 import Router from './containers/Router';
 import { getSdk } from './generated/graphql';
+import ServiceWorkerProvider from './providers/ServiceWorkerProvider';
 
 const client = new GraphQLClient('https://graphql.bitquery.io', {
   headers: {
@@ -19,7 +20,9 @@ const App: VoidFunctionComponent = () => (
     <GraphQLProvider sdk={sdk}>
       <ProfilesProvider>
         <RouterProvider base="/token-balance-tracker">
-          <Router />
+          <ServiceWorkerProvider>
+            <Router />
+          </ServiceWorkerProvider>
         </RouterProvider>
       </ProfilesProvider>
     </GraphQLProvider>

@@ -31,6 +31,9 @@ const Router: FunctionComponent = () => {
         <Route path="/settings">
           <>Settings</>
         </Route>
+        <Route>
+          <Redirect to="/" />
+        </Route>
       </Switch>
     </Suspense>
   ) : (

@@ -41,15 +41,17 @@ const networksAddresses: Partial<Record<EthereumNetwork, NetworkAddresses>> = {
 
 const useNetworkAddressesBalances = ({
   variables: { network, addresses },
+  skip,
 }: {
   variables: {
     network: EthereumNetwork;
     addresses: string[];
   };
-}) => {
+  skip?: boolean;
+}): AsyncQueryResult<AddressBalance[]> => {
   const [result, setResult] = useState<AsyncQueryResult<AddressBalance[]>>({
-    loading: true,
-    networkStatus: NetworkStatus.loading,
+    loading: !skip,
+    networkStatus: skip ? NetworkStatus.ready : NetworkStatus.loading,
   });
 
   const [getAddressesBalances] = useGetAddressesBalancesAsyncQuery();
@@ -57,6 +59,10 @@ const useNetworkAddressesBalances = ({
 
   useDeepCompareEffect(() => {
     const queryAddressesBalances = async () => {
+      if (skip) {
+        return;
+      }
+
       try {
         const balances = await getAddressesBalances({
           variables: {
@@ -146,7 +152,7 @@ const useNetworkAddressesBalances = ({
     };
 
     queryAddressesBalances();
-  }, [addresses, getAddressesBalances, getTokenValue, network]);
+  }, [addresses, getAddressesBalances, getTokenValue, network, skip]);
 
   return result;
 };

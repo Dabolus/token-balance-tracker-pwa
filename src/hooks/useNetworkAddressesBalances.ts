@@ -117,16 +117,29 @@ const useNetworkAddressesBalances = ({
               balances
                 ?.filter(
                   ({ currency = null, value = null }) =>
-                    currency !== null &&
-                    value !== null &&
-                    (tokensValue[currency.address!] ?? null) !== null,
+                    currency !== null && value !== null,
                 )
+                .sort((a, b) => {
+                  if (a.currency?.address === '-') {
+                    return -1;
+                  }
+
+                  if (b.currency?.address === '-') {
+                    return 1;
+                  }
+
+                  return 0;
+                })
                 .map(({ currency, value }) => ({
                   name: currency!.name!,
                   symbol: currency!.symbol,
                   balance: value!,
                   value:
-                    value! * tokensValue[currency!.address!]! * mainTokenValue,
+                    value! *
+                    mainTokenValue *
+                    (currency!.address === '-'
+                      ? 1
+                      : tokensValue[currency!.address!]!),
                 })) || [],
           })) || [];
 

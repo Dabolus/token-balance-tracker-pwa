@@ -1,6 +1,6 @@
 import { EthereumNetwork } from '../generated/graphql';
 import { AddressBalancesConfigEntry } from '../helpers/db';
-import { QueryResult } from '../providers/GraphQLProvider';
+import { QueryOptions, QueryResult } from '../providers/GraphQLProvider';
 import useNetworkAddressesBalances, {
   AddressBalance,
 } from './useNetworkAddressesBalances';
@@ -52,12 +52,10 @@ const computeCombinedData = (
 const useAddressesBalances = ({
   variables: { config },
   skip,
-}: {
-  variables: {
-    config: AddressBalancesConfigEntry[];
-  };
-  skip?: boolean;
-}): QueryResult<AddressBalanceWithNetwork[]> => {
+  pollInterval,
+}: QueryOptions<{
+  config: AddressBalancesConfigEntry[];
+}>): QueryResult<AddressBalanceWithNetwork[]> => {
   const transformedConfig = config.reduce<
     Partial<Record<EthereumNetwork, string[]>>
   >(
@@ -83,6 +81,7 @@ const useAddressesBalances = ({
       addresses: transformedConfig[EthereumNetwork.ETHEREUM] || [],
     },
     skip: shouldSkipEthBalance,
+    pollInterval,
   });
 
   const {
@@ -95,6 +94,7 @@ const useAddressesBalances = ({
       addresses: transformedConfig[EthereumNetwork.BSC] || [],
     },
     skip: shouldSkipBscBalance,
+    pollInterval,
   });
 
   return {

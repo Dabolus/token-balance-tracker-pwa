@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { EthereumNetwork } from '../generated/graphql';
-import { QueryResult, useGraphQL } from '../providers/GraphQLProvider';
+import {
+  QueryOptions,
+  QueryResult,
+  useGraphQL,
+} from '../providers/GraphQLProvider';
 
 const ETH_WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 const ETH_USDT_ADDRESS = '0xdac17f958d2ee523a2206206994597c13d831ec7';
@@ -39,13 +43,11 @@ const networksAddresses: Partial<Record<EthereumNetwork, NetworkAddresses>> = {
 const useNetworkAddressesBalances = ({
   variables: { network, addresses },
   skip,
-}: {
-  variables: {
-    network: EthereumNetwork;
-    addresses: string[];
-  };
-  skip?: boolean;
-}): QueryResult<AddressBalance[]> => {
+  pollInterval,
+}: QueryOptions<{
+  network: EthereumNetwork;
+  addresses: string[];
+}>): QueryResult<AddressBalance[]> => {
   const [result, setResult] = useState<QueryResult<AddressBalance[]>>({
     loading: !skip,
   });
@@ -149,7 +151,20 @@ const useNetworkAddressesBalances = ({
       }
     };
 
-    queryAddressesBalances();
+    let shouldQueryAgain = !!pollInterval;
+
+    const loop = () =>
+      queryAddressesBalances().then(() => {
+        if (shouldQueryAgain) {
+          setTimeout(loop, pollInterval);
+        }
+      });
+
+    loop();
+
+    return () => {
+      shouldQueryAgain = false;
+    };
   }, [addresses, network, sdk, skip]);
 
   return result;

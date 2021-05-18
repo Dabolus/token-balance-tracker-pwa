@@ -5,6 +5,11 @@ export interface GraphQLProviderProps {
   sdk: Sdk;
 }
 
+export interface QueryOptions<TVariables> {
+  variables: TVariables;
+  skip?: boolean;
+  pollInterval?: number;
+}
 export interface QueryResult<TData> {
   data?: TData;
   loading?: boolean;

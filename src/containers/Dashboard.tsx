@@ -17,6 +17,7 @@ const Dashboard: FunctionComponent = () => {
         profiles && selectedProfile ? profiles[selectedProfile].config : [],
     },
     skip: !profiles || !selectedProfile,
+    pollInterval: 5000,
   });
 
   return profiles && selectedProfile ? (

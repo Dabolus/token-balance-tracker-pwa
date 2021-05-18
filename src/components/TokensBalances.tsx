@@ -1,11 +1,11 @@
 import React, { FunctionComponent, HTMLAttributes, useState } from 'react';
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
-import Skeleton from 'react-loading-skeleton';
 import { AddressBalanceWithNetwork } from '../hooks/useAddressesBalances';
+import { useI18n } from '../providers/I18nProvider';
 import ChevronDown from './icons/ChevronDown';
 import ChevronUp from './icons/ChevronUp';
-import { useI18n } from '../providers/I18nProvider';
+import Skeleton from './Skeleton';
 
 export interface TokensBalancesProps {
   balances?: AddressBalanceWithNetwork[];

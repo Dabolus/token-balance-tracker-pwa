@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { styled } from '@linaria/react';
-import Skeleton from 'react-loading-skeleton';
 import { AddressBalance } from '../hooks/useNetworkAddressesBalances';
 import { useI18n } from '../providers/I18nProvider';
+import Skeleton from './Skeleton';
 
 export interface TotalBalanceProps {
   balances?: AddressBalance[];

@@ -1,5 +1,6 @@
-import React, { FunctionComponent, HTMLAttributes, ReactNode } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { styled } from '@linaria/react';
+import Card, { CardProps } from './Card';
 
 export interface NotificationProps {
   open?: boolean;
@@ -7,11 +8,9 @@ export interface NotificationProps {
   actions?: ReactNode;
 }
 
-type NotificationContainerProps = HTMLAttributes<HTMLDivElement> &
-  Pick<NotificationProps, 'open'>;
+type NotificationContainerProps = CardProps & Pick<NotificationProps, 'open'>;
 
-const NotificationContainer = styled.div<NotificationContainerProps>`
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+const NotificationContainer = styled<NotificationContainerProps>(Card)`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +21,6 @@ const NotificationContainer = styled.div<NotificationContainerProps>`
   left: 50%;
   width: 100%;
   max-width: 480px;
-  background: #fff;
   padding: 8px;
   transform: ${({ open }) => `translate(-50%, ${open ? 0 : '-150%'})`};
   transition: 0.3s transform ease-in-out;

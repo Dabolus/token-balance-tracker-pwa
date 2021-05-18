@@ -7,7 +7,7 @@ export interface LoaderProps extends SVGProps<SVGSVGElement> {
 
 const Axes = styled.path`
   fill: none;
-  stroke: #000;
+  stroke: var(--text-primary);
   stroke-width: 2;
 `;
 

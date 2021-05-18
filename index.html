@@ -29,6 +29,26 @@
       html {
         --primary: #1976d2;
         --text-on-primary: #fff;
+        --text-primary: rgba(0, 0, 0, 0.87);
+        --text-secondary: rgba(0, 0, 0, 0.6);
+        --text-disabled: rgba(0, 0, 0, 0.38);
+        --divider: rgba(0, 0, 0, 0.12);
+        --default-background: #fff;
+        --card-background: #f8f9fa;
+
+        background: var(--default-background);
+        color: var(--text-primary);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          --text-primary: #fff;
+          --text-secondary: rgba(255, 255, 255, 0.7);
+          --text-disabled: rgba(255, 255, 255, 0.5);
+          --divider: rgba(255, 255, 255, 0.12);
+          --default-background: #202124;
+          --card-background: #2a2b2e;
+        }
       }
 
       body, h1, h2, h3, h4, h5, h6, p, button {
